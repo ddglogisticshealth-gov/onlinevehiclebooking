@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ministry of Health - Vehicle Booking System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <style>
+        :root {
+            --primary: #1a73e8;
+            --primary-dark: #0d47a1;
+            --secondary: #34a853;
+            --danger: #ea4335;
+            --warning: #f9ab00;
+            --light: #f8f9fa;
+            --dark: #202124;
+            --gray: #5f6368;
+            --border: #dadce0;
+            --success: #28a745;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            padding: 0 15px;
+            margin: 0 auto;
+        }
+        
+        /* Login Screen */
+        .login-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            padding: 40px;
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .login-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .login-logo {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 25px;
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 40px;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .login-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--dark);
+            background: linear-gradient(135deg, #1a73e8, #0d47a1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .login-subtitle {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+            background-color: white;
+        }
+        
+        .btn {
+            display: inline-block;
+            padding: 14px 24px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(26, 115, 232, 0.4);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2d8c47 100%);
+        }
+        
+        .btn-secondary:hover {
+            box-shadow: 0 6px 20px rgba(52, 168, 83, 0.4);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, var(--danger) 0%, #d33426 100%);
+        }
+        
+        .btn-danger:hover {
+            box-shadow: 0 6px 20px rgba(234, 67, 53, 0.4);
+        }
+        
+        .btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .role-selector {
+            display: flex;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            background: #f8f9fa;
+        }
+        
+        .role-option {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .role-option.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        
+        /* Dashboard */
+        .dashboard {
+            display: none;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 20px;
+            color: white;
+        }
+        
+        .logo-icon {
+            margin-right: 12px;
+            font-size: 28px;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .user-name {
+            color: white;
+            font-weight: 600;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .main-content {
+            padding: 30px 0;
+        }
+        
+        .page-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--dark);
+            text-align: center;
+        }
+        
+        /* Booking Form */
+        .booking-form {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 35px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-section {
+            margin-bottom: 35px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -12px;
+        }
+        
+        .form-col {
+            flex: 1 0 100%;
+            padding: 0 12px;
+            margin-bottom: 20px;
+        }
+        
+        @media (min-width: 576px) {
+            .form-col {
+                flex: 1 0 50%;
+            }
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .checkbox-group input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        /* Admin Dashboard */
+        .admin-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .filter-control {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .search-control {
+            position: relative;
+        }
+        
+        .search-control .form-control {
+            padding-left: 40px;
+        }
+        
+        .search-control i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        .requests-table {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .table-header {
+            padding: 25px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .table-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .table-container {
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        th {
+            background-color: #f8f9fa;
+            font-weight: 700;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        
+        tr:hover {
+            background-color: #f8f9fa;
+        }
+        
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: #fff8e1;
+            color: var(--warning);
+            border: 1px solid #ffecb3;
+        }
+        
+        .status-approved {
+            background-color: #e8f5e9;
+            color: var(--secondary);
+            border: 1px solid #c8e6c9;
+        }
+        
+        .status-rejected {
+            background-color: #ffebee;
+            color: var(--danger);
+            border: 1px solid #ffcdd2;
+        }
+        
+        .status-completed {
+            background-color: #e3f2fd;
+            color: var(--primary);
+            border: 1px solid #bbdefb;
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 8px;
+            transition: all 0.3s;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background-color: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalAppear 0.3s ease-out;
+        }
+        
+        @keyframes modalAppear {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 25px;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .modal-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--dark);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 28px;
+            cursor: pointer;
+            color: var(--gray);
+            transition: color 0.3s;
+        }
+        
+        .close-modal:hover {
+            color: var(--danger);
+        }
+        
+        .modal-body {
+            padding: 25px;
+        }
+        
+        .modal-footer {
+            padding: 25px;
+            border-top: 2px solid var(--border);
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            background: #f8f9fa;
+        }
+        
+        /* Utility Classes */
+        .text-center {
+            text-align: center;
+        }
+        
+        .mt-20 {
+            margin-top: 20px;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* Loading Spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        /* Admin Tabs */
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--border);
+            background: white;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+        }
+        
+        .admin-tab {
+            padding: 18px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            color: var(--gray);
+        }
+        
+        .admin-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: rgba(26, 115, 232, 0.05);
+        }
+        
+        .admin-tab-content {
+            display: block;
+        }
+        
+        /* Vehicle Status Dashboard */
+        .vehicle-status-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .status-card {
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .status-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .status-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .status-card-title {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .status-card-count {
+            font-size: 32px;
+            font-weight: 800;
+        }
+        
+        .status-card-available {
+            color: var(--secondary);
+        }
+        
+        .status-card-booked {
+            color: var(--warning);
+        }
+        
+        .status-card-maintenance {
+            color: var(--danger);
+        }
+        
+        .vehicle-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .vehicle-list li {
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .vehicle-list li:last-child {
+            border-bottom: none;
+        }
+        
+        /* Enhanced PDF Styles */
+        .enhanced-pdf {
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 35px;
+            margin-top: 25px;
+            background-color: white;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .enhanced-pdf-header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 25px;
+            border-bottom: 3px solid var(--primary);
+        }
+        
+        .enhanced-pdf-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 8px;
+        }
+        
+        .enhanced-pdf-subtitle {
+            font-size: 18px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        .enhanced-pdf-section {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid var(--primary);
+        }
+        
+        .enhanced-pdf-label {
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-size: 15px;
+        }
+        
+        .enhanced-pdf-value {
+            margin-bottom: 12px;
+            color: var(--gray);
+            font-size: 16px;
+        }
+        
+        .enhanced-pdf-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+        
+        /* Report Section */
+        .report-section {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            padding: 30px;
+            margin-bottom: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .report-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .report-control {
+            flex: 1;
+            min-width: 220px;
+        }
+        
+        .report-table {
+            margin-top: 25px;
+        }
+        
+        /* WhatsApp Button */
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .whatsapp-btn:hover {
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        /* Pagination Styles */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 25px;
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .pagination button {
+            padding: 10px 20px;
+            border: 2px solid var(--border);
+            background-color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .pagination button:hover:not(:disabled) {
+            background-color: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+        
+        .pagination button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .pagination-info {
+            margin: 0 20px;
+            font-size: 15px;
+            color: var(--gray);
+            font-weight: 500;
+        }
+        
+        /* Highlighted Request Row */
+        .highlighted-row {
+            background-color: rgba(26, 115, 232, 0.08) !important;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* Vehicle Type Badge */
+        .vehicle-type-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .vehicle-type-car {
+            background-color: #e8f0fe;
+            color: var(--primary);
+            border: 1px solid #d2e3fc;
+        }
+        
+        .vehicle-type-van {
+            background-color: #e6f4ea;
+            color: var(--secondary);
+            border: 1px solid #ceead6;
+        }
+        
+        .vehicle-type-bus {
+            background-color: #fce8e6;
+            color: var(--danger);
+            border: 1px solid #f9c9c4;
+        }
+        
+        /* Success Message */
+        .success-message {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid var(--secondary);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin: 25px 0;
+        }
+        
+        .success-message h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .success-message p {
+            color: var(--dark);
+            font-size: 16px;
+        }
+        
+        /* QR Code Styling */
+        .qrcode-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .qrcode {
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        /* Signature Section */
+        .signature-section {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid var(--border);
+        }
+        
+        .signature-line {
+            height: 1px;
+            background: var(--dark);
+            margin: 30px 0 10px;
+        }
+        
+        .signature-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        
+        .signature-name {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+        
+        .signature-title {
+            font-size: 14px;
+            color: var(--gray);
+        }
+        
+        /* Search in Modal */
+        .search-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+        
+        .search-container .form-control {
+            padding-left: 40px;
+        }
+        
+        .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+        }
+        
+        /* Password Notice */
+        .password-notice {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .password-value {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            background: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px dashed var(--primary);
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        .form-text {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .login-card {
+                padding: 25px;
+            }
+            
+            .booking-form {
+                padding: 20px;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .admin-controls {
+                flex-direction: column;
+            }
+            
+            .filter-control {
+                width: 100%;
+            }
+            
+            .admin-tabs {
+                flex-wrap: wrap;
+            }
+            
+            .admin-tab {
+                flex: 1;
+                min-width: 120px;
+                text-align: center;
+                padding: 15px 20px;
+            }
+            
+            .vehicle-status-cards {
+                grid-template-columns: 1fr;
+            }
+            
+            .enhanced-pdf-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .report-controls {
+                flex-direction: column;
+            }
+            
+            .modal-content {
+                margin: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Screen -->
+    <div id="loginScreen" class="login-container">
+        <div class="login-card">
+            <div class="login-logo">🚑</div>
+            <h1 class="login-title">Vehicle Booking System</h1>
+            <p class="login-subtitle">Ministry of Health</p>
+            
+            <div class="role-selector">
+                <div class="role-option active" data-role="user">User</div>
+                <div class="role-option" data-role="admin">Admin</div>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" id="password" class="form-control" placeholder="Enter your password">
+                <small class="form-text">For Main Admin, use password: TB005</small>
+            </div>
+            
+            <button id="loginBtn" class="btn">Login to System</button>
+            <div id="loginSpinner" class="spinner mt-20" style="display: none;"></div>
+            <div id="loginMessage" class="mt-20" style="color: var(--danger); display: none;"></div>
+        </div>
+    </div>
+    
+    <!-- User Dashboard -->
+    <div id="userDashboard" class="dashboard">
+        <div class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="logo-icon">🚑</span>
+                        <span>VBS - Ministry of Health</span>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="userDisplayName">Staff Member</span>
+                        <button id="userLogout" class="logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="container">
+                <h1 class="page-title">Vehicle Booking Request</h1>
+                
+                <div class="booking-form" id="bookingForm">
+                    <div class="form-section">
+                        <h2 class="section-title">User Information</h2>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="userName">Full Name *</label>
+                                    <input type="text" id="userName" class="form-control" placeholder="Enter your full name" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="userDesignation">Designation/Post *</label>
+                                    <input type="text" id="userDesignation" class="form-control" placeholder="Enter your designation" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="userBranch">Branch/Section *</label>
+                                    <input type="text" id="userBranch" class="form-control" placeholder="Enter your branch/section" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="userPhone">Phone Number *</label>
+                                    <input type="tel" id="userPhone" class="form-control" placeholder="Enter your phone number" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h2 class="section-title">Trip Details</h2>
+                        <div class="form-row">
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="purpose">Purpose of Travel/Vehicle Requirement *</label>
+                                    <textarea id="purpose" class="form-control" rows="3" placeholder="Describe the purpose of your travel" required></textarea>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="seatCount">Required Vehicle Seat Count *</label>
+                                    <select id="seatCount" class="form-control" required>
+                                        <option value="">Select seat count</option>
+                                        <option value="4">4 Seater</option>
+                                        <option value="7">7 Seater</option>
+                                        <option value="15">15+ Seater</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="distance">Approximate Distance (KM) *</label>
+                                    <input type="number" id="distance" class="form-control" placeholder="Enter approximate distance in KM" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="checkbox-group">
+                                    <input type="checkbox" id="goodsTransport">
+                                    <label class="form-label" for="goodsTransport">Requirement for Goods Transport</label>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="startDateTime">Start Date and Time *</label>
+                                    <input type="datetime-local" id="startDateTime" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="endDateTime">End Date and Time *</label>
+                                    <input type="datetime-local" id="endDateTime" class="form-control" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="startLocation">Starting Location *</label>
+                                    <input type="text" id="startLocation" class="form-control" placeholder="Enter starting location" required>
+                                </div>
+                            </div>
+                            <div class="form-col">
+                                <div class="form-group">
+                                    <label class="form-label" for="destination">Destination *</label>
+                                    <input type="text" id="destination" class="form-control" placeholder="Enter destination" required>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button id="submitBooking" class="btn">Submit Booking Request</button>
+                    <div id="submitSpinner" class="spinner mt-20" style="display: none;"></div>
+                </div>
+                
+                <div id="bookingSuccess" class="hidden">
+                    <div class="success-message">
+                        <h2>Booking Submitted Successfully!</h2>
+                        <p>Your vehicle booking request has been submitted and is pending approval.</p>
+                        <div class="password-notice">
+                            <h3>Your Booking Password: <span id="uniquePasswordDisplay" class="password-value"></span></h3>
+                            <p><strong>Important:</strong> Save this password. You'll need it for any updates or inquiries about this booking.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="enhanced-pdf" id="enhancedPdfPreview">
+                        <div class="enhanced-pdf-header">
+                            <div class="enhanced-pdf-title">Ministry of Health</div>
+                            <div class="enhanced-pdf-subtitle">Vehicle Booking Confirmation</div>
+                        </div>
+                        <div class="enhanced-pdf-grid">
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Booking Reference:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfRefNumber">VBS-2023-001</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Unique Password:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfPassword">XXXXXX</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Submission Date:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfDate">01/01/2023</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Requestor Details:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfUserDetails">Name, Designation, Phone</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Branch/Section:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfBranch">Branch Name</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Trip Details:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfTripDetails">Purpose, Dates, Locations</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Vehicle Requirements:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfVehicleReq">Seats, Goods Transport</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Approximate Distance:</div>
+                                <div class="enhanced-pdf-value" id="enhancedPdfDistance">0 KM</div>
+                            </div>
+                            <div class="enhanced-pdf-section">
+                                <div class="enhanced-pdf-label">Status:</div>
+                                <div class="enhanced-pdf-value">Pending Approval</div>
+                            </div>
+                        </div>
+                        <div class="qrcode-container">
+                            <div id="qrCodeUser" class="qrcode"></div>
+                        </div>
+                        <div class="signature-section">
+                            <div class="signature-line"></div>
+                            <div class="signature-label">Approval Signature:</div>
+                            <div class="signature-name">_________________________</div>
+                            <div class="signature-title">Head of Department / Deputy Director General</div>
+                        </div>
+                    </div>
+                    <div class="text-center mt-20">
+                        <button id="downloadPdf" class="btn">Download Confirmation</button>
+                        <button id="sendWhatsApp" class="btn whatsapp-btn mt-20">
+                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                        </button>
+                        <button id="newBooking" class="btn btn-secondary mt-20">Make Another Booking</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Admin Dashboard -->
+    <div id="adminDashboard" class="dashboard">
+        <div class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <span class="logo-icon">🚑</span>
+                        <span>VBS Admin - Ministry of Health</span>
+                    </div>
+                    <div class="user-info">
+                        <span class="user-name" id="adminDisplayName">Administrator</span>
+                        <button id="adminLogout" class="logout-btn">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="main-content">
+            <div class="container">
+                <h1 class="page-title">Booking Requests Management</h1>
+                
+                <div class="admin-tabs">
+                    <div class="admin-tab active" data-tab="requests">Booking Requests</div>
+                    <div class="admin-tab" data-tab="vehicles">Vehicle Status</div>
+                    <div class="admin-tab" data-tab="reports">Reports</div>
+                </div>
+                
+                <!-- Booking Requests Tab -->
+                <div id="requestsTab" class="admin-tab-content">
+                    <div class="admin-controls">
+                        <div class="filter-control">
+                            <label class="form-label" for="statusFilter">Filter by Status</label>
+                            <select id="statusFilter" class="form-control">
+                                <option value="all">All Requests</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="search-control filter-control">
+                            <label class="form-label" for="searchBookings">Search Bookings</label>
+                            <div class="search-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchBookings" class="form-control" placeholder="Search by reference, name, or destination">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="requests-table">
+                        <div class="table-header">
+                            <div class="table-title">Booking Requests</div>
+                            <div id="requestCount">0 requests</div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ref No.</th>
+                                        <th>Requester</th>
+                                        <th>Branch</th>
+                                        <th>Destination</th>
+                                        <th>Date/Time</th>
+                                        <th>Seats</th>
+                                        <th>Distance</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="requestsTableBody"></tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="pagination">
+                            <button id="prevPage" disabled>Previous</button>
+                            <span class="pagination-info" id="pageInfo">Page 1 of 1</span>
+                            <button id="nextPage" disabled>Next</button>
+                        </div>
+                        
+                        <div id="adminSpinner" class="spinner mt-20 mb-20" style="display: none;"></div>
+                    </div>
+                </div>
+                
+                <!-- Vehicle Status Tab -->
+                <div id="vehiclesTab" class="admin-tab-content hidden">
+                    <div class="admin-controls">
+                        <div class="search-control filter-control">
+                            <label class="form-label" for="searchVehicles">Search Vehicles</label>
+                            <div class="search-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchVehicles" class="form-control" placeholder="Search by vehicle number or type">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="vehicle-status-cards">
+                        <div class="status-card">
+                            <div class="status-card-header">
+                                <div class="status-card-title">Available Vehicles</div>
+                                <div class="status-card-count status-card-available" id="availableCount">0</div>
+                            </div>
+                            <ul class="vehicle-list" id="availableVehiclesList"></ul>
+                        </div>
+                        
+                        <div class="status-card">
+                            <div class="status-card-header">
+                                <div class="status-card-title">Booked Vehicles</div>
+                                <div class="status-card-count status-card-booked" id="bookedCount">0</div>
+                            </div>
+                            <ul class="vehicle-list" id="bookedVehiclesList"></ul>
+                        </div>
+                        
+                        <div class="status-card">
+                            <div class="status-card-header">
+                                <div class="status-card-title">Under Maintenance</div>
+                                <div class="status-card-count status-card-maintenance" id="maintenanceCount">0</div>
+                            </div>
+                            <ul class="vehicle-list" id="maintenanceVehiclesList"></ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Reports Tab -->
+                <div id="reportsTab" class="admin-tab-content hidden">
+                    <div class="report-section">
+                        <h2 class="section-title">Generate Reports</h2>
+                        
+                        <div class="report-controls">
+                            <div class="report-control">
+                                <label class="form-label" for="reportType">Report Type</label>
+                                <select id="reportType" class="form-control">
+                                    <option value="bookings">Booking Summary</option>
+                                    <option value="vehicles">Vehicle Utilization</option>
+                                    <option value="drivers">Driver Assignments</option>
+                                    <option value="monthly">Monthly Summary</option>
+                                </select>
+                            </div>
+                            
+                            <div class="report-control">
+                                <label class="form-label" for="startDate">Start Date</label>
+                                <input type="date" id="startDate" class="form-control">
+                            </div>
+                            
+                            <div class="report-control">
+                                <label class="form-label" for="endDate">End Date</label>
+                                <input type="date" id="endDate" class="form-control">
+                            </div>
+                            
+                            <div class="report-control">
+                                <label class="form-label">&nbsp;</label>
+                                <button id="generateReport" class="btn">Generate Report</button>
+                            </div>
+                        </div>
+                        
+                        <div id="reportResults"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Allocation Modal -->
+    <div id="allocationModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Allocate Vehicle & Driver</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="uniquePassword">Booking Password *</label>
+                    <input type="password" id="uniquePassword" class="form-control" placeholder="Enter booking password for verification" required>
+                    <small class="form-text">Enter the unique password provided for this booking</small>
+                </div>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchVehicleModal" class="form-control" placeholder="Search vehicles...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="vehicleSelect">Select Vehicle</label>
+                    <select id="vehicleSelect" class="form-control"></select>
+                </div>
+                <div class="search-container">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchDriverModal" class="form-control" placeholder="Search drivers...">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="driverSelect">Select Driver</label>
+                    <select id="driverSelect" class="form-control"></select>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelAllocation" class="btn btn-danger">Cancel</button>
+                <button id="confirmAllocation" class="btn">Allocate</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Modal -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Edit Booking Request</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-row">
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editUserName">Full Name</label>
+                            <input type="text" id="editUserName" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editUserDesignation">Designation</label>
+                            <input type="text" id="editUserDesignation" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editUserBranch">Branch/Section</label>
+                            <input type="text" id="editUserBranch" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editUserPhone">Phone</label>
+                            <input type="tel" id="editUserPhone" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editPurpose">Purpose</label>
+                            <textarea id="editPurpose" class="form-control" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editSeatCount">Seat Count</label>
+                            <select id="editSeatCount" class="form-control">
+                                <option value="4">4 Seater</option>
+                                <option value="7">7 Seater</option>
+                                <option value="15">15+ Seater</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editDistance">Approximate Distance (KM)</label>
+                            <input type="number" id="editDistance" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editStartDateTime">Start Date/Time</label>
+                            <input type="datetime-local" id="editStartDateTime" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editEndDateTime">End Date/Time</label>
+                            <input type="datetime-local" id="editEndDateTime" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editStartLocation">Start Location</label>
+                            <input type="text" id="editStartLocation" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editDestination">Destination</label>
+                            <input type="text" id="editDestination" class="form-control">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelEdit" class="btn btn-danger">Cancel</button>
+                <button id="confirmEdit" class="btn">Save Changes</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- View Modal -->
+    <div id="viewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Booking Details</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="enhanced-pdf">
+                    <div class="enhanced-pdf-header">
+                        <div class="enhanced-pdf-title">Ministry of Health</div>
+                        <div class="enhanced-pdf-subtitle">Vehicle Booking Details</div>
+                    </div>
+                    <div class="enhanced-pdf-grid">
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Booking Reference:</div>
+                            <div class="enhanced-pdf-value" id="viewRefNumber"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Submission Date:</div>
+                            <div class="enhanced-pdf-value" id="viewDate"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Requestor Details:</div>
+                            <div class="enhanced-pdf-value" id="viewUserDetails"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Branch/Section:</div>
+                            <div class="enhanced-pdf-value" id="viewBranch"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Trip Details:</div>
+                            <div class="enhanced-pdf-value" id="viewTripDetails"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Vehicle Requirements:</div>
+                            <div class="enhanced-pdf-value" id="viewVehicleReq"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Approximate Distance:</div>
+                            <div class="enhanced-pdf-value" id="viewDistance"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Status:</div>
+                            <div class="enhanced-pdf-value" id="viewStatus"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Allocated Vehicle:</div>
+                            <div class="enhanced-pdf-value" id="viewVehicle"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Allocated Driver:</div>
+                            <div class="enhanced-pdf-value" id="viewDriver"></div>
+                        </div>
+                    </div>
+                    <div class="qrcode-container">
+                        <div id="qrCodeAdmin" class="qrcode"></div>
+                    </div>
+                    <div class="signature-section">
+                        <div class="signature-line"></div>
+                        <div class="signature-label">Approval Signature:</div>
+                        <div class="signature-name">_________________________</div>
+                        <div class="signature-title">Head of Department / Deputy Director General</div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="closeView" class="btn">Close</button>
+                <button id="downloadFinalPdf" class="btn btn-secondary">Download PDF</button>
+                <button id="sendWhatsAppAdmin" class="btn whatsapp-btn">
+                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+  <script>
+// Google Apps Script Web App URL
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzzjywMkUxiWek2pG7n53qCtswVUlNsUUaCulmD-lZwARt4R0NTfPUV08eogh39B-feug/exec';
+
+// Global variables
+let currentUserRole = 'user';
+let currentBookingId = null;
+let currentBookingRef = null;
+let currentPage = 1;
+const itemsPerPage = 10;
+let allBookings = [];
+let filteredBookings = [];
+let vehicles = [];
+let drivers = [];
+
+// DOM elements
+const loginScreen = document.getElementById('loginScreen');
+const userDashboard = document.getElementById('userDashboard');
+const adminDashboard = document.getElementById('adminDashboard');
+const roleOptions = document.querySelectorAll('.role-option');
+const loginBtn = document.getElementById('loginBtn');
+const passwordInput = document.getElementById('password');
+const loginMessage = document.getElementById('loginMessage');
+const loginSpinner = document.getElementById('loginSpinner');
+const userLogout = document.getElementById('userLogout');
+const adminLogout = document.getElementById('adminLogout');
+const submitBookingBtn = document.getElementById('submitBooking');
+const submitSpinner = document.getElementById('submitSpinner');
+const bookingForm = document.getElementById('bookingForm');
+const bookingSuccess = document.getElementById('bookingSuccess');
+const newBookingBtn = document.getElementById('newBooking');
+const downloadPdfBtn = document.getElementById('downloadPdf');
+const sendWhatsAppBtn = document.getElementById('sendWhatsApp');
+const adminTabs = document.querySelectorAll('.admin-tab');
+const requestsTab = document.getElementById('requestsTab');
+const vehiclesTab = document.getElementById('vehiclesTab');
+const reportsTab = document.getElementById('reportsTab');
+const statusFilter = document.getElementById('statusFilter');
+const searchBookings = document.getElementById('searchBookings');
+const searchVehicles = document.getElementById('searchVehicles');
+const requestsTableBody = document.getElementById('requestsTableBody');
+const requestCount = document.getElementById('requestCount');
+const adminSpinner = document.getElementById('adminSpinner');
+const prevPageBtn = document.getElementById('prevPage');
+const nextPageBtn = document.getElementById('nextPage');
+const pageInfo = document.getElementById('pageInfo');
+const allocationModal = document.getElementById('allocationModal');
+const editModal = document.getElementById('editModal');
+const viewModal = document.getElementById('viewModal');
+const vehicleSelect = document.getElementById('vehicleSelect');
+const driverSelect = document.getElementById('driverSelect');
+const searchVehicleModal = document.getElementById('searchVehicleModal');
+const searchDriverModal = document.getElementById('searchDriverModal');
+const uniquePassword = document.getElementById('uniquePassword'); // Fixed: changed from adminPassword
+const confirmAllocationBtn = document.getElementById('confirmAllocation');
+const cancelAllocationBtn = document.getElementById('cancelAllocation');
+const closeModals = document.querySelectorAll('.close-modal');
+const cancelEditBtn = document.getElementById('cancelEdit');
+const confirmEditBtn = document.getElementById('confirmEdit');
+const closeViewBtn = document.getElementById('closeView');
+const downloadFinalPdfBtn = document.getElementById('downloadFinalPdf');
+const sendWhatsAppAdminBtn = document.getElementById('sendWhatsAppAdmin');
+const availableCount = document.getElementById('availableCount');
+const bookedCount = document.getElementById('bookedCount');
+const maintenanceCount = document.getElementById('maintenanceCount');
+const availableVehiclesList = document.getElementById('availableVehiclesList');
+const bookedVehiclesList = document.getElementById('bookedVehiclesList');
+const maintenanceVehiclesList = document.getElementById('maintenanceVehiclesList');
+const reportType = document.getElementById('reportType');
+const startDate = document.getElementById('startDate');
+const endDate = document.getElementById('endDate');
+const generateReportBtn = document.getElementById('generateReport');
+const reportResults = document.getElementById('reportResults');
+const uniquePasswordDisplay = document.getElementById('uniquePasswordDisplay');
+
+// Initialize localStorage if not exists
+function initializeLocalStorage() {
+    if (!localStorage.getItem('bookings')) {
+        localStorage.setItem('bookings', JSON.stringify([]));
+    }
+    if (!localStorage.getItem('vehicles')) {
+        const defaultVehicles = [
+            { id: 1, vehicleno: 'V001', type: '4 Seater', seatcapacity: '4', status: 'Available' },
+            { id: 2, vehicleno: 'V002', type: '4 Seater', seatcapacity: '4', status: 'Available' },
+            { id: 3, vehicleno: 'V003', type: '7 Seater', seatcapacity: '7', status: 'Available' },
+            { id: 4, vehicleno: 'V004', type: '7 Seater', seatcapacity: '7', status: 'Booked' },
+            { id: 5, vehicleno: 'V005', type: '15+ Seater', seatcapacity: '15', status: 'Available' },
+            { id: 6, vehicleno: 'V006', type: '15+ Seater', seatcapacity: '15', status: 'Maintenance' }
+        ];
+        localStorage.setItem('vehicles', JSON.stringify(defaultVehicles));
+    }
+    if (!localStorage.getItem('drivers')) {
+        const defaultDrivers = [
+            { id: 1, name: 'John Driver', phone: '0711223344', status: 'Available' },
+            { id: 2, name: 'Jane Driver', phone: '0722334455', status: 'Available' },
+            { id: 3, name: 'Robert Wilson', phone: '0733445566', status: 'Available' },
+            { id: 4, name: 'Sarah Johnson', phone: '0744556677', status: 'On Duty' }
+        ];
+        localStorage.setItem('drivers', JSON.stringify(defaultDrivers));
+    }
+}
+
+// Utility Functions
+function formatDateTime(dateTimeString) {
+    if (!dateTimeString) return 'N/A';
+    const date = new Date(dateTimeString);
+    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}
+
+function formatDate(dateString) {
+    if (!dateString) return 'N/A';
+    return new Date(dateString).toLocaleDateString();
+}
+
+function showElement(element, show = true) {
+    element.style.display = show ? 'block' : 'none';
+}
+
+function showMessage(message, type = 'error') {
+    loginMessage.textContent = message;
+    loginMessage.style.color = type === 'error' ? 'var(--danger)' : 'var(--success)';
+    showElement(loginMessage);
+    setTimeout(() => showElement(loginMessage, false), 5000);
+}
+
+function generateUniquePassword() {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    let password = '';
+    for (let i = 0; i < 6; i++) {
+        password += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return password;
+}
+
+// API Functions
+async function callGoogleAppsScript(action, data = {}) {
+    try {
+        const formData = new URLSearchParams();
+        formData.append('action', action);
+        
+        for (const [key, value] of Object.entries(data)) {
+            formData.append(key, value);
+        }
+
+        const response = await fetch(GAS_WEB_APP_URL, {
+            method: 'POST',
+            body: formData
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('API call failed:', error);
+        return getMockData(action, data);
+    }
+}
+
+// Fixed Mock Data with proper password handling
+function getMockData(action, data) {
+    switch(action) {
+        case 'login':
+            if (data.role === 'admin' && data.password === 'TB005') {
+                return { success: true, message: 'Login successful', role: 'mainadmin' };
+            }
+            if (data.role === 'user' && data.password) {
+                return { success: true, message: 'Login successful' };
+            }
+            return { success: false, error: 'Invalid password' };
+        
+        case 'submitBooking':
+            const refNumber = 'VBS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+            const uniquePassword = generateUniquePassword();
+            
+            const booking = {
+                id: Date.now(), // Use timestamp for unique ID
+                refnumber: refNumber,
+                username: data.userName,
+                userdesignation: data.userDesignation,
+                userbranch: data.userBranch,
+                userphone: data.userPhone,
+                purpose: data.purpose,
+                seatcount: data.seatCount,
+                distance: data.distance,
+                goodstransport: data.goodsTransport ? 'Yes' : 'No',
+                startdatetime: data.startDateTime,
+                enddatetime: data.endDateTime,
+                startlocation: data.startLocation,
+                destination: data.destination,
+                status: 'Pending',
+                allocatedvehicle: '',
+                allocateddriver: '',
+                timestamp: new Date().toISOString(),
+                uniquepassword: uniquePassword
+            };
+            
+            let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            bookings.push(booking);
+            localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            return {
+                success: true,
+                message: 'Booking submitted successfully',
+                bookingId: booking.id,
+                refNumber: refNumber,
+                uniquePassword: uniquePassword
+            };
+        
+        case 'getBookings':
+            const storedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            return { bookings: storedBookings };
+        
+        case 'getVehicles':
+            const storedVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
+            return { vehicles: storedVehicles };
+        
+        case 'getDrivers':
+            const storedDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
+            return { drivers: storedDrivers };
+        
+        case 'allocateVehicle':
+            console.log('Allocate Vehicle called with:', data);
+            
+            // Get current data
+            let allBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            let allVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
+            let allDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
+            
+            // Find booking
+            const bookingIndex = allBookings.findIndex(b => b.id == data.bookingId);
+            console.log('Found booking index:', bookingIndex);
+            
+            if (bookingIndex === -1) {
+                return { success: false, error: 'Booking not found' };
+            }
+            
+            // DEBUG: Log stored password and entered password
+            console.log('Stored password:', allBookings[bookingIndex].uniquepassword);
+            console.log('Entered password:', data.uniquePassword);
+            
+            // Fixed password verification - case insensitive
+            const storedPassword = allBookings[bookingIndex].uniquepassword;
+            const enteredPassword = data.uniquePassword;
+            
+            if (!storedPassword || !enteredPassword) {
+                return { success: false, error: 'Password is required' };
+            }
+            
+            if (storedPassword.toUpperCase() !== enteredPassword.toUpperCase()) {
+                return { success: false, error: 'Invalid booking password. Please check and try again.' };
+            }
+            
+            // Find vehicle and driver
+            const vehicleIndex = allVehicles.findIndex(v => v.id == data.vehicleId);
+            const driverIndex = allDrivers.findIndex(d => d.id == data.driverId);
+            
+            if (vehicleIndex === -1 || driverIndex === -1) {
+                return { success: false, error: 'Vehicle or driver not found' };
+            }
+            
+            // Update booking
+            allBookings[bookingIndex].allocatedvehicle = `${allVehicles[vehicleIndex].vehicleno} - ${allVehicles[vehicleIndex].type}`;
+            allBookings[bookingIndex].allocateddriver = `${allDrivers[driverIndex].name} (${allDrivers[driverIndex].phone})`;
+            allBookings[bookingIndex].status = 'Approved';
+            
+            // Update vehicle status
+            allVehicles[vehicleIndex].status = 'Booked';
+            
+            // Save back to localStorage
+            localStorage.setItem('bookings', JSON.stringify(allBookings));
+            localStorage.setItem('vehicles', JSON.stringify(allVehicles));
+            
+            console.log('Allocation successful');
+            return { success: true, message: 'Vehicle and driver allocated successfully' };
+        
+        case 'editBooking':
+            let editBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const editIndex = editBookings.findIndex(b => b.id == data.bookingId);
+            
+            if (editIndex === -1) {
+                return { success: false, error: 'Booking not found' };
+            }
+            
+            editBookings[editIndex].username = data.userName;
+            editBookings[editIndex].userdesignation = data.userDesignation;
+            editBookings[editIndex].userbranch = data.userBranch;
+            editBookings[editIndex].userphone = data.userPhone;
+            editBookings[editIndex].purpose = data.purpose;
+            editBookings[editIndex].seatcount = data.seatCount;
+            editBookings[editIndex].distance = data.distance;
+            editBookings[editIndex].startdatetime = data.startDateTime;
+            editBookings[editIndex].enddatetime = data.endDateTime;
+            editBookings[editIndex].startlocation = data.startLocation;
+            editBookings[editIndex].destination = data.destination;
+            
+            localStorage.setItem('bookings', JSON.stringify(editBookings));
+            return { success: true, message: 'Booking updated successfully' };
+        
+        case 'deleteBooking':
+            let deleteBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+            const deleteIndex = deleteBookings.findIndex(b => b.id == data.bookingId);
+            
+            if (deleteIndex === -1) {
+                return { success: false, error: 'Booking not found' };
+            }
+            
+            deleteBookings.splice(deleteIndex, 1);
+            localStorage.setItem('bookings', JSON.stringify(deleteBookings));
+            return { success: true, message: 'Booking deleted successfully' };
+        
+        case 'getReports':
+            const reportData = [
+                ['Booking Ref', 'Requester', 'Destination', 'Status', 'Vehicle'],
+                ['VBS-2024-001', 'John Doe', 'Rural Health Centers', 'Approved', 'V001 - 4 Seater'],
+                ['VBS-2024-002', 'Jane Smith', 'Central Hospital', 'Pending', 'Not allocated'],
+                ['VBS-2024-003', 'Robert Brown', 'District Office', 'Completed', 'V003 - 7 Seater']
+            ];
+            
+            return {
+                success: true,
+                title: 'Booking Summary Report',
+                generatedAt: new Date().toISOString(),
+                reportData: reportData
+            };
+        
+        default:
+            return { success: false, error: 'Unknown action' };
+    }
+}
+
+// Authentication Functions
+async function handleLogin() {
+    const password = passwordInput.value.trim();
+    
+    if (!password) {
+        showMessage('Please enter a password');
+        return;
+    }
+
+    showElement(loginSpinner);
+    loginBtn.disabled = true;
+
+    try {
+        const result = await callGoogleAppsScript('login', {
+            role: currentUserRole,
+            password: password
+        });
+
+        if (result.success) {
+            showElement(loginScreen, false);
+            if (currentUserRole === 'user') {
+                showElement(userDashboard);
+                resetBookingForm();
+            } else {
+                showElement(adminDashboard);
+                document.getElementById('adminDisplayName').textContent = 
+                    result.role === 'mainadmin' ? 'Main Administrator' : 'Administrator';
+                loadAdminData();
+            }
+        } else {
+            showMessage(result.error || 'Invalid password');
+        }
+    } catch (error) {
+        showMessage('Login failed. Please try again.');
+    } finally {
+        showElement(loginSpinner, false);
+        loginBtn.disabled = false;
+    }
+}
+
+function logout() {
+    showElement(userDashboard, false);
+    showElement(adminDashboard, false);
+    showElement(loginScreen);
+    passwordInput.value = '';
+    showElement(loginMessage, false);
+}
+
+// Booking Functions
+async function submitBooking() {
+    const requiredFields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+    
+    for (const fieldId of requiredFields) {
+        const field = document.getElementById(fieldId);
+        if (!field.value.trim()) {
+            alert(`Please fill in the ${field.previousElementSibling.textContent}`);
+            field.focus();
+            return;
+        }
+    }
+
+    const startDateTime = new Date(document.getElementById('startDateTime').value);
+    const endDateTime = new Date(document.getElementById('endDateTime').value);
+    
+    if (startDateTime >= endDateTime) {
+        alert('End date and time must be after start date and time');
+        return;
+    }
+
+    if (startDateTime < new Date()) {
+        alert('Start date and time cannot be in the past');
+        return;
+    }
+
+    const bookingData = {
+        userName: document.getElementById('userName').value.trim(),
+        userDesignation: document.getElementById('userDesignation').value.trim(),
+        userBranch: document.getElementById('userBranch').value.trim(),
+        userPhone: document.getElementById('userPhone').value.trim(),
+        purpose: document.getElementById('purpose').value.trim(),
+        seatCount: document.getElementById('seatCount').value,
+        distance: document.getElementById('distance').value,
+        goodsTransport: document.getElementById('goodsTransport').checked,
+        startDateTime: document.getElementById('startDateTime').value,
+        endDateTime: document.getElementById('endDateTime').value,
+        startLocation: document.getElementById('startLocation').value.trim(),
+        destination: document.getElementById('destination').value.trim()
+    };
+
+    submitBookingBtn.disabled = true;
+    showElement(submitSpinner);
+
+    try {
+        const result = await callGoogleAppsScript('submitBooking', bookingData);
+        
+        if (result.success) {
+            currentBookingId = result.bookingId;
+            currentBookingRef = result.refNumber;
+            updateBookingConfirmation(result, bookingData);
+            showElement(bookingForm, false);
+            showElement(bookingSuccess);
+        } else {
+            alert('Booking submission failed: ' + (result.error || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Booking submission failed. Please try again.');
+    } finally {
+        submitBookingBtn.disabled = false;
+        showElement(submitSpinner, false);
+    }
+}
+
+function updateBookingConfirmation(result, data) {
+    document.getElementById('enhancedPdfRefNumber').textContent = result.refNumber;
+    document.getElementById('enhancedPdfPassword').textContent = result.uniquePassword;
+    document.getElementById('enhancedPdfDate').textContent = new Date().toLocaleDateString();
+    document.getElementById('enhancedPdfUserDetails').textContent = 
+        `${data.userName}, ${data.userDesignation}, ${data.userPhone}`;
+    document.getElementById('enhancedPdfBranch').textContent = data.userBranch;
+    document.getElementById('enhancedPdfTripDetails').textContent = 
+        `${data.purpose}. From ${data.startLocation} to ${data.destination}. ${formatDateTime(data.startDateTime)} to ${formatDateTime(data.endDateTime)}`;
+    document.getElementById('enhancedPdfVehicleReq').textContent = 
+        `${data.seatCount} seats, Goods Transport: ${data.goodsTransport ? 'Yes' : 'No'}`;
+    document.getElementById('enhancedPdfDistance').textContent = 
+        `${data.distance} KM`;
+    uniquePasswordDisplay.textContent = result.uniquePassword;
+        
+    generateQRCode(result.refNumber, data.startDateTime, data.endDateTime, 'qrCodeUser', '', result.uniquePassword);
+}
+
+function resetBookingForm() {
+    const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+    fields.forEach(id => {
+        const field = document.getElementById(id);
+        if (field) field.value = '';
+    });
+    
+    const goodsCheckbox = document.getElementById('goodsTransport');
+    if (goodsCheckbox) goodsCheckbox.checked = false;
+    
+    showElement(bookingForm);
+    showElement(bookingSuccess, false);
+}
+
+// Admin Functions
+async function loadAdminData() {
+    showElement(adminSpinner);
+    
+    try {
+        const [bookingsResult, vehiclesResult, driversResult] = await Promise.all([
+            callGoogleAppsScript('getBookings'),
+            callGoogleAppsScript('getVehicles'),
+            callGoogleAppsScript('getDrivers')
+        ]);
+
+        allBookings = bookingsResult.bookings || [];
+        vehicles = vehiclesResult.vehicles || [];
+        drivers = driversResult.drivers || [];
+
+        populateVehicleDropdown();
+        populateDriverDropdown();
+        filterBookings();
+        updateVehicleStatus();
+    } catch (error) {
+        console.error('Error loading admin data:', error);
+        requestsTableBody.innerHTML = '<tr><td colspan="9" class="text-center">Error loading data</td></tr>';
+    } finally {
+        showElement(adminSpinner, false);
+    }
+}
+
+function populateVehicleDropdown() {
+    vehicleSelect.innerHTML = '<option value="">Select Vehicle</option>';
+    vehicles.filter(v => v.status === 'Available').forEach(vehicle => {
+        const option = document.createElement('option');
+        option.value = vehicle.id;
+        option.textContent = `${vehicle.vehicleno} - ${vehicle.type} (${vehicle.seatcapacity} seats)`;
+        option.setAttribute('data-vehicleno', vehicle.vehicleno);
+        option.setAttribute('data-type', vehicle.type);
+        vehicleSelect.appendChild(option);
+    });
+}
+
+function populateDriverDropdown() {
+    driverSelect.innerHTML = '<option value="">Select Driver</option>';
+    drivers.filter(d => d.status === 'Available').forEach(driver => {
+        const option = document.createElement('option');
+        option.value = driver.id;
+        option.textContent = `${driver.name} (${driver.phone})`;
+        option.setAttribute('data-name', driver.name);
+        option.setAttribute('data-phone', driver.phone);
+        driverSelect.appendChild(option);
+    });
+}
+
+function filterBookings() {
+    const status = statusFilter.value;
+    const searchTerm = searchBookings.value.toLowerCase();
+    
+    filteredBookings = allBookings.filter(booking => {
+        const statusMatch = status === 'all' || booking.status === status;
+        const searchMatch = !searchTerm || 
+            booking.refnumber.toLowerCase().includes(searchTerm) ||
+            booking.username.toLowerCase().includes(searchTerm) ||
+            booking.destination.toLowerCase().includes(searchTerm) ||
+            booking.userbranch.toLowerCase().includes(searchTerm);
+        
+        return statusMatch && searchMatch;
+    });
+    
+    currentPage = 1;
+    displayBookings();
+    updatePagination();
+}
+
+function displayBookings() {
+    requestsTableBody.innerHTML = '';
+    
+    if (filteredBookings.length === 0) {
+        requestsTableBody.innerHTML = '<tr><td colspan="9" class="text-center">No booking requests found</td></tr>';
+        requestCount.textContent = '0 requests';
+        return;
+    }
+
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = Math.min(startIndex + itemsPerPage, filteredBookings.length);
+    const currentBookings = filteredBookings.slice(startIndex, endIndex);
+
+    requestCount.textContent = `${filteredBookings.length} requests`;
+
+    currentBookings.forEach(booking => {
+        const row = document.createElement('tr');
+        if (booking.status === 'Pending') {
+            row.classList.add('highlighted-row');
+        }
+
+        const statusClass = `status-${booking.status.toLowerCase()}`;
+        
+        let actions = '';
+        if (booking.status === 'Pending') {
+            actions = `
+                <button class="action-btn btn" onclick="openAllocationModal(${booking.id})">Allocate</button>
+                <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+                <button class="action-btn btn btn-danger" onclick="deleteBooking(${booking.id})">Delete</button>
+            `;
+        } else if (booking.status === 'Approved') {
+            actions = `
+                <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
+                <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+            `;
+        } else {
+            actions = `
+                <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
+                <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+            `;
+        }
+
+        row.innerHTML = `
+            <td>${booking.refnumber}</td>
+            <td>${booking.username}</td>
+            <td>${booking.userbranch}</td>
+            <td>${booking.destination}</td>
+            <td>${formatDateTime(booking.startdatetime)}</td>
+            <td>${booking.seatcount}</td>
+            <td>${booking.distance} KM</td>
+            <td><span class="status-badge ${statusClass}">${booking.status}</span></td>
+            <td>${actions}</td>
+        `;
+
+        requestsTableBody.appendChild(row);
+    });
+}
+
+function updatePagination() {
+    const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+    prevPageBtn.disabled = currentPage === 1;
+    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
+}
+
+function goToPrevPage() {
+    if (currentPage > 1) {
+        currentPage--;
+        displayBookings();
+        updatePagination();
+    }
+}
+
+function goToNextPage() {
+    const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+    if (currentPage < totalPages) {
+        currentPage++;
+        displayBookings();
+        updatePagination();
+    }
+}
+
+// Modal Functions
+function openAllocationModal(bookingId) {
+    currentBookingId = bookingId;
+    const booking = allBookings.find(b => b.id === bookingId);
+    
+    if (booking) {
+        populateVehicleDropdown();
+        populateDriverDropdown();
+        uniquePassword.value = ''; // Fixed: changed from adminPassword
+        showElement(allocationModal);
+        
+        searchVehicleModal.value = '';
+        searchDriverModal.value = '';
+        
+        console.log('Opening allocation modal for booking:', booking);
+        console.log('Booking password:', booking.uniquepassword);
+    }
+}
+
+function openEditModal(bookingId) {
+    currentBookingId = bookingId;
+    const booking = allBookings.find(b => b.id === bookingId);
+    
+    if (booking) {
+        document.getElementById('editUserName').value = booking.username || '';
+        document.getElementById('editUserDesignation').value = booking.userdesignation || '';
+        document.getElementById('editUserBranch').value = booking.userbranch || '';
+        document.getElementById('editUserPhone').value = booking.userphone || '';
+        document.getElementById('editPurpose').value = booking.purpose || '';
+        document.getElementById('editSeatCount').value = booking.seatcount || '';
+        document.getElementById('editDistance').value = booking.distance || '';
+        document.getElementById('editStartDateTime').value = booking.startdatetime ? booking.startdatetime.substring(0, 16) : '';
+        document.getElementById('editEndDateTime').value = booking.enddatetime ? booking.enddatetime.substring(0, 16) : '';
+        document.getElementById('editStartLocation').value = booking.startlocation || '';
+        document.getElementById('editDestination').value = booking.destination || '';
+        
+        showElement(editModal);
+    }
+}
+
+function viewBooking(bookingId) {
+    currentBookingId = bookingId;
+    const booking = allBookings.find(b => b.id === bookingId);
+    
+    if (booking) {
+        document.getElementById('viewRefNumber').textContent = booking.refnumber;
+        document.getElementById('viewDate').textContent = formatDate(booking.timestamp);
+        document.getElementById('viewUserDetails').textContent = 
+            `${booking.username}, ${booking.userdesignation}, ${booking.userphone}`;
+        document.getElementById('viewBranch').textContent = booking.userbranch;
+        document.getElementById('viewTripDetails').textContent = 
+            `${booking.purpose}. From ${booking.startlocation} to ${booking.destination}. ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}`;
+        document.getElementById('viewVehicleReq').textContent = 
+            `${booking.seatcount} seats, Goods Transport: ${booking.goodstransport || 'No'}`;
+        document.getElementById('viewDistance').textContent = 
+            `${booking.distance} KM`;
+        document.getElementById('viewStatus').textContent = booking.status;
+        document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
+        document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
+        
+        const vehicleNumber = booking.allocatedvehicle ? booking.allocatedvehicle.split(' - ')[0] : '';
+        generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
+        
+        showElement(viewModal);
+    }
+}
+
+async function allocateVehicle() {
+    const vehicleId = vehicleSelect.value;
+    const driverId = driverSelect.value;
+    const password = uniquePassword.value.trim(); // Fixed: changed from adminPassword
+    
+    if (!vehicleId || !driverId) {
+        alert('Please select both a vehicle and a driver');
+        return;
+    }
+    
+    if (!password) {
+        alert('Please enter the booking password for verification');
+        return;
+    }
+
+    confirmAllocationBtn.disabled = true;
+    confirmAllocationBtn.innerHTML = '<div class="spinner"></div>';
+
+    try {
+        const result = await callGoogleAppsScript('allocateVehicle', {
+            bookingId: currentBookingId,
+            vehicleId: vehicleId,
+            driverId: driverId,
+            uniquePassword: password.toUpperCase()  // FIXED: Changed parameter name to uniquePassword
+        });
+
+        if (result.success) {
+            showElement(allocationModal, false);
+            loadAdminData();
+            alert('Vehicle and driver allocated successfully!');
+        } else {
+            alert('Allocation failed: ' + (result.error || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Allocation failed. Please try again.');
+    } finally {
+        confirmAllocationBtn.disabled = false;
+        confirmAllocationBtn.innerHTML = 'Allocate';
+    }
+}
+
+async function saveBookingEdit() {
+    const editData = {
+        bookingId: currentBookingId,
+        userName: document.getElementById('editUserName').value,
+        userDesignation: document.getElementById('editUserDesignation').value,
+        userBranch: document.getElementById('editUserBranch').value,
+        userPhone: document.getElementById('editUserPhone').value,
+        purpose: document.getElementById('editPurpose').value,
+        seatCount: document.getElementById('editSeatCount').value,
+        distance: document.getElementById('editDistance').value,
+        startDateTime: document.getElementById('editStartDateTime').value,
+        endDateTime: document.getElementById('editEndDateTime').value,
+        startLocation: document.getElementById('editStartLocation').value,
+        destination: document.getElementById('editDestination').value
+    };
+
+    confirmEditBtn.disabled = true;
+    confirmEditBtn.innerHTML = '<div class="spinner"></div>';
+
+    try {
+        const result = await callGoogleAppsScript('editBooking', editData);
+        
+        if (result.success) {
+            showElement(editModal, false);
+            loadAdminData();
+            alert('Booking updated successfully!');
+        } else {
+            alert('Update failed: ' + (result.error || 'Unknown error'));
+        }
+    } catch (error) {
+        alert('Update failed. Please try again.');
+    } finally {
+        confirmEditBtn.disabled = false;
+        confirmEditBtn.innerHTML = 'Save Changes';
+    }
+}
+
+async function deleteBooking(bookingId) {
+    if (confirm('Are you sure you want to delete this booking?')) {
+        try {
+            const result = await callGoogleAppsScript('deleteBooking', { bookingId: bookingId });
+            
+            if (result.success) {
+                loadAdminData();
+                alert('Booking deleted successfully!');
+            } else {
+                alert('Delete failed: ' + (result.error || 'Unknown error'));
+            }
+        } catch (error) {
+            alert('Delete failed. Please try again.');
+        }
+    }
+}
+
+// Vehicle Status Functions
+function updateVehicleStatus() {
+    const available = vehicles.filter(v => v.status === 'Available').length;
+    const booked = vehicles.filter(v => v.status === 'Booked').length;
+    const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
+    
+    availableCount.textContent = available;
+    bookedCount.textContent = booked;
+    maintenanceCount.textContent = maintenance;
+    
+    updateVehicleList('availableVehiclesList', 'Available');
+    updateVehicleList('bookedVehiclesList', 'Booked');
+    updateVehicleList('maintenanceVehiclesList', 'Maintenance');
+}
+
+function updateVehicleList(listId, status) {
+    const list = document.getElementById(listId);
+    const searchTerm = searchVehicles.value.toLowerCase();
+    let filtered = vehicles.filter(v => v.status === status);
+    
+    if (searchTerm) {
+        filtered = filtered.filter(v => 
+            v.vehicleno.toLowerCase().includes(searchTerm) || 
+            v.type.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    list.innerHTML = '';
+    
+    if (filtered.length === 0) {
+        const li = document.createElement('li');
+        li.textContent = 'No vehicles found';
+        list.appendChild(li);
+    } else {
+        filtered.forEach(vehicle => {
+            const li = document.createElement('li');
+            const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
+                            vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
+            
+            li.innerHTML = `
+                <span>${vehicle.vehicleno} - <span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></span>
+                <span>${vehicle.seatcapacity} seats</span>
+            `;
+            list.appendChild(li);
+        });
+    }
+}
+
+// Report Functions
+async function generateReport() {
+    const reportData = {
+        reportType: reportType.value,
+        startDate: startDate.value,
+        endDate: endDate.value
+    };
+
+    generateReportBtn.disabled = true;
+    generateReportBtn.innerHTML = '<div class="spinner"></div>';
+
+    try {
+        const result = await callGoogleAppsScript('getReports', reportData);
+        displayReport(result);
+    } catch (error) {
+        alert('Report generation failed. Please try again.');
+    } finally {
+        generateReportBtn.disabled = false;
+        generateReportBtn.innerHTML = 'Generate Report';
+    }
+}
+
+function displayReport(result) {
+    if (!result.success) {
+        alert('Report generation failed: ' + result.error);
+        return;
+    }
+
+    let html = `
+        <div class="requests-table">
+            <div class="table-header">
+                <div class="table-title">${result.title}</div>
+                <div>Generated: ${new Date(result.generatedAt).toLocaleString()}</div>
+            </div>
+            <div class="table-container">
+                <table>
+    `;
+    
+    result.reportData.forEach((row, rowIndex) => {
+        html += '<tr>';
+        row.forEach(cell => {
+            const tag = rowIndex === 0 ? 'th' : 'td';
+            html += `<${tag}>${cell}</${tag}>`;
+        });
+        html += '</tr>';
+    });
+    
+    html += `
+                </table>
+            </div>
+        </div>
+    `;
+    
+    reportResults.innerHTML = html;
+}
+
+// QR Code Generation
+function generateQRCode(refNumber, startDate, endDate, elementId, vehicleNumber = '', password = '') {
+    let qrData = `Booking Ref: ${refNumber}\nStart Date: ${formatDate(startDate)}\nEnd Date: ${formatDate(endDate)}`;
+    
+    if (vehicleNumber) {
+        qrData += `\nVehicle: ${vehicleNumber}`;
+    }
+    
+    if (password) {
+        qrData += `\nPassword: ${password}`;
+    }
+    
+    const container = document.getElementById(elementId);
+    container.innerHTML = '';
+    
+    const qr = qrcode(0, 'M');
+    qr.addData(qrData);
+    qr.make();
+    
+    const qrImg = qr.createImgTag(4);
+    container.innerHTML = qrImg;
+}
+
+// PDF Generation Functions - Improved Formal Layout
+function downloadPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    
+    doc.setProperties({
+        title: `Vehicle Booking Confirmation - ${currentBookingRef}`,
+        subject: 'Ministry of Health Vehicle Booking',
+        author: 'Ministry of Health',
+        keywords: 'vehicle, booking, confirmation',
+        creator: 'Vehicle Booking System'
+    });
+    
+    // Header
+    doc.setFillColor(26, 115, 232);
+    doc.rect(0, 0, pageWidth, 35, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont(undefined, 'bold');
+    doc.text('MINISTRY OF HEALTH', pageWidth / 2, 12, { align: 'center' });
+    
+    doc.setFontSize(14);
+    doc.setFont(undefined, 'normal');
+    doc.text('Vehicle Booking Confirmation', pageWidth / 2, 25, { align: 'center' });
+    
+    // Main content area
+    let currentY = 45;
+    
+    // Booking Details Section
+    doc.setTextColor(0, 0, 0);
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text('BOOKING DETAILS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    doc.text(`Booking Reference:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${currentBookingRef}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Unique Password:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('enhancedPdfPassword').textContent}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Submission Date:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${new Date().toLocaleDateString()}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Status:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`PENDING APPROVAL`, 80, currentY);
+    
+    // Requestor Details Section
+    currentY += 12;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('REQUESTOR DETAILS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    const userDetails = document.getElementById('enhancedPdfUserDetails').textContent;
+    doc.text(`Name & Designation:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(userDetails, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Branch/Section:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('enhancedPdfBranch').textContent}`, 80, currentY);
+    
+    // Trip Details Section
+    currentY += 12;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('TRIP DETAILS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    const tripDetails = document.getElementById('enhancedPdfTripDetails').textContent;
+    const splitTripDetails = doc.splitTextToSize(tripDetails, pageWidth - 40);
+    doc.text(splitTripDetails, 20, currentY);
+    
+    currentY += (splitTripDetails.length * 6) + 5;
+    
+    // Vehicle Requirements Section
+    currentY += 5;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('VEHICLE REQUIREMENTS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    doc.text(`Seat Requirement:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(document.getElementById('enhancedPdfVehicleReq').textContent, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Estimated Distance:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('enhancedPdfDistance').textContent}`, 80, currentY);
+    
+    // QR Code
+    currentY += 15;
+    const qrCodeImg = document.querySelector('#qrCodeUser img');
+    if (qrCodeImg) {
+        const qrCodeDataURL = qrCodeImg.src;
+        doc.addImage(qrCodeDataURL, 'PNG', pageWidth - 70, currentY - 5, 50, 50);
+    }
+    
+    // Signature Section - Properly positioned
+    currentY = pageHeight - 55;
+    doc.setDrawColor(0, 0, 0);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(10);
+    
+    // Left signature line
+    doc.line(20, currentY, 85, currentY);
+    doc.setFontSize(9);
+    doc.setFont(undefined, 'normal');
+    doc.text('Approval Signature', 20, currentY + 5);
+    doc.text('(Head of Department/Deputy Director General)', 20, currentY + 10);
+    
+    // Date line
+    doc.line(110, currentY, 175, currentY);
+    doc.setFontSize(9);
+    doc.setFont(undefined, 'normal');
+    doc.text('Date', 110, currentY + 5);
+    
+    // Footer
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text('This is an electronically generated document. Please retain for your records.', pageWidth / 2, pageHeight - 3, { align: 'center' });
+    
+    doc.save(`booking-${currentBookingRef}.pdf`);
+}
+
+function downloadFinalPDF() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    
+    doc.setProperties({
+        title: `Vehicle Booking Details - ${document.getElementById('viewRefNumber').textContent}`,
+        subject: 'Ministry of Health Vehicle Booking',
+        author: 'Ministry of Health',
+        keywords: 'vehicle, booking, details',
+        creator: 'Vehicle Booking System'
+    });
+    
+    // Header
+    doc.setFillColor(26, 115, 232);
+    doc.rect(0, 0, pageWidth, 35, 'F');
+    
+    doc.setTextColor(255, 255, 255);
+    doc.setFontSize(20);
+    doc.setFont(undefined, 'bold');
+    doc.text('MINISTRY OF HEALTH', pageWidth / 2, 12, { align: 'center' });
+    
+    doc.setFontSize(14);
+    doc.setFont(undefined, 'normal');
+    doc.text('Vehicle Booking Details', pageWidth / 2, 25, { align: 'center' });
+    
+    // Main content area
+    let currentY = 45;
+    
+    // Booking Details Section
+    doc.setTextColor(0, 0, 0);
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFontSize(12);
+    doc.setFont(undefined, 'bold');
+    doc.text('BOOKING DETAILS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    doc.text(`Booking Reference:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewRefNumber').textContent}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Submission Date:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewDate').textContent}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Status:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewStatus').textContent}`, 80, currentY);
+    
+    // Requestor Details Section
+    currentY += 12;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('REQUESTOR DETAILS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    const userDetails = document.getElementById('viewUserDetails').textContent;
+    doc.text(`Name & Designation:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(userDetails, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Branch/Section:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewBranch').textContent}`, 80, currentY);
+    
+    // Trip Details Section
+    currentY += 12;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('TRIP DETAILS', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    const tripDetails = document.getElementById('viewTripDetails').textContent;
+    const splitTripDetails = doc.splitTextToSize(tripDetails, pageWidth - 40);
+    doc.text(splitTripDetails, 20, currentY);
+    
+    currentY += (splitTripDetails.length * 6) + 5;
+    
+    // Vehicle & Driver Allocation Section
+    currentY += 5;
+    doc.setFillColor(240, 240, 240);
+    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(12);
+    doc.text('VEHICLE & DRIVER ALLOCATION', 20, currentY + 7);
+    
+    currentY += 15;
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(11);
+    
+    doc.text(`Seat Requirement:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(document.getElementById('viewVehicleReq').textContent, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Estimated Distance:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewDistance').textContent}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Allocated Vehicle:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewVehicle').textContent}`, 80, currentY);
+    
+    currentY += 7;
+    doc.setFont(undefined, 'normal');
+    doc.text(`Allocated Driver:`, 20, currentY);
+    doc.setFont(undefined, 'bold');
+    doc.text(`${document.getElementById('viewDriver').textContent}`, 80, currentY);
+    
+    // QR Code
+    currentY += 12;
+    const qrCodeImg = document.querySelector('#qrCodeAdmin img');
+    if (qrCodeImg) {
+        const qrCodeDataURL = qrCodeImg.src;
+        doc.addImage(qrCodeDataURL, 'PNG', pageWidth - 70, currentY - 5, 50, 50);
+    }
+    
+    // Signature Section - Properly positioned
+    currentY = pageHeight - 55;
+    doc.setDrawColor(0, 0, 0);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(10);
+    
+    // Left signature line
+    doc.line(20, currentY, 85, currentY);
+    doc.setFontSize(9);
+    doc.setFont(undefined, 'normal');
+    doc.text('Approval Signature', 20, currentY + 5);
+    doc.text('(Head of Department/Deputy Director General)', 20, currentY + 10);
+    
+    // Date line
+    doc.line(110, currentY, 175, currentY);
+    doc.setFontSize(9);
+    doc.setFont(undefined, 'normal');
+    doc.text('Date', 110, currentY + 5);
+    
+    // Footer
+    doc.setFontSize(8);
+    doc.setTextColor(100, 100, 100);
+    doc.text('This is an electronically generated document. Please retain for your records.', pageWidth / 2, pageHeight - 3, { align: 'center' });
+    
+    doc.save(`booking-${document.getElementById('viewRefNumber').textContent}.pdf`);
+}
+function sendWhatsApp() {
+    const phoneNumber = '0717888874';
+    const message = `Vehicle Booking Confirmation - Ref: ${currentBookingRef} - Password: ${uniquePasswordDisplay.textContent}`;
+    const encodedMessage = encodeURIComponent(message);
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+    
+    window.open(whatsappUrl, '_blank');
+}
+
+// Search Functions
+function setupSearchFilters() {
+    searchVehicleModal.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const options = vehicleSelect.options;
+        
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            const vehicleNo = option.getAttribute('data-vehicleno') || '';
+            const type = option.getAttribute('data-type') || '';
+            
+            if (vehicleNo.toLowerCase().includes(searchTerm) || type.toLowerCase().includes(searchTerm)) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        }
+    });
+    
+    searchDriverModal.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        const options = driverSelect.options;
+        
+        for (let i = 0; i < options.length; i++) {
+            const option = options[i];
+            const name = option.getAttribute('data-name') || '';
+            const phone = option.getAttribute('data-phone') || '';
+            
+            if (name.toLowerCase().includes(searchTerm) || phone.toLowerCase().includes(searchTerm)) {
+                option.style.display = '';
+            } else {
+                option.style.display = 'none';
+            }
+        }
+    });
+    
+    searchBookings.addEventListener('input', filterBookings);
+    
+    searchVehicles.addEventListener('input', function() {
+        updateVehicleStatus();
+    });
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize localStorage
+    initializeLocalStorage();
+    
+    const today = new Date();
+    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    startDate.value = firstDay.toISOString().split('T')[0];
+    endDate.value = today.toISOString().split('T')[0];
+
+    setupSearchFilters();
+
+    roleOptions.forEach(option => {
+        option.addEventListener('click', function() {
+            roleOptions.forEach(opt => opt.classList.remove('active'));
+            this.classList.add('active');
+            currentUserRole = this.dataset.role;
+        });
+    });
+
+    loginBtn.addEventListener('click', handleLogin);
+    passwordInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') handleLogin();
+    });
+
+    userLogout.addEventListener('click', logout);
+    adminLogout.addEventListener('click', logout);
+
+    submitBookingBtn.addEventListener('click', submitBooking);
+    newBookingBtn.addEventListener('click', resetBookingForm);
+    downloadPdfBtn.addEventListener('click', downloadPDF);
+    sendWhatsAppBtn.addEventListener('click', sendWhatsApp);
+
+    statusFilter.addEventListener('change', filterBookings);
+    
+    prevPageBtn.addEventListener('click', goToPrevPage);
+    nextPageBtn.addEventListener('click', goToNextPage);
+
+    adminTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            adminTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const tabId = this.dataset.tab + 'Tab';
+            document.querySelectorAll('.admin-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            if (tabId === 'vehiclesTab') {
+                updateVehicleStatus();
+            }
+        });
+    });
+
+    closeModals.forEach(button => {
+        button.addEventListener('click', function() {
+            showElement(allocationModal, false);
+            showElement(editModal, false);
+            showElement(viewModal, false);
+        });
+    });
+
+    cancelAllocationBtn.addEventListener('click', () => showElement(allocationModal, false));
+    confirmAllocationBtn.addEventListener('click', allocateVehicle);
+
+    cancelEditBtn.addEventListener('click', () => showElement(editModal, false));
+    confirmEditBtn.addEventListener('click', saveBookingEdit);
+
+    closeViewBtn.addEventListener('click', () => showElement(viewModal, false));
+    downloadFinalPdfBtn.addEventListener('click', downloadFinalPDF);
+    sendWhatsAppAdminBtn.addEventListener('click', sendWhatsApp);
+
+    window.addEventListener('click', function(event) {
+        if (event.target === allocationModal) showElement(allocationModal, false);
+        if (event.target === editModal) showElement(editModal, false);
+        if (event.target === viewModal) showElement(viewModal, false);
+    });
+
+    generateReportBtn.addEventListener('click', generateReport);
+});
+
+// Make functions available globally
+window.openAllocationModal = openAllocationModal;
+window.openEditModal = openEditModal;
+window.viewBooking = viewBooking;
+window.deleteBooking = deleteBooking;
+ </script>
+</body>
+</html>
