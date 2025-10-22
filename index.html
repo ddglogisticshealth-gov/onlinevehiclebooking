@@ -8,6 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <style>
+        /* ========== CSS VARIABLES ========== */
         :root {
             --primary: #1a73e8;
             --primary-dark: #0d47a1;
@@ -19,8 +20,11 @@
             --gray: #5f6368;
             --border: #dadce0;
             --success: #28a745;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.15);
         }
         
+        /* ========== RESET & BASE STYLES ========== */
         * {
             margin: 0;
             padding: 0;
@@ -35,12 +39,12 @@
         }
         
         .container {
-            max-width: 1200px;
-            padding: 0 15px;
+            max-width: 1400px;
+            padding: 0 20px;
             margin: 0 auto;
         }
         
-        /* Login Screen */
+        /* ========== LOGIN SCREEN ========== */
         .login-container {
             display: flex;
             flex-direction: column;
@@ -54,7 +58,7 @@
         .login-card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: var(--shadow-lg);
             padding: 40px;
             width: 100%;
             max-width: 450px;
@@ -96,6 +100,7 @@
             font-size: 16px;
         }
         
+        /* ========== FORM STYLES ========== */
         .form-group {
             margin-bottom: 20px;
             text-align: left;
@@ -125,6 +130,49 @@
             background-color: white;
         }
         
+        .role-selector {
+            display: flex;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--border);
+            background: #f8f9fa;
+        }
+        
+        .role-option {
+            flex: 1;
+            padding: 14px;
+            text-align: center;
+            background-color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .role-option.active {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+        
+        .checkbox-group input {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+        
+        .form-text {
+            color: var(--gray);
+            font-size: 14px;
+            margin-top: 5px;
+            display: block;
+        }
+        
+        /* ========== BUTTON STYLES ========== */
         .btn {
             display: inline-block;
             padding: 14px 24px;
@@ -137,8 +185,7 @@
             cursor: pointer;
             transition: all 0.3s;
             text-align: center;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(26, 115, 232, 0.3);
+            box-shadow: var(--shadow);
         }
         
         .btn:hover {
@@ -169,31 +216,50 @@
             box-shadow: none;
         }
         
-        .role-selector {
+        .btn-block {
+            width: 100%;
+        }
+        
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
             display: flex;
-            margin-bottom: 25px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 2px solid var(--border);
-            background: #f8f9fa;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
         
-        .role-option {
-            flex: 1;
-            padding: 14px;
-            text-align: center;
-            background-color: white;
+        .whatsapp-btn:hover {
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 10px 20px;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 500;
-        }
-        
-        .role-option.active {
-            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
+            font-weight: 500;
+            transition: all 0.3s;
         }
         
-        /* Dashboard */
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        
+        .action-btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 8px;
+            transition: all 0.3s;
+        }
+        
+        /* ========== DASHBOARD STYLES ========== */
         .dashboard {
             display: none;
             min-height: 100vh;
@@ -201,7 +267,7 @@
         
         .header {
             background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            box-shadow: var(--shadow);
             padding: 18px 0;
             position: sticky;
             top: 0;
@@ -238,22 +304,6 @@
             font-weight: 600;
         }
         
-        .logout-btn {
-            background: rgba(255, 255, 255, 0.2);
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            padding: 10px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            color: white;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-        
-        .logout-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-        
         .main-content {
             padding: 30px 0;
         }
@@ -266,11 +316,11 @@
             text-align: center;
         }
         
-        /* Booking Form */
+        /* ========== BOOKING FORM STYLES ========== */
         .booking-form {
             background-color: white;
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
             padding: 35px;
             margin-bottom: 40px;
             border: 1px solid rgba(0, 0, 0, 0.05);
@@ -301,61 +351,63 @@
             margin-bottom: 20px;
         }
         
-        @media (min-width: 576px) {
-            .form-col {
-                flex: 1 0 50%;
-            }
-        }
-        
-        .checkbox-group {
+        /* ========== TAB STYLES ========== */
+        .admin-tabs, .user-tabs {
             display: flex;
-            align-items: center;
-            padding: 10px 0;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--border);
+            background: white;
+            border-radius: 12px 12px 0 0;
+            overflow: hidden;
+            box-shadow: var(--shadow);
         }
         
-        .checkbox-group input {
-            margin-right: 12px;
-            transform: scale(1.2);
-        }
-        
-        /* Admin Dashboard */
-        .admin-controls {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            margin-bottom: 25px;
-        }
-        
-        .filter-control {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .search-control {
+        .admin-tab, .user-tab {
+            padding: 18px 30px;
+            cursor: pointer;
+            font-weight: 600;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+            color: var(--gray);
             position: relative;
         }
         
-        .search-control .form-control {
-            padding-left: 40px;
+        .admin-tab.active, .user-tab.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+            background: rgba(26, 115, 232, 0.05);
         }
         
-        .search-control i {
+        .admin-tab-content, .user-tab-content {
+            display: block;
+        }
+        
+        /* ========== NOTIFICATION BADGE ========== */
+        .notification-badge {
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
+            top: 8px;
+            right: 8px;
         }
         
-        .requests-table {
+        /* ========== TABLE STYLES ========== */
+        .requests-table, .data-table-container {
             background-color: white;
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
             overflow: hidden;
             border: 1px solid rgba(0, 0, 0, 0.05);
         }
         
-        .table-header {
+        .table-header, .data-table-header {
             padding: 25px;
             border-bottom: 2px solid var(--border);
             display: flex;
@@ -364,14 +416,16 @@
             background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         }
         
-        .table-title {
+        .table-title, .data-table-title {
             font-size: 20px;
             font-weight: 700;
             color: var(--dark);
         }
         
-        .table-container {
+        .table-container, .table-scroll-container {
             overflow-x: auto;
+            max-height: 600px;
+            position: relative;
         }
         
         table {
@@ -390,12 +444,21 @@
             font-weight: 700;
             color: var(--gray);
             font-size: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 10;
         }
         
         tr:hover {
             background-color: #f8f9fa;
         }
         
+        .highlighted-row {
+            background-color: rgba(26, 115, 232, 0.08) !important;
+            border-left: 4px solid var(--primary);
+        }
+        
+        /* ========== STATUS BADGES ========== */
         .status-badge {
             display: inline-block;
             padding: 8px 16px;
@@ -428,18 +491,33 @@
             border: 1px solid #bbdefb;
         }
         
-        .action-btn {
-            padding: 8px 16px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
+        .vehicle-type-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 12px;
             font-weight: 600;
-            margin-right: 8px;
-            transition: all 0.3s;
         }
         
-        /* Modal */
+        .vehicle-type-car {
+            background-color: #e8f0fe;
+            color: var(--primary);
+            border: 1px solid #d2e3fc;
+        }
+        
+        .vehicle-type-van {
+            background-color: #e6f4ea;
+            color: var(--secondary);
+            border: 1px solid #ceead6;
+        }
+        
+        .vehicle-type-bus {
+            background-color: #fce8e6;
+            color: var(--danger);
+            border: 1px solid #f9c9c4;
+        }
+        
+        /* ========== MODAL STYLES ========== */
         .modal {
             display: none;
             position: fixed;
@@ -459,7 +537,7 @@
             background-color: white;
             border-radius: 16px;
             width: 100%;
-            max-width: 600px;
+            max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -518,77 +596,10 @@
             background: #f8f9fa;
         }
         
-        /* Utility Classes */
-        .text-center {
-            text-align: center;
-        }
-        
-        .mt-20 {
-            margin-top: 20px;
-        }
-        
-        .mb-20 {
-            margin-bottom: 20px;
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        /* Loading Spinner */
-        .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid var(--primary);
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loading {
-            opacity: 0.6;
-            pointer-events: none;
-        }
-        
-        /* Admin Tabs */
-        .admin-tabs {
-            display: flex;
-            margin-bottom: 30px;
-            border-bottom: 3px solid var(--border);
-            background: white;
-            border-radius: 12px 12px 0 0;
-            overflow: hidden;
-        }
-        
-        .admin-tab {
-            padding: 18px 30px;
-            cursor: pointer;
-            font-weight: 600;
-            border-bottom: 3px solid transparent;
-            transition: all 0.3s;
-            color: var(--gray);
-        }
-        
-        .admin-tab.active {
-            color: var(--primary);
-            border-bottom-color: var(--primary);
-            background: rgba(26, 115, 232, 0.05);
-        }
-        
-        .admin-tab-content {
-            display: block;
-        }
-        
-        /* Vehicle Status Dashboard */
+        /* ========== VEHICLE STATUS CARDS ========== */
         .vehicle-status-cards {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 25px;
             margin-bottom: 40px;
         }
@@ -596,7 +607,7 @@
         .status-card {
             background: white;
             border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            box-shadow: var(--shadow);
             padding: 25px;
             display: flex;
             flex-direction: column;
@@ -640,6 +651,8 @@
         .vehicle-list {
             list-style: none;
             margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
         }
         
         .vehicle-list li {
@@ -654,14 +667,54 @@
             border-bottom: none;
         }
         
-        /* Enhanced PDF Styles */
+        /* ========== STATS CARDS ========== */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .stat-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        
+        .stat-value {
+            font-size: 32px;
+            font-weight: 800;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+        
+        .stat-label {
+            font-size: 16px;
+            color: var(--gray);
+            font-weight: 600;
+        }
+        
+        /* ========== ENHANCED PDF STYLES ========== */
         .enhanced-pdf {
             border: 2px solid var(--border);
             border-radius: 12px;
             padding: 35px;
             margin-top: 25px;
             background-color: white;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
         }
         
         .enhanced-pdf-header {
@@ -711,46 +764,110 @@
             gap: 20px;
         }
         
-        /* Report Section */
-        .report-section {
-            background-color: white;
-            border-radius: 16px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            padding: 30px;
-            margin-bottom: 40px;
-            border: 1px solid rgba(0, 0, 0, 0.05);
+        /* ========== SUCCESS MESSAGE ========== */
+        .success-message {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid var(--secondary);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            margin: 25px 0;
+            box-shadow: var(--shadow);
         }
         
-        .report-controls {
+        .success-message h2 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            font-size: 24px;
+        }
+        
+        .success-message p {
+            color: var(--dark);
+            font-size: 16px;
+        }
+        
+        .password-notice {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+            box-shadow: var(--shadow);
+        }
+        
+        .password-value {
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary);
+            background: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: 2px dashed var(--primary);
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        /* ========== ADMIN CONTROLS ========== */
+        .admin-controls, .report-controls {
             display: flex;
             flex-wrap: wrap;
             gap: 20px;
             margin-bottom: 25px;
         }
         
-        .report-control {
+        .filter-control, .report-control {
             flex: 1;
-            min-width: 220px;
+            min-width: 250px;
         }
         
-        .report-table {
-            margin-top: 25px;
+        .search-control {
+            position: relative;
         }
         
-        /* WhatsApp Button */
-        .whatsapp-btn {
-            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
+        .search-control .form-control, .search-container .form-control {
+            padding-left: 40px;
         }
         
-        .whatsapp-btn:hover {
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
+        .search-control i, .search-container i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
         }
         
-        /* Pagination Styles */
+        /* ========== SELECTION LISTS ========== */
+        .selection-list {
+            max-height: 300px;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .selection-item {
+            padding: 12px 15px;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        
+        .selection-item:hover {
+            background-color: #f5f7fa;
+        }
+        
+        .selection-item.selected {
+            background-color: #e3f2fd;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .selection-item:last-child {
+            border-bottom: none;
+        }
+        
+        /* ========== PAGINATION ========== */
         .pagination {
             display: flex;
             justify-content: center;
@@ -788,61 +905,7 @@
             font-weight: 500;
         }
         
-        /* Highlighted Request Row */
-        .highlighted-row {
-            background-color: rgba(26, 115, 232, 0.08) !important;
-            border-left: 4px solid var(--primary);
-        }
-        
-        /* Vehicle Type Badge */
-        .vehicle-type-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 12px;
-            font-weight: 600;
-        }
-        
-        .vehicle-type-car {
-            background-color: #e8f0fe;
-            color: var(--primary);
-            border: 1px solid #d2e3fc;
-        }
-        
-        .vehicle-type-van {
-            background-color: #e6f4ea;
-            color: var(--secondary);
-            border: 1px solid #ceead6;
-        }
-        
-        .vehicle-type-bus {
-            background-color: #fce8e6;
-            color: var(--danger);
-            border: 1px solid #f9c9c4;
-        }
-        
-        /* Success Message */
-        .success-message {
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            border: 2px solid var(--secondary);
-            border-radius: 12px;
-            padding: 25px;
-            text-align: center;
-            margin: 25px 0;
-        }
-        
-        .success-message h2 {
-            color: var(--secondary);
-            margin-bottom: 15px;
-            font-size: 24px;
-        }
-        
-        .success-message p {
-            color: var(--dark);
-            font-size: 16px;
-        }
-        
-        /* QR Code Styling */
+        /* ========== QR CODE ========== */
         .qrcode-container {
             display: flex;
             justify-content: center;
@@ -853,10 +916,10 @@
             padding: 10px;
             background: white;
             border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: var(--shadow);
         }
         
-        /* Signature Section */
+        /* ========== SIGNATURE SECTION ========== */
         .signature-section {
             margin-top: 40px;
             padding-top: 20px;
@@ -884,52 +947,128 @@
             color: var(--gray);
         }
         
-        /* Search in Modal */
-        .search-container {
-            position: relative;
-            margin-bottom: 15px;
-        }
-        
-        .search-container .form-control {
-            padding-left: 40px;
-        }
-        
-        .search-container i {
-            position: absolute;
-            left: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--gray);
-        }
-        
-        /* Password Notice */
-        .password-notice {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border: 2px solid var(--primary);
-            border-radius: 12px;
-            padding: 20px;
-            margin: 20px 0;
+        /* ========== UTILITY CLASSES ========== */
+        .text-center {
             text-align: center;
         }
         
-        .password-value {
-            font-family: 'Courier New', monospace;
-            font-size: 24px;
-            font-weight: 800;
-            color: var(--primary);
-            background: white;
-            padding: 10px 20px;
-            border-radius: 8px;
-            border: 2px dashed var(--primary);
-            display: inline-block;
-            margin: 10px 0;
+        .mt-20 {
+            margin-top: 20px;
         }
         
-        .form-text {
-            color: var(--gray);
-            font-size: 14px;
-            margin-top: 5px;
-            display: block;
+        .mb-20 {
+            margin-bottom: 20px;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        /* ========== LOADING SPINNER ========== */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        
+        /* ========== SCROLLBAR STYLING ========== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a8a8a8;
+        }
+        
+        /* ========== FIXED USER BUTTON STYLES ========== */
+        .button-group {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .button-group .btn {
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+            margin: 0;
+        }
+
+        .button-group .whatsapp-btn {
+            background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+
+        .button-group .btn-secondary {
+            background: linear-gradient(135deg, var(--secondary) 0%, #2d8c47 100%);
+            flex: 1;
+            min-width: 200px;
+            max-width: 300px;
+        }
+        
+        /* ========== RESPONSIVE DESIGN ========== */
+        @media (min-width: 576px) {
+            .form-col {
+                flex: 1 0 50%;
+            }
+        }
+        
+        @media (min-width: 992px) {
+            .form-col {
+                flex: 1 0 33.333%;
+            }
+        }
+        
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 100%;
+                padding: 0 15px;
+            }
+            
+            .vehicle-status-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
         }
         
         @media (max-width: 768px) {
@@ -941,25 +1080,25 @@
                 padding: 20px;
             }
             
-            .table-header {
+            .table-header, .data-table-header {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 15px;
             }
             
-            .admin-controls {
+            .admin-controls, .report-controls {
                 flex-direction: column;
             }
             
-            .filter-control {
+            .filter-control, .report-control {
                 width: 100%;
             }
             
-            .admin-tabs {
+            .admin-tabs, .user-tabs {
                 flex-wrap: wrap;
             }
             
-            .admin-tab {
+            .admin-tab, .user-tab {
                 flex: 1;
                 min-width: 120px;
                 text-align: center;
@@ -974,12 +1113,76 @@
                 grid-template-columns: 1fr;
             }
             
-            .report-controls {
+            .modal-content {
+                margin: 10px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .data-table-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+            
+            .data-table-controls {
+                width: 100%;
+                justify-content: space-between;
+            }
+            
+            .form-col {
+                flex: 1 0 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+                gap: 12px;
+                padding: 15px;
+            }
+            
+            .button-group .btn,
+            .button-group .whatsapp-btn,
+            .button-group .btn-secondary {
+                min-width: 100%;
+                max-width: 100%;
+                width: 100%;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .pagination {
+                flex-wrap: wrap;
+            }
+            
+            .admin-tab, .user-tab {
+                flex: 1 0 100%;
+            }
+            
+            .modal-body {
+                padding: 15px;
+            }
+            
+            .modal-footer {
+                padding: 15px;
                 flex-direction: column;
             }
             
-            .modal-content {
-                margin: 10px;
+            .modal-footer .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .button-group {
+                gap: 10px;
+                padding: 12px;
+            }
+            
+            .button-group .btn {
+                padding: 12px 16px;
+                font-size: 14px;
             }
         }
     </style>
@@ -1000,10 +1203,10 @@
             <div class="form-group">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" id="password" class="form-control" placeholder="Enter your password">
-                <small class="form-text">For Main Admin, use password: TB005</small>
+                <small class="form-text">For System Inquiries 011 2 692 382</small>
             </div>
             
-            <button id="loginBtn" class="btn">Login to System</button>
+            <button id="loginBtn" class="btn btn-block">Login to System</button>
             <div id="loginSpinner" class="spinner mt-20" style="display: none;"></div>
             <div id="loginMessage" class="mt-20" style="color: var(--danger); display: none;"></div>
         </div>
@@ -1028,171 +1231,342 @@
         
         <div class="main-content">
             <div class="container">
-                <h1 class="page-title">Vehicle Booking Request</h1>
+                <h1 class="page-title">Vehicle Booking System</h1>
                 
-                <div class="booking-form" id="bookingForm">
-                    <div class="form-section">
-                        <h2 class="section-title">User Information</h2>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="userName">Full Name *</label>
-                                    <input type="text" id="userName" class="form-control" placeholder="Enter your full name" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="userDesignation">Designation/Post *</label>
-                                    <input type="text" id="userDesignation" class="form-control" placeholder="Enter your designation" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="userBranch">Branch/Section *</label>
-                                    <input type="text" id="userBranch" class="form-control" placeholder="Enter your branch/section" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="userPhone">Phone Number *</label>
-                                    <input type="tel" id="userPhone" class="form-control" placeholder="Enter your phone number" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="form-section">
-                        <h2 class="section-title">Trip Details</h2>
-                        <div class="form-row">
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="purpose">Purpose of Travel/Vehicle Requirement *</label>
-                                    <textarea id="purpose" class="form-control" rows="3" placeholder="Describe the purpose of your travel" required></textarea>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="seatCount">Required Vehicle Seat Count *</label>
-                                    <select id="seatCount" class="form-control" required>
-                                        <option value="">Select seat count</option>
-                                        <option value="4">4 Seater</option>
-                                        <option value="7">7 Seater</option>
-                                        <option value="15">15+ Seater</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="distance">Approximate Distance (KM) *</label>
-                                    <input type="number" id="distance" class="form-control" placeholder="Enter approximate distance in KM" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="checkbox-group">
-                                    <input type="checkbox" id="goodsTransport">
-                                    <label class="form-label" for="goodsTransport">Requirement for Goods Transport</label>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="startDateTime">Start Date and Time *</label>
-                                    <input type="datetime-local" id="startDateTime" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="endDateTime">End Date and Time *</label>
-                                    <input type="datetime-local" id="endDateTime" class="form-control" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="startLocation">Starting Location *</label>
-                                    <input type="text" id="startLocation" class="form-control" placeholder="Enter starting location" required>
-                                </div>
-                            </div>
-                            <div class="form-col">
-                                <div class="form-group">
-                                    <label class="form-label" for="destination">Destination *</label>
-                                    <input type="text" id="destination" class="form-control" placeholder="Enter destination" required>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <button id="submitBooking" class="btn">Submit Booking Request</button>
-                    <div id="submitSpinner" class="spinner mt-20" style="display: none;"></div>
+                <div class="user-tabs">
+                    <div class="user-tab active" data-tab="booking">Booking Request</div>
+                    <div class="user-tab" data-tab="vehicles">Vehicle Status</div>
                 </div>
                 
-                <div id="bookingSuccess" class="hidden">
-                    <div class="success-message">
-                        <h2>Booking Submitted Successfully!</h2>
-                        <p>Your vehicle booking request has been submitted and is pending approval.</p>
-                        <div class="password-notice">
-                            <h3>Your Booking Password: <span id="uniquePasswordDisplay" class="password-value"></span></h3>
-                            <p><strong>Important:</strong> Save this password. You'll need it for any updates or inquiries about this booking.</p>
+                <!-- Booking Request Tab -->
+                <div id="bookingTab" class="user-tab-content">
+                    <div class="booking-form" id="bookingForm">
+                        <div class="form-section">
+                            <h2 class="section-title">User Information</h2>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="userName">Full Name *</label>
+                                        <input type="text" id="userName" class="form-control" placeholder="Enter your full name" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="userDesignation">Designation/Post *</label>
+                                        <input type="text" id="userDesignation" class="form-control" placeholder="Enter your designation" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+    <div class="form-group">
+        <label class="form-label" for="userBranch">Branch/Section *</label>
+        <input type="text" id="userBranch" class="form-control" placeholder="Enter your branch/section" required>
+    </div>
+</div>
+
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="userPhone">Phone Number *</label>
+                                        <input type="tel" id="userPhone" class="form-control" placeholder="Enter your phone number" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="approvedBy">Approved By *</label>
+                                        <input type="text" id="approvedBy" class="form-control" placeholder="Select approving authority" list="approvedByList" required>
+                                        <datalist id="approvedByList">
+					    <option value="Director (Health Information)">
+                                            <option value="Director-Administration - I">
+					    <option value="Director – (Nursing Administration – II)">
+					    <option value="Director Administration II (Technical Adminstration)">
+                                            <option value="Director Administration - III (Non Technical Administration) (NTA)">
+					    <option value="Director Administration IV">
+<option value="Director-Administration - V">
+<option value="Director-Administration – VI">
+<option value="Director-Administration – VII">
+<option value="Director Administration (Exam)">
+<option value="Director (Transport)">
+<option value="Director-Dental Services">
+<option value="Director-Training">
+<option value="Director-Research">
+<option value="Director - Nursing (Education)">
+<option value="Chief Accountant (Stock Verification )">
+<option value="Chief Accountant (Book Keeping)">
+<option value="Chief Accountant - Care & Co-ordination">
+<option value="Accountant (Expenditure) I">
+<option value="Accountant (Expenditure) II">
+<option value="Accountant (Expenditure) III">
+<option value="Accountant (Supplies)">
+<option value="Director-Investigation I">
+<option value="Director-Investigation II">
+<option value="Director - Laboratory Services">
+<option value="Director-Buildings (Administration)">
+<option value="Director- Buildings (Engineering)">
+<option value="Director-Planning">
+<option value="Director-Organization & Development">
+<option value="Director - International Health">
+<option value="Director - Policy Analysis and Development">
+<option value="Director - Statics Unit">
+<option value="Accountant - Finance (Planning )">
+<option value="Director-Administration (Medical Services- I)">
+<option value="Director – Administration (Medical Service-II)">
+<option value="Director-Medical Services">
+<option value="Director - Tertiary Care Services">
+<option value="Director-Primary Care Services">
+<option value="Director - Private Health Sector Development">
+<option value="Director - Nursing (Medical Services)">
+<option value="Director - Health Care, Quality & Safety">
+<option value="Director –Non Communicable Diseases">
+<option value="Director - Mental Health">
+<option value="Director- Environment Health Occupational Health& Food Safety">
+<option value="Director-Estate & Urban Health">
+<option value="Director-Quarantine">
+<option value="Director-Youth, Elderly, Disabled & Displaced ">
+<option value="Director-Nursing (Public Health Services)">
+<option value="Director - Health Care, Quality & Safety">
+
+
+
+                                            <option value="Deputy Director General (Planning)">
+                                            <option value="Deputy Director General (Administration) I">
+                                            <option value="Deputy Director General (Administration) II">
+                                            <option value="Deputy Director General (Administration) III">
+                                            <option value="Deputy Director General (Dental Services)">
+                                            <option value="Deputy Director General (Education, Training & Research)">
+<option value="Deputy Director General (Investigation)">
+<option value="Deputy Director General (Laboratory Services)">
+<option value="Deputy Director General (Logistics)">
+<option value="Deputy Director General(Medical Services- I )">
+<option value="Deputy Director General(Medical Services-II)">
+<option value="Deputy Director General (Public Health Services-I)">
+<option value="Deputy Director General (Public Health Services-II)">
+<option value="Deputy Director General (Non Communicable Diseases)">
+<option value="Deputy Director General Environment Health, Occupational Health & Food safety">
+<option value="Senior Assistant Secretary (Administration)">
+<option value="Senior Assistant Secretary (Flying Squad)">
+<option value="Senior Assistant Secretary (Information and Promotion)">
+<option value="Senior Assistant Secretary (Medical Services)">
+<option value="Senior Assistant Secretary (Procurement) I">
+<option value="Senior Assistant Secretary (Procurement) II">
+<option value="Senior Assistant Secretary (Development)">
+<option value="Director General Of Health Service">
+                                           
+<option value="Additional Secretary (Administration) I">
+<option value="Additional Secretary (Administration) II">
+<option value="Additional Secretary (Development)">
+<option value="Additional Secretary (Medical Services)">
+<option value="Additional Secretary (Public Health Services)">
+<option value="Additional Secretary (Procurement)">
+<option value="Additional Secretary (Engineering)">
+<option value="Chief Finance Officer I">
+<option value="Chief Finance Officer II">
+<option value="Chief Finance Officer III">
+ <option value="Secretary of Health">
+                                        </datalist>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-section">
+                            <h2 class="section-title">Trip Details</h2>
+                            <div class="form-row">
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="purpose">Purpose of Travel/Vehicle Requirement *</label>
+                                        <textarea id="purpose" class="form-control" rows="3" placeholder="Describe the purpose of your travel" required></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="seatCount">Required Vehicle Seat Count *</label>
+                                        <select id="seatCount" class="form-control" required>
+                                            <option value="">Select seat count</option>
+                                            <option value="4">4 Seater</option>
+                                            <option value="7">7 Seater</option>
+                                            <option value="15">15+ Seater</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="distance">Approximate Distance (KM) *</label>
+                                        <input type="number" id="distance" class="form-control" placeholder="Enter approximate distance in KM" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="checkbox-group">
+                                        <input type="checkbox" id="goodsTransport">
+                                        <label class="form-label" for="goodsTransport">Requirement for Goods Transport</label>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="startDateTime">Start Date and Time *</label>
+                                        <input type="datetime-local" id="startDateTime" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="endDateTime">End Date and Time *</label>
+                                        <input type="datetime-local" id="endDateTime" class="form-control" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="startLocation">Starting Location *</label>
+                                        <input type="text" id="startLocation" class="form-control" placeholder="Enter starting location" required>
+                                    </div>
+                                </div>
+                                <div class="form-col">
+                                    <div class="form-group">
+                                        <label class="form-label" for="destination">Destination *</label>
+                                        <input type="text" id="destination" class="form-control" placeholder="Enter destination" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button id="submitBooking" class="btn btn-block">Submit Booking Request</button>
+                        <div id="submitSpinner" class="spinner mt-20" style="display: none;"></div>
+                    </div>
+                    
+                    <div id="bookingSuccess" class="hidden">
+                        <div class="success-message">
+                            <h2>Booking Submitted Successfully!</h2>
+                            <p>Your vehicle booking request has been submitted and is pending approval.</p>
+                            <div class="password-notice">
+                                <h3>Your Booking Password: <span id="uniquePasswordDisplay" class="password-value"></span></h3>
+                                <p><strong>Important:</strong> Save this password. You'll need it for any updates or inquiries about this booking.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="enhanced-pdf" id="enhancedPdfPreview">
+                            <div class="enhanced-pdf-header">
+                                <div class="enhanced-pdf-title">Ministry of Health</div>
+                                <div class="enhanced-pdf-subtitle">Vehicle Booking Confirmation</div>
+                            </div>
+                            <div class="enhanced-pdf-grid">
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Booking Reference:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfRefNumber">VBS-2023-001</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Unique Password:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfPassword">XXXXXX</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Submission Date:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfDate">01/01/2023</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Requestor Details:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfUserDetails">Name, Designation, Phone</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Branch/Section:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfBranch">Branch Name</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Approved By:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfApprovedBy">Approving Authority</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Trip Details:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfTripDetails">Purpose, Dates, Locations</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Vehicle Requirements:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfVehicleReq">Seats, Goods Transport</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Approximate Distance:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfDistance">0 KM</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Status:</div>
+                                    <div class="enhanced-pdf-value">Pending Approval</div>
+                                </div>
+                            </div>
+                            <div class="qrcode-container">
+                                <div id="qrCodeUser" class="qrcode"></div>
+                            </div>
+                            <div class="signature-section">
+                                <div class="signature-line"></div>
+                                <div class="signature-label">Approval Signature:</div>
+                                <div class="signature-name">_________________________</div>
+                                <div class="signature-title">Head of Department / Deputy Director General</div>
+                            </div>
+                        </div>
+                        <div class="button-group">
+                            <button id="downloadPdf" class="btn">Download Confirmation</button>
+                            <button id="sendWhatsApp" class="btn whatsapp-btn">
+                                <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                            </button>
+                            <button id="newBooking" class="btn btn-secondary">Make Another Booking</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vehicle Status Tab -->
+                <div id="vehiclesTab" class="user-tab-content hidden">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-car"></i></div>
+                            <div class="stat-value" id="userTotalVehicles">0</div>
+                            <div class="stat-label">Total Vehicles</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="stat-value" id="userAvailableCount">0</div>
+                            <div class="stat-label">Available</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                            <div class="stat-value" id="userBookedCount">0</div>
+                            <div class="stat-label">Booked</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon"><i class="fas fa-tools"></i></div>
+                            <div class="stat-value" id="userMaintenanceCount">0</div>
+                            <div class="stat-label">Maintenance</div>
                         </div>
                     </div>
                     
-                    <div class="enhanced-pdf" id="enhancedPdfPreview">
-                        <div class="enhanced-pdf-header">
-                            <div class="enhanced-pdf-title">Ministry of Health</div>
-                            <div class="enhanced-pdf-subtitle">Vehicle Booking Confirmation</div>
+                    <div class="user-vehicle-status">
+                        <h2 class="section-title">Vehicle Status Overview</h2>
+                        <p>Current status of all vehicles in the Ministry of Health fleet.</p>
+                        
+                        <div class="data-table-controls mb-20">
+                            <div class="search-control">
+                                <div class="search-container">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="searchUserVehicles" class="form-control" placeholder="Search vehicles...">
+                                </div>
+                            </div>
+                            <div class="pagination-info" id="userVehiclePageInfo">Page 1 of 1</div>
                         </div>
-                        <div class="enhanced-pdf-grid">
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Booking Reference:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfRefNumber">VBS-2023-001</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Unique Password:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfPassword">XXXXXX</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Submission Date:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfDate">01/01/2023</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Requestor Details:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfUserDetails">Name, Designation, Phone</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Branch/Section:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfBranch">Branch Name</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Trip Details:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfTripDetails">Purpose, Dates, Locations</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Vehicle Requirements:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfVehicleReq">Seats, Goods Transport</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Approximate Distance:</div>
-                                <div class="enhanced-pdf-value" id="enhancedPdfDistance">0 KM</div>
-                            </div>
-                            <div class="enhanced-pdf-section">
-                                <div class="enhanced-pdf-label">Status:</div>
-                                <div class="enhanced-pdf-value">Pending Approval</div>
-                            </div>
+                        
+                        <div class="table-scroll-container">
+                            <table class="user-vehicle-table">
+                                <thead>
+                                    <tr>
+                                        <th>Vehicle No</th>
+                                        <th>Type</th>
+                                        <th>Seat Capacity</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="userVehiclesList">
+                                    <!-- Vehicles will be populated here -->
+                                </tbody>
+                            </table>
                         </div>
-                        <div class="qrcode-container">
-                            <div id="qrCodeUser" class="qrcode"></div>
+                        
+                        <div class="pagination">
+                            <button id="userPrevPage" disabled>Previous</button>
+                            <span class="pagination-info" id="userVehiclePaginationInfo">Page 1 of 1</span>
+                            <button id="userNextPage" disabled>Next</button>
                         </div>
-                        <div class="signature-section">
-                            <div class="signature-line"></div>
-                            <div class="signature-label">Approval Signature:</div>
-                            <div class="signature-name">_________________________</div>
-                            <div class="signature-title">Head of Department / Deputy Director General</div>
-                        </div>
-                    </div>
-                    <div class="text-center mt-20">
-                        <button id="downloadPdf" class="btn">Download Confirmation</button>
-                        <button id="sendWhatsApp" class="btn whatsapp-btn mt-20">
-                            <i class="fab fa-whatsapp"></i> Send via WhatsApp
-                        </button>
-                        <button id="newBooking" class="btn btn-secondary mt-20">Make Another Booking</button>
                     </div>
                 </div>
             </div>
@@ -1220,10 +1594,37 @@
             <div class="container">
                 <h1 class="page-title">Booking Requests Management</h1>
                 
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-list-alt"></i></div>
+                        <div class="stat-value" id="totalBookings">0</div>
+                        <div class="stat-label">Total Bookings</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-value" id="pendingBookings">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-check-circle"></i></div>
+                        <div class="stat-value" id="approvedBookings">0</div>
+                        <div class="stat-label">Approved</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-car"></i></div>
+                        <div class="stat-value" id="totalVehicles">0</div>
+                        <div class="stat-label">Total Vehicles</div>
+                    </div>
+                </div>
+                
                 <div class="admin-tabs">
-                    <div class="admin-tab active" data-tab="requests">Booking Requests</div>
+                    <div class="admin-tab active" data-tab="requests">
+                        Booking Requests
+                        <span id="pendingBookingBadge" class="notification-badge" style="display: none;">0</span>
+                    </div>
                     <div class="admin-tab" data-tab="vehicles">Vehicle Status</div>
                     <div class="admin-tab" data-tab="reports">Reports</div>
+                    <div class="admin-tab" data-tab="logs">System Logs</div>
                 </div>
                 
                 <!-- Booking Requests Tab -->
@@ -1300,7 +1701,9 @@
                                 <div class="status-card-title">Available Vehicles</div>
                                 <div class="status-card-count status-card-available" id="availableCount">0</div>
                             </div>
-                            <ul class="vehicle-list" id="availableVehiclesList"></ul>
+                            <div class="selection-list" id="availableVehiclesList">
+                                <!-- Available vehicles will be populated here -->
+                            </div>
                         </div>
                         
                         <div class="status-card">
@@ -1308,7 +1711,9 @@
                                 <div class="status-card-title">Booked Vehicles</div>
                                 <div class="status-card-count status-card-booked" id="bookedCount">0</div>
                             </div>
-                            <ul class="vehicle-list" id="bookedVehiclesList"></ul>
+                            <div class="selection-list" id="bookedVehiclesList">
+                                <!-- Booked vehicles will be populated here -->
+                            </div>
                         </div>
                         
                         <div class="status-card">
@@ -1316,7 +1721,9 @@
                                 <div class="status-card-title">Under Maintenance</div>
                                 <div class="status-card-count status-card-maintenance" id="maintenanceCount">0</div>
                             </div>
-                            <ul class="vehicle-list" id="maintenanceVehiclesList"></ul>
+                            <div class="selection-list" id="maintenanceVehiclesList">
+                                <!-- Maintenance vehicles will be populated here -->
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1356,6 +1763,63 @@
                         <div id="reportResults"></div>
                     </div>
                 </div>
+                
+                <!-- System Logs Tab -->
+                <div id="logsTab" class="admin-tab-content hidden">
+                    <div class="report-section">
+                        <h2 class="section-title">System Logs</h2>
+                        
+                        <div class="admin-controls">
+                            <div class="filter-control">
+                                <label class="form-label" for="logTypeFilter">Filter by Type</label>
+                                <select id="logTypeFilter" class="form-control">
+                                    <option value="all">All Logs</option>
+                                    <option value="booking">Booking</option>
+                                    <option value="allocation">Allocation</option>
+                                    <option value="system">System</option>
+                                </select>
+                            </div>
+                            <div class="search-control filter-control">
+                                <label class="form-label" for="searchLogs">Search Logs</label>
+                                <div class="search-container">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" id="searchLogs" class="form-control" placeholder="Search logs...">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="data-table-container">
+                            <div class="data-table-header">
+                                <div class="data-table-title">System Activity Log</div>
+                                <div class="data-table-controls">
+                                    <button id="refreshLogs" class="btn btn-secondary">Refresh</button>
+                                    <button id="exportLogs" class="btn">Export</button>
+                                </div>
+                            </div>
+                            <div class="table-scroll-container">
+                                <table class="user-vehicle-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Timestamp</th>
+                                            <th>Type</th>
+                                            <th>User</th>
+                                            <th>Action</th>
+                                            <th>Details</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="systemLogsTable">
+                                        <!-- Logs will be populated here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="pagination">
+                                <button id="logsPrevPage" disabled>Previous</button>
+                                <span class="pagination-info" id="logsPageInfo">Page 1 of 1</span>
+                                <button id="logsNextPage" disabled>Next</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -1373,21 +1837,45 @@
                     <input type="password" id="uniquePassword" class="form-control" placeholder="Enter booking password for verification" required>
                     <small class="form-text">Enter the unique password provided for this booking</small>
                 </div>
-                <div class="search-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchVehicleModal" class="form-control" placeholder="Search vehicles...">
+                
+                <div class="form-section">
+                    <h4 class="section-title">Select Vehicle</h4>
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchVehicleModal" class="form-control" placeholder="Search vehicles...">
+                    </div>
+                    <div class="selection-list" id="vehicleSelectionList">
+                        <!-- Vehicles will be populated here -->
+                    </div>
+                    <div class="pagination">
+                        <button id="vehiclePrevPage" disabled>Previous</button>
+                        <span class="pagination-info" id="vehiclePageInfo">Page 1 of 1</span>
+                        <button id="vehicleNextPage" disabled>Next</button>
+                    </div>
                 </div>
+                
+                <div class="form-section">
+                    <h4 class="section-title">Select Driver</h4>
+                    <div class="search-container">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchDriverModal" class="form-control" placeholder="Search drivers...">
+                    </div>
+                    <div class="selection-list" id="driverSelectionList">
+                        <!-- Drivers will be populated here -->
+                    </div>
+                    <div class="pagination">
+                        <button id="driverPrevPage" disabled>Previous</button>
+                        <span class="pagination-info" id="driverPageInfo">Page 1 of 1</span>
+                        <button id="driverNextPage" disabled>Next</button>
+                    </div>
+                </div>
+                
                 <div class="form-group">
-                    <label class="form-label" for="vehicleSelect">Select Vehicle</label>
-                    <select id="vehicleSelect" class="form-control"></select>
-                </div>
-                <div class="search-container">
-                    <i class="fas fa-search"></i>
-                    <input type="text" id="searchDriverModal" class="form-control" placeholder="Search drivers...">
-                </div>
-                <div class="form-group">
-                    <label class="form-label" for="driverSelect">Select Driver</label>
-                    <select id="driverSelect" class="form-control"></select>
+                    <label class="form-label">Selected Allocation:</label>
+                    <div id="selectedAllocation" class="enhanced-pdf-section">
+                        <div><strong>Vehicle:</strong> <span id="selectedVehicleText">None selected</span></div>
+                        <div><strong>Driver:</strong> <span id="selectedDriverText">None selected</span></div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -1428,6 +1916,12 @@
                         <div class="form-group">
                             <label class="form-label" for="editUserPhone">Phone</label>
                             <input type="tel" id="editUserPhone" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-col">
+                        <div class="form-group">
+                            <label class="form-label" for="editApprovedBy">Approved By</label>
+                            <input type="text" id="editApprovedBy" class="form-control">
                         </div>
                     </div>
                     <div class="form-col">
@@ -1516,6 +2010,10 @@
                             <div class="enhanced-pdf-value" id="viewBranch"></div>
                         </div>
                         <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Approved By:</div>
+                            <div class="enhanced-pdf-value" id="viewApprovedBy"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
                             <div class="enhanced-pdf-label">Trip Details:</div>
                             <div class="enhanced-pdf-value" id="viewTripDetails"></div>
                         </div>
@@ -1560,8 +2058,9 @@
             </div>
         </div>
     </div>
-  <script>
-// Google Apps Script Web App URL
+
+    <script>
+       // Google Apps Script Web App URL
 const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzzjywMkUxiWek2pG7n53qCtswVUlNsUUaCulmD-lZwARt4R0NTfPUV08eogh39B-feug/exec';
 
 // Global variables
@@ -1574,6 +2073,26 @@ let allBookings = [];
 let filteredBookings = [];
 let vehicles = [];
 let drivers = [];
+let systemLogs = [];
+
+// Pagination variables
+let userVehiclePage = 1;
+let userVehicleItemsPerPage = 15;
+let filteredUserVehicles = [];
+
+let vehicleModalPage = 1;
+let driverModalPage = 1;
+let modalItemsPerPage = 8;
+let filteredModalVehicles = [];
+let filteredModalDrivers = [];
+
+let logsPage = 1;
+let logsItemsPerPage = 15;
+let filteredLogs = [];
+
+// Selected items for allocation
+let selectedVehicleId = null;
+let selectedDriverId = null;
 
 // DOM elements
 const loginScreen = document.getElementById('loginScreen');
@@ -1597,6 +2116,7 @@ const adminTabs = document.querySelectorAll('.admin-tab');
 const requestsTab = document.getElementById('requestsTab');
 const vehiclesTab = document.getElementById('vehiclesTab');
 const reportsTab = document.getElementById('reportsTab');
+const logsTab = document.getElementById('logsTab');
 const statusFilter = document.getElementById('statusFilter');
 const searchBookings = document.getElementById('searchBookings');
 const searchVehicles = document.getElementById('searchVehicles');
@@ -1609,11 +2129,7 @@ const pageInfo = document.getElementById('pageInfo');
 const allocationModal = document.getElementById('allocationModal');
 const editModal = document.getElementById('editModal');
 const viewModal = document.getElementById('viewModal');
-const vehicleSelect = document.getElementById('vehicleSelect');
-const driverSelect = document.getElementById('driverSelect');
-const searchVehicleModal = document.getElementById('searchVehicleModal');
-const searchDriverModal = document.getElementById('searchDriverModal');
-const uniquePassword = document.getElementById('uniquePassword'); // Fixed: changed from adminPassword
+const uniquePassword = document.getElementById('uniquePassword');
 const confirmAllocationBtn = document.getElementById('confirmAllocation');
 const cancelAllocationBtn = document.getElementById('cancelAllocation');
 const closeModals = document.querySelectorAll('.close-modal');
@@ -1634,6 +2150,52 @@ const endDate = document.getElementById('endDate');
 const generateReportBtn = document.getElementById('generateReport');
 const reportResults = document.getElementById('reportResults');
 const uniquePasswordDisplay = document.getElementById('uniquePasswordDisplay');
+const userTabs = document.querySelectorAll('.user-tab');
+const bookingTab = document.getElementById('bookingTab');
+const vehiclesUserTab = document.getElementById('vehiclesTab');
+const userAvailableCount = document.getElementById('userAvailableCount');
+const userBookedCount = document.getElementById('userBookedCount');
+const userMaintenanceCount = document.getElementById('userMaintenanceCount');
+const userTotalVehicles = document.getElementById('userTotalVehicles');
+const userVehiclesList = document.getElementById('userVehiclesList');
+const searchUserVehicles = document.getElementById('searchUserVehicles');
+const userPrevPage = document.getElementById('userPrevPage');
+const userNextPage = document.getElementById('userNextPage');
+const userVehiclePageInfo = document.getElementById('userVehiclePageInfo');
+const userVehiclePaginationInfo = document.getElementById('userVehiclePaginationInfo');
+
+// Stats elements
+const totalBookings = document.getElementById('totalBookings');
+const pendingBookings = document.getElementById('pendingBookings');
+const approvedBookings = document.getElementById('approvedBookings');
+const totalVehiclesStat = document.getElementById('totalVehicles');
+
+// Logs elements
+const logTypeFilter = document.getElementById('logTypeFilter');
+const searchLogs = document.getElementById('searchLogs');
+const refreshLogs = document.getElementById('refreshLogs');
+
+const systemLogsTable = document.getElementById('systemLogsTable');
+const logsPrevPage = document.getElementById('logsPrevPage');
+const logsNextPage = document.getElementById('logsNextPage');
+const logsPageInfo = document.getElementById('logsPageInfo');
+
+// Allocation modal elements
+const searchVehicleModal = document.getElementById('searchVehicleModal');
+const searchDriverModal = document.getElementById('searchDriverModal');
+const vehicleSelectionList = document.getElementById('vehicleSelectionList');
+const driverSelectionList = document.getElementById('driverSelectionList');
+const vehiclePrevPage = document.getElementById('vehiclePrevPage');
+const vehicleNextPage = document.getElementById('vehicleNextPage');
+const vehiclePageInfo = document.getElementById('vehiclePageInfo');
+const driverPrevPage = document.getElementById('driverPrevPage');
+const driverNextPage = document.getElementById('driverNextPage');
+const driverPageInfo = document.getElementById('driverPageInfo');
+const selectedVehicleText = document.getElementById('selectedVehicleText');
+const selectedDriverText = document.getElementById('selectedDriverText');
+
+// Notification badge
+const pendingBookingBadge = document.getElementById('pendingBookingBadge');
 
 // Initialize localStorage if not exists
 function initializeLocalStorage() {
@@ -1641,24 +2203,47 @@ function initializeLocalStorage() {
         localStorage.setItem('bookings', JSON.stringify([]));
     }
     if (!localStorage.getItem('vehicles')) {
-        const defaultVehicles = [
-            { id: 1, vehicleno: 'V001', type: '4 Seater', seatcapacity: '4', status: 'Available' },
-            { id: 2, vehicleno: 'V002', type: '4 Seater', seatcapacity: '4', status: 'Available' },
-            { id: 3, vehicleno: 'V003', type: '7 Seater', seatcapacity: '7', status: 'Available' },
-            { id: 4, vehicleno: 'V004', type: '7 Seater', seatcapacity: '7', status: 'Booked' },
-            { id: 5, vehicleno: 'V005', type: '15+ Seater', seatcapacity: '15', status: 'Available' },
-            { id: 6, vehicleno: 'V006', type: '15+ Seater', seatcapacity: '15', status: 'Maintenance' }
-        ];
-        localStorage.setItem('vehicles', JSON.stringify(defaultVehicles));
+        // Generate 200 sample vehicles
+        const sampleVehicles = [];
+        for (let i = 1; i <= 200; i++) {
+            const types = ['4 Seater', '7 Seater', '15+ Seater'];
+            const statuses = ['Available', 'Booked', 'Maintenance'];
+            const type = types[Math.floor(Math.random() * types.length)];
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            sampleVehicles.push({
+                id: i,
+                vehicleno: `V${i.toString().padStart(3, '0')}`,
+                type: type,
+                seatcapacity: type === '4 Seater' ? '4' : type === '7 Seater' ? '7' : '15',
+                status: status
+            });
+        }
+        localStorage.setItem('vehicles', JSON.stringify(sampleVehicles));
     }
     if (!localStorage.getItem('drivers')) {
-        const defaultDrivers = [
-            { id: 1, name: 'John Driver', phone: '0711223344', status: 'Available' },
-            { id: 2, name: 'Jane Driver', phone: '0722334455', status: 'Available' },
-            { id: 3, name: 'Robert Wilson', phone: '0733445566', status: 'Available' },
-            { id: 4, name: 'Sarah Johnson', phone: '0744556677', status: 'On Duty' }
-        ];
-        localStorage.setItem('drivers', JSON.stringify(defaultDrivers));
+        // Generate 50 sample drivers
+        const sampleDrivers = [];
+        const firstNames = ['John', 'Jane', 'Robert', 'Sarah', 'Michael', 'Emily', 'David', 'Lisa', 'James', 'Maria'];
+        const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'];
+        
+        for (let i = 1; i <= 50; i++) {
+            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+            const statuses = ['Available', 'Assigned', 'On Leave'];
+            const status = statuses[Math.floor(Math.random() * statuses.length)];
+            
+            sampleDrivers.push({
+                id: i,
+                name: `${firstName} ${lastName}`,
+                phone: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
+                status: status
+            });
+        }
+        localStorage.setItem('drivers', JSON.stringify(sampleDrivers));
+    }
+    if (!localStorage.getItem('systemLogs')) {
+        localStorage.setItem('systemLogs', JSON.stringify([]));
     }
 }
 
@@ -1694,6 +2279,44 @@ function generateUniquePassword() {
     return password;
 }
 
+// System Logging Function
+function logSystemActivity(type, user, action, details = '') {
+    const log = {
+        timestamp: new Date().toISOString(),
+        type: type,
+        user: user,
+        action: action,
+        details: details
+    };
+    
+    console.log('Logging activity:', log);
+    
+    // Save to localStorage
+    const logs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
+    logs.unshift(log);
+    if (logs.length > 1000) logs.pop();
+    localStorage.setItem('systemLogs', JSON.stringify(logs));
+    
+    // Update global logs array
+    systemLogs = logs;
+    
+    // Refresh logs display if we're on the logs tab
+    if (document.getElementById('logsTab') && !document.getElementById('logsTab').classList.contains('hidden')) {
+        filterLogs();
+    }
+}
+
+// Update pending booking notification
+function updatePendingBookingNotification() {
+    const pendingCount = allBookings.filter(booking => booking.status === 'Pending').length;
+    if (pendingCount > 0) {
+        pendingBookingBadge.textContent = pendingCount;
+        pendingBookingBadge.style.display = 'flex';
+    } else {
+        pendingBookingBadge.style.display = 'none';
+    }
+}
+
 // API Functions
 async function callGoogleAppsScript(action, data = {}) {
     try {
@@ -1721,14 +2344,16 @@ async function callGoogleAppsScript(action, data = {}) {
     }
 }
 
-// Fixed Mock Data with proper password handling
+// Enhanced Mock Data with Large Dataset Support
 function getMockData(action, data) {
     switch(action) {
         case 'login':
             if (data.role === 'admin' && data.password === 'TB005') {
+                logSystemActivity('system', 'Administrator', 'Login', 'Main admin login successful');
                 return { success: true, message: 'Login successful', role: 'mainadmin' };
             }
             if (data.role === 'user' && data.password) {
+                logSystemActivity('system', 'User', 'Login', 'User login successful');
                 return { success: true, message: 'Login successful' };
             }
             return { success: false, error: 'Invalid password' };
@@ -1738,12 +2363,13 @@ function getMockData(action, data) {
             const uniquePassword = generateUniquePassword();
             
             const booking = {
-                id: Date.now(), // Use timestamp for unique ID
+                id: Date.now(),
                 refnumber: refNumber,
                 username: data.userName,
                 userdesignation: data.userDesignation,
                 userbranch: data.userBranch,
                 userphone: data.userPhone,
+                approvedby: data.approvedBy,
                 purpose: data.purpose,
                 seatcount: data.seatCount,
                 distance: data.distance,
@@ -1762,6 +2388,8 @@ function getMockData(action, data) {
             let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
             bookings.push(booking);
             localStorage.setItem('bookings', JSON.stringify(bookings));
+            
+            logSystemActivity('booking', data.userName, 'Booking Submitted', `Ref: ${refNumber}`);
             
             return {
                 success: true,
@@ -1786,12 +2414,10 @@ function getMockData(action, data) {
         case 'allocateVehicle':
             console.log('Allocate Vehicle called with:', data);
             
-            // Get current data
             let allBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
             let allVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
             let allDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
             
-            // Find booking
             const bookingIndex = allBookings.findIndex(b => b.id == data.bookingId);
             console.log('Found booking index:', bookingIndex);
             
@@ -1799,11 +2425,6 @@ function getMockData(action, data) {
                 return { success: false, error: 'Booking not found' };
             }
             
-            // DEBUG: Log stored password and entered password
-            console.log('Stored password:', allBookings[bookingIndex].uniquepassword);
-            console.log('Entered password:', data.uniquePassword);
-            
-            // Fixed password verification - case insensitive
             const storedPassword = allBookings[bookingIndex].uniquepassword;
             const enteredPassword = data.uniquePassword;
             
@@ -1815,7 +2436,6 @@ function getMockData(action, data) {
                 return { success: false, error: 'Invalid booking password. Please check and try again.' };
             }
             
-            // Find vehicle and driver
             const vehicleIndex = allVehicles.findIndex(v => v.id == data.vehicleId);
             const driverIndex = allDrivers.findIndex(d => d.id == data.driverId);
             
@@ -1835,6 +2455,9 @@ function getMockData(action, data) {
             localStorage.setItem('bookings', JSON.stringify(allBookings));
             localStorage.setItem('vehicles', JSON.stringify(allVehicles));
             
+            logSystemActivity('allocation', 'Administrator', 'Vehicle Allocated', 
+                `Booking: ${allBookings[bookingIndex].refnumber}, Vehicle: ${allVehicles[vehicleIndex].vehicleno}, Driver: ${allDrivers[driverIndex].name}`);
+            
             console.log('Allocation successful');
             return { success: true, message: 'Vehicle and driver allocated successfully' };
         
@@ -1850,6 +2473,7 @@ function getMockData(action, data) {
             editBookings[editIndex].userdesignation = data.userDesignation;
             editBookings[editIndex].userbranch = data.userBranch;
             editBookings[editIndex].userphone = data.userPhone;
+            editBookings[editIndex].approvedby = data.approvedBy;
             editBookings[editIndex].purpose = data.purpose;
             editBookings[editIndex].seatcount = data.seatCount;
             editBookings[editIndex].distance = data.distance;
@@ -1859,6 +2483,9 @@ function getMockData(action, data) {
             editBookings[editIndex].destination = data.destination;
             
             localStorage.setItem('bookings', JSON.stringify(editBookings));
+            
+            logSystemActivity('booking', 'Administrator', 'Booking Updated', `Ref: ${editBookings[editIndex].refnumber}`);
+            
             return { success: true, message: 'Booking updated successfully' };
         
         case 'deleteBooking':
@@ -1869,8 +2496,12 @@ function getMockData(action, data) {
                 return { success: false, error: 'Booking not found' };
             }
             
+            const deletedRef = deleteBookings[deleteIndex].refnumber;
             deleteBookings.splice(deleteIndex, 1);
             localStorage.setItem('bookings', JSON.stringify(deleteBookings));
+            
+            logSystemActivity('booking', 'Administrator', 'Booking Deleted', `Ref: ${deletedRef}`);
+            
             return { success: true, message: 'Booking deleted successfully' };
         
         case 'getReports':
@@ -1887,6 +2518,10 @@ function getMockData(action, data) {
                 generatedAt: new Date().toISOString(),
                 reportData: reportData
             };
+        
+        case 'getSystemLogs':
+            const logs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
+            return { logs: logs };
         
         default:
             return { success: false, error: 'Unknown action' };
@@ -1916,11 +2551,13 @@ async function handleLogin() {
             if (currentUserRole === 'user') {
                 showElement(userDashboard);
                 resetBookingForm();
+                updateUserVehicleStatus();
             } else {
                 showElement(adminDashboard);
                 document.getElementById('adminDisplayName').textContent = 
                     result.role === 'mainadmin' ? 'Main Administrator' : 'Administrator';
                 loadAdminData();
+                loadSystemLogs();
             }
         } else {
             showMessage(result.error || 'Invalid password');
@@ -1934,6 +2571,7 @@ async function handleLogin() {
 }
 
 function logout() {
+    logSystemActivity('system', currentUserRole === 'user' ? 'User' : 'Administrator', 'Logout');
     showElement(userDashboard, false);
     showElement(adminDashboard, false);
     showElement(loginScreen);
@@ -1943,7 +2581,7 @@ function logout() {
 
 // Booking Functions
 async function submitBooking() {
-    const requiredFields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+    const requiredFields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
     
     for (const fieldId of requiredFields) {
         const field = document.getElementById(fieldId);
@@ -1972,6 +2610,7 @@ async function submitBooking() {
         userDesignation: document.getElementById('userDesignation').value.trim(),
         userBranch: document.getElementById('userBranch').value.trim(),
         userPhone: document.getElementById('userPhone').value.trim(),
+        approvedBy: document.getElementById('approvedBy').value.trim(),
         purpose: document.getElementById('purpose').value.trim(),
         seatCount: document.getElementById('seatCount').value,
         distance: document.getElementById('distance').value,
@@ -1994,6 +2633,11 @@ async function submitBooking() {
             updateBookingConfirmation(result, bookingData);
             showElement(bookingForm, false);
             showElement(bookingSuccess);
+            
+            // Update admin dashboard if it's open
+            if (document.getElementById('adminDashboard').style.display === 'block') {
+                loadAdminData();
+            }
         } else {
             alert('Booking submission failed: ' + (result.error || 'Unknown error'));
         }
@@ -2012,6 +2656,7 @@ function updateBookingConfirmation(result, data) {
     document.getElementById('enhancedPdfUserDetails').textContent = 
         `${data.userName}, ${data.userDesignation}, ${data.userPhone}`;
     document.getElementById('enhancedPdfBranch').textContent = data.userBranch;
+    document.getElementById('enhancedPdfApprovedBy').textContent = data.approvedBy;
     document.getElementById('enhancedPdfTripDetails').textContent = 
         `${data.purpose}. From ${data.startLocation} to ${data.destination}. ${formatDateTime(data.startDateTime)} to ${formatDateTime(data.endDateTime)}`;
     document.getElementById('enhancedPdfVehicleReq').textContent = 
@@ -2024,7 +2669,7 @@ function updateBookingConfirmation(result, data) {
 }
 
 function resetBookingForm() {
-    const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+    const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
     fields.forEach(id => {
         const field = document.getElementById(id);
         if (field) field.value = '';
@@ -2037,7 +2682,100 @@ function resetBookingForm() {
     showElement(bookingSuccess, false);
 }
 
-// Admin Functions
+// User Vehicle Status Functions with Pagination
+async function updateUserVehicleStatus() {
+    try {
+        const vehiclesResult = await callGoogleAppsScript('getVehicles');
+        vehicles = vehiclesResult.vehicles || [];
+        
+        // Update stats
+        const available = vehicles.filter(v => v.status === 'Available').length;
+        const booked = vehicles.filter(v => v.status === 'Booked').length;
+        const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
+        
+        userAvailableCount.textContent = available;
+        userBookedCount.textContent = booked;
+        userMaintenanceCount.textContent = maintenance;
+        userTotalVehicles.textContent = vehicles.length;
+        
+        // Filter vehicles based on search
+        filterUserVehicles();
+    } catch (error) {
+        console.error('Error loading user vehicle data:', error);
+    }
+}
+
+function filterUserVehicles() {
+    const searchTerm = searchUserVehicles.value.toLowerCase();
+    
+    filteredUserVehicles = vehicles.filter(vehicle => {
+        const searchMatch = !searchTerm || 
+            vehicle.vehicleno.toLowerCase().includes(searchTerm) ||
+            vehicle.type.toLowerCase().includes(searchTerm) ||
+            vehicle.status.toLowerCase().includes(searchTerm);
+        
+        return searchMatch;
+    });
+    
+    userVehiclePage = 1;
+    displayUserVehicles();
+    updateUserVehiclePagination();
+}
+
+function displayUserVehicles() {
+    userVehiclesList.innerHTML = '';
+    
+    if (filteredUserVehicles.length === 0) {
+        userVehiclesList.innerHTML = '<tr><td colspan="4" class="text-center">No vehicles found</td></tr>';
+        return;
+    }
+
+    const startIndex = (userVehiclePage - 1) * userVehicleItemsPerPage;
+    const endIndex = Math.min(startIndex + userVehicleItemsPerPage, filteredUserVehicles.length);
+    const currentVehicles = filteredUserVehicles.slice(startIndex, endIndex);
+
+    currentVehicles.forEach(vehicle => {
+        const tr = document.createElement('tr');
+        const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
+                        vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
+        const statusClass = `status-${vehicle.status.toLowerCase()}`;
+        
+        tr.innerHTML = `
+            <td>${vehicle.vehicleno}</td>
+            <td><span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></td>
+            <td>${vehicle.seatcapacity} seats</td>
+            <td><span class="status-badge ${statusClass}">${vehicle.status}</span></td>
+        `;
+        userVehiclesList.appendChild(tr);
+    });
+}
+
+function updateUserVehiclePagination() {
+    const totalPages = Math.ceil(filteredUserVehicles.length / userVehicleItemsPerPage);
+    userVehiclePageInfo.textContent = `Page ${userVehiclePage} of ${totalPages}`;
+    userVehiclePaginationInfo.textContent = `Page ${userVehiclePage} of ${totalPages}`;
+    userPrevPage.disabled = userVehiclePage === 1;
+    userNextPage.disabled = userVehiclePage === totalPages || totalPages === 0;
+}
+
+function goToUserPrevPage() {
+    if (userVehiclePage > 1) {
+        userVehiclePage--;
+        displayUserVehicles();
+        updateUserVehiclePagination();
+    }
+}
+
+function goToUserNextPage() {
+    const totalPages = Math.ceil(filteredUserVehicles.length / userVehicleItemsPerPage);
+    if (userVehiclePage < totalPages) {
+        userVehiclePage++;
+        displayUserVehicles();
+        updateUserVehiclePagination();
+    }
+}
+
+// Admin Functions with Enhanced Stats
 async function loadAdminData() {
     showElement(adminSpinner);
     
@@ -2052,10 +2790,16 @@ async function loadAdminData() {
         vehicles = vehiclesResult.vehicles || [];
         drivers = driversResult.drivers || [];
 
+        // Update stats
+        updateAdminStats();
+        
         populateVehicleDropdown();
         populateDriverDropdown();
         filterBookings();
         updateVehicleStatus();
+        
+        // Update notification badge
+        updatePendingBookingNotification();
     } catch (error) {
         console.error('Error loading admin data:', error);
         requestsTableBody.innerHTML = '<tr><td colspan="9" class="text-center">Error loading data</td></tr>';
@@ -2064,28 +2808,20 @@ async function loadAdminData() {
     }
 }
 
+function updateAdminStats() {
+    // Booking stats
+    totalBookings.textContent = allBookings.length;
+    pendingBookings.textContent = allBookings.filter(b => b.status === 'Pending').length;
+    approvedBookings.textContent = allBookings.filter(b => b.status === 'Approved').length;
+    totalVehiclesStat.textContent = vehicles.length;
+}
+
 function populateVehicleDropdown() {
-    vehicleSelect.innerHTML = '<option value="">Select Vehicle</option>';
-    vehicles.filter(v => v.status === 'Available').forEach(vehicle => {
-        const option = document.createElement('option');
-        option.value = vehicle.id;
-        option.textContent = `${vehicle.vehicleno} - ${vehicle.type} (${vehicle.seatcapacity} seats)`;
-        option.setAttribute('data-vehicleno', vehicle.vehicleno);
-        option.setAttribute('data-type', vehicle.type);
-        vehicleSelect.appendChild(option);
-    });
+    // This is now handled by the selection list in the modal
 }
 
 function populateDriverDropdown() {
-    driverSelect.innerHTML = '<option value="">Select Driver</option>';
-    drivers.filter(d => d.status === 'Available').forEach(driver => {
-        const option = document.createElement('option');
-        option.value = driver.id;
-        option.textContent = `${driver.name} (${driver.phone})`;
-        option.setAttribute('data-name', driver.name);
-        option.setAttribute('data-phone', driver.phone);
-        driverSelect.appendChild(option);
-    });
+    // This is now handled by the selection list in the modal
 }
 
 function filterBookings() {
@@ -2106,6 +2842,7 @@ function filterBookings() {
     currentPage = 1;
     displayBookings();
     updatePagination();
+    updateAdminStats();
 }
 
 function displayBookings() {
@@ -2190,22 +2927,180 @@ function goToNextPage() {
     }
 }
 
-// Modal Functions
+// Modal Functions with Enhanced Selection
 function openAllocationModal(bookingId) {
     currentBookingId = bookingId;
     const booking = allBookings.find(b => b.id === bookingId);
     
     if (booking) {
-        populateVehicleDropdown();
-        populateDriverDropdown();
-        uniquePassword.value = ''; // Fixed: changed from adminPassword
-        showElement(allocationModal);
+        // Reset selection
+        selectedVehicleId = null;
+        selectedDriverId = null;
+        selectedVehicleText.textContent = 'None selected';
+        selectedDriverText.textContent = 'None selected';
         
+        // Reset search and pagination
         searchVehicleModal.value = '';
         searchDriverModal.value = '';
+        vehicleModalPage = 1;
+        driverModalPage = 1;
+        
+        // Load available vehicles and drivers
+        filterModalVehicles();
+        filterModalDrivers();
+        
+        showElement(allocationModal);
         
         console.log('Opening allocation modal for booking:', booking);
         console.log('Booking password:', booking.uniquepassword);
+    }
+}
+
+function filterModalVehicles() {
+    const searchTerm = searchVehicleModal.value.toLowerCase();
+    
+    filteredModalVehicles = vehicles.filter(vehicle => {
+        const searchMatch = !searchTerm || 
+            vehicle.vehicleno.toLowerCase().includes(searchTerm) ||
+            vehicle.type.toLowerCase().includes(searchTerm);
+        
+        return searchMatch && vehicle.status === 'Available';
+    });
+    
+    displayModalVehicles();
+    updateVehicleModalPagination();
+}
+
+function displayModalVehicles() {
+    vehicleSelectionList.innerHTML = '';
+    
+    if (filteredModalVehicles.length === 0) {
+        vehicleSelectionList.innerHTML = '<div class="selection-item">No available vehicles found</div>';
+        return;
+    }
+
+    const startIndex = (vehicleModalPage - 1) * modalItemsPerPage;
+    const endIndex = Math.min(startIndex + modalItemsPerPage, filteredModalVehicles.length);
+    const currentVehicles = filteredModalVehicles.slice(startIndex, endIndex);
+
+    currentVehicles.forEach(vehicle => {
+        const div = document.createElement('div');
+        div.className = `selection-item ${selectedVehicleId === vehicle.id ? 'selected' : ''}`;
+        div.innerHTML = `
+            <div><strong>${vehicle.vehicleno}</strong> - ${vehicle.type}</div>
+            <div>${vehicle.seatcapacity} seats</div>
+        `;
+        div.addEventListener('click', () => selectVehicle(vehicle, div));
+        vehicleSelectionList.appendChild(div);
+    });
+}
+
+function selectVehicle(vehicle, element) {
+    selectedVehicleId = vehicle.id;
+    selectedVehicleText.textContent = `${vehicle.vehicleno} - ${vehicle.type} (${vehicle.seatcapacity} seats)`;
+    
+    // Update UI
+    document.querySelectorAll('#vehicleSelectionList .selection-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    element.classList.add('selected');
+}
+
+function filterModalDrivers() {
+    const searchTerm = searchDriverModal.value.toLowerCase();
+    
+    filteredModalDrivers = drivers.filter(driver => {
+        const searchMatch = !searchTerm || 
+            driver.name.toLowerCase().includes(searchTerm) ||
+            driver.phone.toLowerCase().includes(searchTerm);
+        
+        return searchMatch && driver.status === 'Available';
+    });
+    
+    displayModalDrivers();
+    updateDriverModalPagination();
+}
+
+function displayModalDrivers() {
+    driverSelectionList.innerHTML = '';
+    
+    if (filteredModalDrivers.length === 0) {
+        driverSelectionList.innerHTML = '<div class="selection-item">No available drivers found</div>';
+        return;
+    }
+
+    const startIndex = (driverModalPage - 1) * modalItemsPerPage;
+    const endIndex = Math.min(startIndex + modalItemsPerPage, filteredModalDrivers.length);
+    const currentDrivers = filteredModalDrivers.slice(startIndex, endIndex);
+
+    currentDrivers.forEach(driver => {
+        const div = document.createElement('div');
+        div.className = `selection-item ${selectedDriverId === driver.id ? 'selected' : ''}`;
+        div.innerHTML = `
+            <div><strong>${driver.name}</strong></div>
+            <div>${driver.phone}</div>
+        `;
+        div.addEventListener('click', () => selectDriver(driver, div));
+        driverSelectionList.appendChild(div);
+    });
+}
+
+function selectDriver(driver, element) {
+    selectedDriverId = driver.id;
+    selectedDriverText.textContent = `${driver.name} (${driver.phone})`;
+    
+    // Update UI
+    document.querySelectorAll('#driverSelectionList .selection-item').forEach(item => {
+        item.classList.remove('selected');
+    });
+    element.classList.add('selected');
+}
+
+function updateVehicleModalPagination() {
+    const totalPages = Math.ceil(filteredModalVehicles.length / modalItemsPerPage);
+    vehiclePageInfo.textContent = `Page ${vehicleModalPage} of ${totalPages}`;
+    vehiclePrevPage.disabled = vehicleModalPage === 1;
+    vehicleNextPage.disabled = vehicleModalPage === totalPages || totalPages === 0;
+}
+
+function updateDriverModalPagination() {
+    const totalPages = Math.ceil(filteredModalDrivers.length / modalItemsPerPage);
+    driverPageInfo.textContent = `Page ${driverModalPage} of ${totalPages}`;
+    driverPrevPage.disabled = driverModalPage === 1;
+    driverNextPage.disabled = driverModalPage === totalPages || totalPages === 0;
+}
+
+function goToVehiclePrevPage() {
+    if (vehicleModalPage > 1) {
+        vehicleModalPage--;
+        displayModalVehicles();
+        updateVehicleModalPagination();
+    }
+}
+
+function goToVehicleNextPage() {
+    const totalPages = Math.ceil(filteredModalVehicles.length / modalItemsPerPage);
+    if (vehicleModalPage < totalPages) {
+        vehicleModalPage++;
+        displayModalVehicles();
+        updateVehicleModalPagination();
+    }
+}
+
+function goToDriverPrevPage() {
+    if (driverModalPage > 1) {
+        driverModalPage--;
+        displayModalDrivers();
+        updateDriverModalPagination();
+    }
+}
+
+function goToDriverNextPage() {
+    const totalPages = Math.ceil(filteredModalDrivers.length / modalItemsPerPage);
+    if (driverModalPage < totalPages) {
+        driverModalPage++;
+        displayModalDrivers();
+        updateDriverModalPagination();
     }
 }
 
@@ -2218,6 +3113,7 @@ function openEditModal(bookingId) {
         document.getElementById('editUserDesignation').value = booking.userdesignation || '';
         document.getElementById('editUserBranch').value = booking.userbranch || '';
         document.getElementById('editUserPhone').value = booking.userphone || '';
+        document.getElementById('editApprovedBy').value = booking.approvedby || '';
         document.getElementById('editPurpose').value = booking.purpose || '';
         document.getElementById('editSeatCount').value = booking.seatcount || '';
         document.getElementById('editDistance').value = booking.distance || '';
@@ -2240,6 +3136,7 @@ function viewBooking(bookingId) {
         document.getElementById('viewUserDetails').textContent = 
             `${booking.username}, ${booking.userdesignation}, ${booking.userphone}`;
         document.getElementById('viewBranch').textContent = booking.userbranch;
+        document.getElementById('viewApprovedBy').textContent = booking.approvedby || 'Not specified';
         document.getElementById('viewTripDetails').textContent = 
             `${booking.purpose}. From ${booking.startlocation} to ${booking.destination}. ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}`;
         document.getElementById('viewVehicleReq').textContent = 
@@ -2258,14 +3155,12 @@ function viewBooking(bookingId) {
 }
 
 async function allocateVehicle() {
-    const vehicleId = vehicleSelect.value;
-    const driverId = driverSelect.value;
-    const password = uniquePassword.value.trim(); // Fixed: changed from adminPassword
-    
-    if (!vehicleId || !driverId) {
+    if (!selectedVehicleId || !selectedDriverId) {
         alert('Please select both a vehicle and a driver');
         return;
     }
+    
+    const password = uniquePassword.value.trim();
     
     if (!password) {
         alert('Please enter the booking password for verification');
@@ -2278,9 +3173,9 @@ async function allocateVehicle() {
     try {
         const result = await callGoogleAppsScript('allocateVehicle', {
             bookingId: currentBookingId,
-            vehicleId: vehicleId,
-            driverId: driverId,
-            uniquePassword: password.toUpperCase()  // FIXED: Changed parameter name to uniquePassword
+            vehicleId: selectedVehicleId,
+            driverId: selectedDriverId,
+            uniquePassword: password.toUpperCase()
         });
 
         if (result.success) {
@@ -2305,6 +3200,7 @@ async function saveBookingEdit() {
         userDesignation: document.getElementById('editUserDesignation').value,
         userBranch: document.getElementById('editUserBranch').value,
         userPhone: document.getElementById('editUserPhone').value,
+        approvedBy: document.getElementById('editApprovedBy').value,
         purpose: document.getElementById('editPurpose').value,
         seatCount: document.getElementById('editSeatCount').value,
         distance: document.getElementById('editDistance').value,
@@ -2379,14 +3275,17 @@ function updateVehicleList(listId, status) {
         );
     }
     
+    // Show only first 10 items in the admin dashboard cards
+    const displayItems = filtered.slice(0, 10);
+    
     list.innerHTML = '';
     
-    if (filtered.length === 0) {
+    if (displayItems.length === 0) {
         const li = document.createElement('li');
         li.textContent = 'No vehicles found';
         list.appendChild(li);
     } else {
-        filtered.forEach(vehicle => {
+        displayItems.forEach(vehicle => {
             const li = document.createElement('li');
             const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
                             vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
@@ -2397,23 +3296,126 @@ function updateVehicleList(listId, status) {
             `;
             list.appendChild(li);
         });
+        
+        // Show "and X more..." if there are more items
+        if (filtered.length > 10) {
+            const li = document.createElement('li');
+            li.innerHTML = `<span class="text-muted">... and ${filtered.length - 10} more</span>`;
+            list.appendChild(li);
+        }
+    }
+}
+
+// System Logs Functions
+async function loadSystemLogs() {
+    try {
+        const result = await callGoogleAppsScript('getSystemLogs');
+        systemLogs = result.logs || [];
+        filterLogs();
+    } catch (error) {
+        console.error('Error loading system logs:', error);
+        // Fallback to localStorage
+        systemLogs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
+        filterLogs();
+    }
+}
+
+function filterLogs() {
+    const typeFilter = logTypeFilter.value;
+    const searchTerm = searchLogs.value.toLowerCase();
+    
+    filteredLogs = systemLogs.filter(log => {
+        const typeMatch = typeFilter === 'all' || log.type === typeFilter;
+        const searchMatch = !searchTerm || 
+            log.user.toLowerCase().includes(searchTerm) ||
+            log.action.toLowerCase().includes(searchTerm) ||
+            log.details.toLowerCase().includes(searchTerm);
+        
+        return typeMatch && searchMatch;
+    });
+    
+    logsPage = 1;
+    displayLogs();
+    updateLogsPagination();
+}
+
+function displayLogs() {
+    systemLogsTable.innerHTML = '';
+    
+    if (filteredLogs.length === 0) {
+        systemLogsTable.innerHTML = '<tr><td colspan="5" class="text-center">No logs found</td></tr>';
+        return;
+    }
+
+    const startIndex = (logsPage - 1) * logsItemsPerPage;
+    const endIndex = Math.min(startIndex + logsItemsPerPage, filteredLogs.length);
+    const currentLogs = filteredLogs.slice(startIndex, endIndex);
+
+    currentLogs.forEach(log => {
+        const tr = document.createElement('tr');
+        const typeClass = `status-${log.type.toLowerCase()}`;
+        
+        tr.innerHTML = `
+            <td>${formatDateTime(log.timestamp)}</td>
+            <td><span class="status-badge ${typeClass}">${log.type}</span></td>
+            <td>${log.user}</td>
+            <td>${log.action}</td>
+            <td>${log.details || '-'}</td>
+        `;
+        systemLogsTable.appendChild(tr);
+    });
+}
+
+function updateLogsPagination() {
+    const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
+    logsPageInfo.textContent = `Page ${logsPage} of ${totalPages}`;
+    logsPrevPage.disabled = logsPage === 1;
+    logsNextPage.disabled = logsPage === totalPages || totalPages === 0;
+}
+
+function goToLogsPrevPage() {
+    if (logsPage > 1) {
+        logsPage--;
+        displayLogs();
+        updateLogsPagination();
+    }
+}
+
+function goToLogsNextPage() {
+    const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
+    if (logsPage < totalPages) {
+        logsPage++;
+        displayLogs();
+        updateLogsPagination();
     }
 }
 
 // Report Functions
 async function generateReport() {
-    const reportData = {
-        reportType: reportType.value,
-        startDate: startDate.value,
-        endDate: endDate.value
-    };
+    const type = reportType.value;
+    const start = startDate.value;
+    const end = endDate.value;
+    
+    if (start && end && new Date(start) > new Date(end)) {
+        alert('Start date cannot be after end date');
+        return;
+    }
 
     generateReportBtn.disabled = true;
     generateReportBtn.innerHTML = '<div class="spinner"></div>';
 
     try {
-        const result = await callGoogleAppsScript('getReports', reportData);
-        displayReport(result);
+        const result = await callGoogleAppsScript('getReports', {
+            type: type,
+            startDate: start,
+            endDate: end
+        });
+
+        if (result.success) {
+            displayReport(result);
+        } else {
+            alert('Report generation failed: ' + (result.error || 'Unknown error'));
+        }
     } catch (error) {
         alert('Report generation failed. Please try again.');
     } finally {
@@ -2423,500 +3425,414 @@ async function generateReport() {
 }
 
 function displayReport(result) {
-    if (!result.success) {
-        alert('Report generation failed: ' + result.error);
-        return;
+    let html = `
+        <div class="enhanced-pdf">
+            <div class="enhanced-pdf-header">
+                <div class="enhanced-pdf-title">${result.title}</div>
+                <div class="enhanced-pdf-subtitle">Generated on ${formatDateTime(result.generatedAt)}</div>
+            </div>
+    `;
+
+    if (result.reportData && result.reportData.length > 0) {
+        html += '<table class="user-vehicle-table" style="width: 100%; margin-top: 20px;">';
+        
+        // Header row
+        html += '<thead><tr>';
+        result.reportData[0].forEach(cell => {
+            html += `<th>${cell}</th>`;
+        });
+        html += '</tr></thead>';
+        
+        // Data rows
+        html += '<tbody>';
+        for (let i = 1; i < result.reportData.length; i++) {
+            html += '<tr>';
+            result.reportData[i].forEach(cell => {
+                html += `<td>${cell}</td>`;
+            });
+            html += '</tr>';
+        }
+        html += '</tbody>';
+        html += '</table>';
+    } else {
+        html += '<p>No data available for the selected criteria.</p>';
     }
 
-    let html = `
-        <div class="requests-table">
-            <div class="table-header">
-                <div class="table-title">${result.title}</div>
-                <div>Generated: ${new Date(result.generatedAt).toLocaleString()}</div>
-            </div>
-            <div class="table-container">
-                <table>
-    `;
-    
-    result.reportData.forEach((row, rowIndex) => {
-        html += '<tr>';
-        row.forEach(cell => {
-            const tag = rowIndex === 0 ? 'th' : 'td';
-            html += `<${tag}>${cell}</${tag}>`;
-        });
-        html += '</tr>';
-    });
-    
-    html += `
-                </table>
-            </div>
-        </div>
-    `;
-    
+    html += '</div>';
+
     reportResults.innerHTML = html;
 }
 
 // QR Code Generation
-function generateQRCode(refNumber, startDate, endDate, elementId, vehicleNumber = '', password = '') {
-    let qrData = `Booking Ref: ${refNumber}\nStart Date: ${formatDate(startDate)}\nEnd Date: ${formatDate(endDate)}`;
-    
-    if (vehicleNumber) {
-        qrData += `\nVehicle: ${vehicleNumber}`;
-    }
-    
-    if (password) {
-        qrData += `\nPassword: ${password}`;
-    }
-    
-    const container = document.getElementById(elementId);
-    container.innerHTML = '';
+function generateQRCode(refNumber, startTime, endTime, elementId, vehicleNumber = '', password = '') {
+    const qrData = `Booking Ref: ${refNumber}
+Start: ${formatDateTime(startTime)}
+End: ${formatDateTime(endTime)}
+Vehicle: ${vehicleNumber || 'Not allocated'}
+Password: ${password}
+Ministry of Health Vehicle Booking System`;
     
     const qr = qrcode(0, 'M');
     qr.addData(qrData);
     qr.make();
     
-    const qrImg = qr.createImgTag(4);
-    container.innerHTML = qrImg;
+    const qrElement = document.getElementById(elementId);
+    qrElement.innerHTML = qr.createImgTag(5);
 }
 
-// PDF Generation Functions - Improved Formal Layout
-function downloadPDF() {
+// PDF Generation Functions - COMPLETE VERSION
+function generatePDF(isFinal = false) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
     
-    doc.setProperties({
-        title: `Vehicle Booking Confirmation - ${currentBookingRef}`,
-        subject: 'Ministry of Health Vehicle Booking',
-        author: 'Ministry of Health',
-        keywords: 'vehicle, booking, confirmation',
-        creator: 'Vehicle Booking System'
-    });
-    
-    // Header
-    doc.setFillColor(26, 115, 232);
-    doc.rect(0, 0, pageWidth, 35, 'F');
-    
-    doc.setTextColor(255, 255, 255);
+    // Add Ministry of Health logo/header
     doc.setFontSize(20);
-    doc.setFont(undefined, 'bold');
-    doc.text('MINISTRY OF HEALTH', pageWidth / 2, 12, { align: 'center' });
-    
-    doc.setFontSize(14);
-    doc.setFont(undefined, 'normal');
-    doc.text('Vehicle Booking Confirmation', pageWidth / 2, 25, { align: 'center' });
-    
-    // Main content area
-    let currentY = 45;
-    
-    // Booking Details Section
-    doc.setTextColor(0, 0, 0);
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
-    doc.setTextColor(26, 115, 232);
-    doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text('BOOKING DETAILS', 20, currentY + 7);
-    
-    currentY += 15;
-    doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
-    
-    doc.text(`Booking Reference:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${currentBookingRef}`, 80, currentY);
-    
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Unique Password:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('enhancedPdfPassword').textContent}`, 80, currentY);
-    
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Submission Date:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${new Date().toLocaleDateString()}`, 80, currentY);
-    
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Status:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`PENDING APPROVAL`, 80, currentY);
-    
-    // Requestor Details Section
-    currentY += 12;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
     doc.setTextColor(26, 115, 232);
     doc.setFont(undefined, 'bold');
-    doc.setFontSize(12);
-    doc.text('REQUESTOR DETAILS', 20, currentY + 7);
+    doc.text('MINISTRY OF HEALTH', 105, 20, { align: 'center' });
     
-    currentY += 15;
+    doc.setFontSize(16);
+    doc.setTextColor(95, 99, 104);
+    doc.text('Vehicle Booking System', 105, 30, { align: 'center' });
+    
+    // Add a horizontal line
+    doc.setDrawColor(26, 115, 232);
+    doc.line(20, 40, 190, 40);
+    
+    // Title based on document type
+    doc.setFontSize(18);
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
+    doc.text(isFinal ? 'VEHICLE BOOKING CONFIRMATION' : 'VEHICLE BOOKING REQUEST', 105, 55, { align: 'center' });
     
-    const userDetails = document.getElementById('enhancedPdfUserDetails').textContent;
-    doc.text(`Name & Designation:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(userDetails, 80, currentY);
-    
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Branch/Section:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('enhancedPdfBranch').textContent}`, 80, currentY);
-    
-    // Trip Details Section
-    currentY += 12;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
-    doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
-    doc.setFontSize(12);
-    doc.text('TRIP DETAILS', 20, currentY + 7);
-    
-    currentY += 15;
-    doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
-    
-    const tripDetails = document.getElementById('enhancedPdfTripDetails').textContent;
-    const splitTripDetails = doc.splitTextToSize(tripDetails, pageWidth - 40);
-    doc.text(splitTripDetails, 20, currentY);
-    
-    currentY += (splitTripDetails.length * 6) + 5;
-    
-    // Vehicle Requirements Section
-    currentY += 5;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
-    doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
-    doc.setFontSize(12);
-    doc.text('VEHICLE REQUIREMENTS', 20, currentY + 7);
-    
-    currentY += 15;
-    doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
-    
-    doc.text(`Seat Requirement:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(document.getElementById('enhancedPdfVehicleReq').textContent, 80, currentY);
-    
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Estimated Distance:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('enhancedPdfDistance').textContent}`, 80, currentY);
-    
-    // QR Code
-    currentY += 15;
-    const qrCodeImg = document.querySelector('#qrCodeUser img');
-    if (qrCodeImg) {
-        const qrCodeDataURL = qrCodeImg.src;
-        doc.addImage(qrCodeDataURL, 'PNG', pageWidth - 70, currentY - 5, 50, 50);
+    // Add content based on whether it's final or preview
+    if (isFinal) {
+        const booking = allBookings.find(b => b.id === currentBookingId);
+        if (booking) {
+            addFormalBookingContentToPDF(doc, booking, true);
+        }
+    } else {
+        // For preview, use the data from the confirmation section
+        addFormalPreviewContentToPDF(doc);
     }
     
-    // Signature Section - Properly positioned
-    currentY = pageHeight - 55;
-    doc.setDrawColor(0, 0, 0);
-    doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
+    // Add QR Code to PDF
+    if (!isFinal) {
+        // Get QR code data URL
+        const qrCodeElement = document.querySelector('#qrCodeUser img');
+        if (qrCodeElement) {
+            const qrCodeDataURL = qrCodeElement.src;
+            // Position QR code at bottom right
+            doc.addImage(qrCodeDataURL, 'PNG', 150, 230, 40, 40);
+        }
+    } else {
+        const qrCodeElement = document.querySelector('#qrCodeAdmin img');
+        if (qrCodeElement) {
+            const qrCodeDataURL = qrCodeElement.src;
+            // Position QR code at bottom right for final PDF
+            doc.addImage(qrCodeDataURL, 'PNG', 150, 230, 40, 40);
+        }
+    }
+    
+    // Add footer
     doc.setFontSize(10);
+    doc.setTextColor(128, 128, 128);
+    doc.text('Official Document - Ministry of Health Vehicle Booking System', 105, 275, { align: 'center' });
+    doc.text(`Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`, 105, 280, { align: 'center' });
+    doc.text(`Page 1 of 1`, 105, 285, { align: 'center' });
     
-    // Left signature line
-    doc.line(20, currentY, 85, currentY);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'normal');
-    doc.text('Approval Signature', 20, currentY + 5);
-    doc.text('(Head of Department/Deputy Director General)', 20, currentY + 10);
+    // Save the PDF
+    const fileName = isFinal ? 
+        `booking_confirmation_${currentBookingRef}.pdf` : 
+        `booking_request_${currentBookingRef}.pdf`;
     
-    // Date line
-    doc.line(110, currentY, 175, currentY);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'normal');
-    doc.text('Date', 110, currentY + 5);
+    doc.save(fileName);
     
-    // Footer
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text('This is an electronically generated document. Please retain for your records.', pageWidth / 2, pageHeight - 3, { align: 'center' });
-    
-    doc.save(`booking-${currentBookingRef}.pdf`);
+    logSystemActivity('system', currentUserRole, 'PDF Downloaded', 
+        isFinal ? `Final confirmation for ${currentBookingRef}` : `Request preview for ${currentBookingRef}`);
 }
 
-function downloadFinalPDF() {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
+function addFormalPreviewContentToPDF(doc) {
+    let yPosition = 70;
     
-    doc.setProperties({
-        title: `Vehicle Booking Details - ${document.getElementById('viewRefNumber').textContent}`,
-        subject: 'Ministry of Health Vehicle Booking',
-        author: 'Ministry of Health',
-        keywords: 'vehicle, booking, details',
-        creator: 'Vehicle Booking System'
-    });
+    // Reference and Date section
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Booking Reference: ${currentBookingRef}`, 20, yPosition);
+    doc.text(`Submission Date: ${new Date().toLocaleDateString()}`, 120, yPosition);
+    yPosition += 15;
     
-    // Header
-    doc.setFillColor(26, 115, 232);
-    doc.rect(0, 0, pageWidth, 35, 'F');
-    
-    doc.setTextColor(255, 255, 255);
-    doc.setFontSize(20);
-    doc.setFont(undefined, 'bold');
-    doc.text('MINISTRY OF HEALTH', pageWidth / 2, 12, { align: 'center' });
-    
+    // User Details section
     doc.setFontSize(14);
-    doc.setFont(undefined, 'normal');
-    doc.text('Vehicle Booking Details', pageWidth / 2, 25, { align: 'center' });
-    
-    // Main content area
-    let currentY = 45;
-    
-    // Booking Details Section
-    doc.setTextColor(0, 0, 0);
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
     doc.setTextColor(26, 115, 232);
+    doc.text('REQUESTOR DETAILS', 20, yPosition);
+    yPosition += 10;
+    
     doc.setFontSize(12);
-    doc.setFont(undefined, 'bold');
-    doc.text('BOOKING DETAILS', 20, currentY + 7);
-    
-    currentY += 15;
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
+    doc.text(`Full Name: ${document.getElementById('userName').value}`, 20, yPosition);
+    doc.text(`Designation: ${document.getElementById('userDesignation').value}`, 120, yPosition);
+    yPosition += 8;
     
-    doc.text(`Booking Reference:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewRefNumber').textContent}`, 80, currentY);
+    doc.text(`Branch/Section: ${document.getElementById('userBranch').value}`, 20, yPosition);
+    doc.text(`Phone: ${document.getElementById('userPhone').value}`, 120, yPosition);
+    yPosition += 8;
     
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Submission Date:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewDate').textContent}`, 80, currentY);
+    doc.text(`Approved By: ${document.getElementById('approvedBy').value}`, 20, yPosition);
+    yPosition += 15;
     
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Status:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewStatus').textContent}`, 80, currentY);
-    
-    // Requestor Details Section
-    currentY += 12;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    // Trip Details section
+    doc.setFontSize(14);
     doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
+    doc.text('TRIP DETAILS', 20, yPosition);
+    yPosition += 10;
+    
     doc.setFontSize(12);
-    doc.text('REQUESTOR DETAILS', 20, currentY + 7);
-    
-    currentY += 15;
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
+    doc.text(`Purpose: ${document.getElementById('purpose').value}`, 20, yPosition);
+    yPosition += 8;
     
-    const userDetails = document.getElementById('viewUserDetails').textContent;
-    doc.text(`Name & Designation:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(userDetails, 80, currentY);
+    doc.text(`From: ${document.getElementById('startLocation').value}`, 20, yPosition);
+    doc.text(`To: ${document.getElementById('destination').value}`, 120, yPosition);
+    yPosition += 8;
     
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Branch/Section:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewBranch').textContent}`, 80, currentY);
+    doc.text(`Start: ${formatDateTime(document.getElementById('startDateTime').value)}`, 20, yPosition);
+    doc.text(`End: ${formatDateTime(document.getElementById('endDateTime').value)}`, 120, yPosition);
+    yPosition += 15;
     
-    // Trip Details Section
-    currentY += 12;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    // Vehicle Requirements section
+    doc.setFontSize(14);
     doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
+    doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
+    yPosition += 10;
+    
     doc.setFontSize(12);
-    doc.text('TRIP DETAILS', 20, currentY + 7);
-    
-    currentY += 15;
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
+    doc.text(`Seats Required: ${document.getElementById('seatCount').value}`, 20, yPosition);
+    doc.text(`Distance: ${document.getElementById('distance').value} KM`, 120, yPosition);
+    yPosition += 8;
     
-    const tripDetails = document.getElementById('viewTripDetails').textContent;
-    const splitTripDetails = doc.splitTextToSize(tripDetails, pageWidth - 40);
-    doc.text(splitTripDetails, 20, currentY);
+    doc.text(`Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}`, 20, yPosition);
+    yPosition += 15;
     
-    currentY += (splitTripDetails.length * 6) + 5;
-    
-    // Vehicle & Driver Allocation Section
-    currentY += 5;
-    doc.setFillColor(240, 240, 240);
-    doc.rect(15, currentY, pageWidth - 30, 10, 'F');
+    // Status and Password
+    doc.setFontSize(14);
     doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
+    doc.text('BOOKING INFORMATION', 20, yPosition);
+    yPosition += 10;
+    
     doc.setFontSize(12);
-    doc.text('VEHICLE & DRIVER ALLOCATION', 20, currentY + 7);
-    
-    currentY += 15;
     doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(11);
+    doc.text(`Status: Pending Approval`, 20, yPosition);
+    doc.text(`Unique Password: ${uniquePasswordDisplay.textContent}`, 120, yPosition);
+    yPosition += 20;
     
-    doc.text(`Seat Requirement:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(document.getElementById('viewVehicleReq').textContent, 80, currentY);
+    // Signature section
+    doc.setDrawColor(0, 0, 0);
+    doc.line(20, yPosition, 100, yPosition);
+    doc.text('Approval Signature:', 20, yPosition + 10);
+    doc.text('_________________________', 20, yPosition + 20);
+    doc.text('Head of Department / Deputy Director General', 20, yPosition + 30);
+}
+
+function addFormalBookingContentToPDF(doc, booking, isFinal) {
+    let yPosition = 70;
     
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Estimated Distance:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewDistance').textContent}`, 80, currentY);
+    // Reference and Date section
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Booking Reference: ${booking.refnumber}`, 20, yPosition);
+    doc.text(`Submission Date: ${formatDate(booking.timestamp)}`, 120, yPosition);
+    yPosition += 15;
     
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Allocated Vehicle:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewVehicle').textContent}`, 80, currentY);
+    // User Details section
+    doc.setFontSize(14);
+    doc.setTextColor(26, 115, 232);
+    doc.text('REQUESTOR DETAILS', 20, yPosition);
+    yPosition += 10;
     
-    currentY += 7;
-    doc.setFont(undefined, 'normal');
-    doc.text(`Allocated Driver:`, 20, currentY);
-    doc.setFont(undefined, 'bold');
-    doc.text(`${document.getElementById('viewDriver').textContent}`, 80, currentY);
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Full Name: ${booking.username}`, 20, yPosition);
+    doc.text(`Designation: ${booking.userdesignation}`, 120, yPosition);
+    yPosition += 8;
     
-    // QR Code
-    currentY += 12;
-    const qrCodeImg = document.querySelector('#qrCodeAdmin img');
-    if (qrCodeImg) {
-        const qrCodeDataURL = qrCodeImg.src;
-        doc.addImage(qrCodeDataURL, 'PNG', pageWidth - 70, currentY - 5, 50, 50);
+    doc.text(`Branch/Section: ${booking.userbranch}`, 20, yPosition);
+    doc.text(`Phone: ${booking.userphone}`, 120, yPosition);
+    yPosition += 8;
+    
+    doc.text(`Approved By: ${booking.approvedby}`, 20, yPosition);
+    yPosition += 15;
+    
+    // Trip Details section
+    doc.setFontSize(14);
+    doc.setTextColor(26, 115, 232);
+    doc.text('TRIP DETAILS', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Purpose: ${booking.purpose}`, 20, yPosition);
+    yPosition += 8;
+    
+    doc.text(`From: ${booking.startlocation}`, 20, yPosition);
+    doc.text(`To: ${booking.destination}`, 120, yPosition);
+    yPosition += 8;
+    
+    doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 20, yPosition);
+    doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 120, yPosition);
+    yPosition += 15;
+    
+    // Vehicle Requirements section
+    doc.setFontSize(14);
+    doc.setTextColor(26, 115, 232);
+    doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Seats Required: ${booking.seatcount}`, 20, yPosition);
+    doc.text(`Distance: ${booking.distance} KM`, 120, yPosition);
+    yPosition += 8;
+    
+    doc.text(`Goods Transport: ${booking.goodstransport}`, 20, yPosition);
+    yPosition += 15;
+    
+    // Status and Allocation
+    doc.setFontSize(14);
+    doc.setTextColor(26, 115, 232);
+    doc.text('BOOKING INFORMATION', 20, yPosition);
+    yPosition += 10;
+    
+    doc.setFontSize(12);
+    doc.setTextColor(0, 0, 0);
+    doc.text(`Status: ${booking.status}`, 20, yPosition);
+    yPosition += 8;
+    
+    if (isFinal && booking.allocatedvehicle) {
+        doc.text(`Allocated Vehicle: ${booking.allocatedvehicle}`, 20, yPosition);
+        yPosition += 8;
+        
+        doc.text(`Allocated Driver: ${booking.allocateddriver}`, 20, yPosition);
+        yPosition += 8;
+        
+        doc.text(`Unique Password: ${booking.uniquepassword}`, 20, yPosition);
+        yPosition += 15;
     }
     
-    // Signature Section - Properly positioned
-    currentY = pageHeight - 55;
+    // Signature section
     doc.setDrawColor(0, 0, 0);
-    doc.setTextColor(0, 0, 0);
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(10);
-    
-    // Left signature line
-    doc.line(20, currentY, 85, currentY);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'normal');
-    doc.text('Approval Signature', 20, currentY + 5);
-    doc.text('(Head of Department/Deputy Director General)', 20, currentY + 10);
-    
-    // Date line
-    doc.line(110, currentY, 175, currentY);
-    doc.setFontSize(9);
-    doc.setFont(undefined, 'normal');
-    doc.text('Date', 110, currentY + 5);
-    
-    // Footer
-    doc.setFontSize(8);
-    doc.setTextColor(100, 100, 100);
-    doc.text('This is an electronically generated document. Please retain for your records.', pageWidth / 2, pageHeight - 3, { align: 'center' });
-    
-    doc.save(`booking-${document.getElementById('viewRefNumber').textContent}.pdf`);
+    doc.line(20, yPosition, 100, yPosition);
+    doc.text('Approval Signature:', 20, yPosition + 10);
+    doc.text('_________________________', 20, yPosition + 20);
+    doc.text('Head of Department / Deputy Director General', 20, yPosition + 30);
 }
-function sendWhatsApp() {
-    const phoneNumber = '0717888874';
-    const message = `Vehicle Booking Confirmation - Ref: ${currentBookingRef} - Password: ${uniquePasswordDisplay.textContent}`;
+
+// WhatsApp Integration
+function sendWhatsAppMessage(isFinal = false) {
+    let message = '';
+    
+    if (isFinal) {
+        const booking = allBookings.find(b => b.id === currentBookingId);
+        if (booking) {
+            message = `*Ministry of Health - Vehicle Booking Confirmation*
+
+*Booking Reference:* ${booking.refnumber}
+*Status:* ${booking.status}
+
+*Requestor Details:*
+Name: ${booking.username}
+Designation: ${booking.userdesignation}
+Branch: ${booking.userbranch}
+Phone: ${booking.userphone}
+
+*Trip Details:*
+Purpose: ${booking.purpose}
+From: ${booking.startlocation} to ${booking.destination}
+Start: ${formatDateTime(booking.startdatetime)}
+End: ${formatDateTime(booking.enddatetime)}
+
+*Vehicle Allocation:*
+Vehicle: ${booking.allocatedvehicle || 'Not allocated'}
+Driver: ${booking.allocateddriver || 'Not allocated'}
+
+*Important:* Keep your booking password (${booking.uniquepassword}) secure for any inquiries.
+
+Thank you for using the Ministry of Health Vehicle Booking System.`;
+        }
+    } else {
+        message = `*Ministry of Health - Vehicle Booking Request*
+
+*Booking Reference:* ${currentBookingRef}
+*Status:* Pending Approval
+
+*Requestor Details:*
+Name: ${document.getElementById('userName').value}
+Designation: ${document.getElementById('userDesignation').value}
+Branch: ${document.getElementById('userBranch').value}
+Phone: ${document.getElementById('userPhone').value}
+
+*Trip Details:*
+Purpose: ${document.getElementById('purpose').value}
+From: ${document.getElementById('startLocation').value} to ${document.getElementById('destination').value}
+Start: ${formatDateTime(document.getElementById('startDateTime').value)}
+End: ${formatDateTime(document.getElementById('endDateTime').value)}
+
+*Vehicle Requirements:*
+Seats: ${document.getElementById('seatCount').value}
+Distance: ${document.getElementById('distance').value} KM
+Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}
+
+*Important:* Your booking password is ${uniquePasswordDisplay.textContent}. Keep it secure for any inquiries.
+
+Your request is being processed. You will receive confirmation shortly.
+
+Thank you for using the Ministry of Health Vehicle Booking System.`;
+    }
+    
     const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
-    
+    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
-}
-
-// Search Functions
-function setupSearchFilters() {
-    searchVehicleModal.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const options = vehicleSelect.options;
-        
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            const vehicleNo = option.getAttribute('data-vehicleno') || '';
-            const type = option.getAttribute('data-type') || '';
-            
-            if (vehicleNo.toLowerCase().includes(searchTerm) || type.toLowerCase().includes(searchTerm)) {
-                option.style.display = '';
-            } else {
-                option.style.display = 'none';
-            }
-        }
-    });
     
-    searchDriverModal.addEventListener('input', function() {
-        const searchTerm = this.value.toLowerCase();
-        const options = driverSelect.options;
-        
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
-            const name = option.getAttribute('data-name') || '';
-            const phone = option.getAttribute('data-phone') || '';
-            
-            if (name.toLowerCase().includes(searchTerm) || phone.toLowerCase().includes(searchTerm)) {
-                option.style.display = '';
-            } else {
-                option.style.display = 'none';
-            }
-        }
-    });
-    
-    searchBookings.addEventListener('input', filterBookings);
-    
-    searchVehicles.addEventListener('input', function() {
-        updateVehicleStatus();
-    });
+    logSystemActivity('system', currentUserRole, 'WhatsApp Message Sent', 
+        isFinal ? `Final confirmation for ${currentBookingRef}` : `Request preview for ${currentBookingRef}`);
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
-    // Initialize localStorage
     initializeLocalStorage();
     
-    const today = new Date();
-    const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-    startDate.value = firstDay.toISOString().split('T')[0];
-    endDate.value = today.toISOString().split('T')[0];
-
-    setupSearchFilters();
-
+    // Role selection
     roleOptions.forEach(option => {
         option.addEventListener('click', function() {
-            roleOptions.forEach(opt => opt.classList.remove('active'));
+            roleOptions.forEach(o => o.classList.remove('active'));
             this.classList.add('active');
             currentUserRole = this.dataset.role;
         });
     });
-
+    
+    // Login
     loginBtn.addEventListener('click', handleLogin);
     passwordInput.addEventListener('keypress', function(e) {
         if (e.key === 'Enter') handleLogin();
     });
-
+    
+    // Logout
     userLogout.addEventListener('click', logout);
     adminLogout.addEventListener('click', logout);
-
+    
+    // Booking form
     submitBookingBtn.addEventListener('click', submitBooking);
     newBookingBtn.addEventListener('click', resetBookingForm);
-    downloadPdfBtn.addEventListener('click', downloadPDF);
-    sendWhatsAppBtn.addEventListener('click', sendWhatsApp);
-
-    statusFilter.addEventListener('change', filterBookings);
     
-    prevPageBtn.addEventListener('click', goToPrevPage);
-    nextPageBtn.addEventListener('click', goToNextPage);
-
+    // PDF download
+    downloadPdfBtn.addEventListener('click', () => generatePDF(false));
+    downloadFinalPdfBtn.addEventListener('click', () => generatePDF(true));
+    
+    // WhatsApp
+    sendWhatsAppBtn.addEventListener('click', () => sendWhatsAppMessage(false));
+    sendWhatsAppAdminBtn.addEventListener('click', () => sendWhatsAppMessage(true));
+    
+    // Admin tabs
     adminTabs.forEach(tab => {
         tab.addEventListener('click', function() {
             adminTabs.forEach(t => t.classList.remove('active'));
@@ -2924,48 +3840,126 @@ document.addEventListener('DOMContentLoaded', function() {
             
             const tabId = this.dataset.tab + 'Tab';
             document.querySelectorAll('.admin-tab-content').forEach(content => {
-                content.classList.add('hidden');
+                showElement(content, content.id === tabId);
             });
-            document.getElementById(tabId).classList.remove('hidden');
             
-            if (tabId === 'vehiclesTab') {
-                updateVehicleStatus();
+            if (this.dataset.tab === 'logs') {
+                loadSystemLogs();
             }
         });
     });
-
-    closeModals.forEach(button => {
-        button.addEventListener('click', function() {
-            showElement(allocationModal, false);
-            showElement(editModal, false);
-            showElement(viewModal, false);
+    
+    // User tabs
+    userTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            userTabs.forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            const tabId = this.dataset.tab + 'Tab';
+            document.querySelectorAll('.user-tab-content').forEach(content => {
+                showElement(content, content.id === tabId);
+            });
+            
+            if (this.dataset.tab === 'vehicles') {
+                updateUserVehicleStatus();
+            }
         });
     });
-
-    cancelAllocationBtn.addEventListener('click', () => showElement(allocationModal, false));
-    confirmAllocationBtn.addEventListener('click', allocateVehicle);
-
-    cancelEditBtn.addEventListener('click', () => showElement(editModal, false));
-    confirmEditBtn.addEventListener('click', saveBookingEdit);
-
-    closeViewBtn.addEventListener('click', () => showElement(viewModal, false));
-    downloadFinalPdfBtn.addEventListener('click', downloadFinalPDF);
-    sendWhatsAppAdminBtn.addEventListener('click', sendWhatsApp);
-
-    window.addEventListener('click', function(event) {
-        if (event.target === allocationModal) showElement(allocationModal, false);
-        if (event.target === editModal) showElement(editModal, false);
-        if (event.target === viewModal) showElement(viewModal, false);
+    
+    // Filtering and search
+    statusFilter.addEventListener('change', filterBookings);
+    searchBookings.addEventListener('input', filterBookings);
+    searchVehicles.addEventListener('input', () => {
+        updateVehicleStatus();
+        filterModalVehicles();
     });
-
+    
+    // Pagination
+    prevPageBtn.addEventListener('click', goToPrevPage);
+    nextPageBtn.addEventListener('click', goToNextPage);
+    
+    // User vehicle pagination
+    userPrevPage.addEventListener('click', goToUserPrevPage);
+    userNextPage.addEventListener('click', goToUserNextPage);
+    searchUserVehicles.addEventListener('input', filterUserVehicles);
+    
+    // Modal pagination
+    vehiclePrevPage.addEventListener('click', goToVehiclePrevPage);
+    vehicleNextPage.addEventListener('click', goToVehicleNextPage);
+    driverPrevPage.addEventListener('click', goToDriverPrevPage);
+    driverNextPage.addEventListener('click', goToDriverNextPage);
+    
+    // Search in modals
+    searchVehicleModal.addEventListener('input', filterModalVehicles);
+    searchDriverModal.addEventListener('input', filterModalDrivers);
+    
+    // Modals
+    closeModals.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            showElement(modal, false);
+        });
+    });
+    
+    // Allocation modal
+    confirmAllocationBtn.addEventListener('click', allocateVehicle);
+    cancelAllocationBtn.addEventListener('click', () => showElement(allocationModal, false));
+    
+    // Edit modal
+    confirmEditBtn.addEventListener('click', saveBookingEdit);
+    cancelEditBtn.addEventListener('click', () => showElement(editModal, false));
+    
+    // View modal
+    closeViewBtn.addEventListener('click', () => showElement(viewModal, false));
+    
+    // Reports
     generateReportBtn.addEventListener('click', generateReport);
+    
+    // System logs
+    logTypeFilter.addEventListener('change', filterLogs);
+    searchLogs.addEventListener('input', filterLogs);
+    refreshLogs.addEventListener('click', loadSystemLogs);
+    logsPrevPage.addEventListener('click', goToLogsPrevPage);
+    logsNextPage.addEventListener('click', goToLogsNextPage);
+    
+    // Export logs
+    document.getElementById('exportLogs').addEventListener('click', exportLogs);
+    
+    // Close modals when clicking outside
+    window.addEventListener('click', function(event) {
+        if (event.target.classList.contains('modal')) {
+            showElement(event.target, false);
+        }
+    });
+    
+    // Set default dates for reports
+    const today = new Date();
+    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+    startDate.value = lastWeek.toISOString().split('T')[0];
+    endDate.value = today.toISOString().split('T')[0];
+    
+    // Initialize with some sample logs if empty
+    if (systemLogs.length === 0) {
+        logSystemActivity('system', 'System', 'Initialization', 'Vehicle Booking System initialized');
+    }
 });
 
-// Make functions available globally
-window.openAllocationModal = openAllocationModal;
-window.openEditModal = openEditModal;
-window.viewBooking = viewBooking;
-window.deleteBooking = deleteBooking;
- </script>
+// Export logs function
+function exportLogs() {
+    const csvContent = "data:text/csv;charset=utf-8," 
+        + "Timestamp,Type,User,Action,Details\n"
+        + filteredLogs.map(log => 
+            `"${formatDateTime(log.timestamp)}","${log.type}","${log.user}","${log.action}","${log.details}"`
+        ).join("\n");
+    
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement('a');
+    link.setAttribute('href', encodedUri);
+    link.setAttribute('download', `system_logs_${new Date().toISOString().split('T')[0]}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+    </script>
 </body>
 </html>
