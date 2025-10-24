@@ -1277,91 +1277,7 @@
 					    <option value="Director (Health Information)">
                                             <option value="Director-Administration - I">
 					    <option value="Director – (Nursing Administration – II)">
-					    <option value="Director Administration II (Technical Adminstration)">
-                                            <option value="Director Administration - III (Non Technical Administration) (NTA)">
-					    <option value="Director Administration IV">
-<option value="Director-Administration - V">
-<option value="Director-Administration – VI">
-<option value="Director-Administration – VII">
-<option value="Director Administration (Exam)">
-<option value="Director (Transport)">
-<option value="Director-Dental Services">
-<option value="Director-Training">
-<option value="Director-Research">
-<option value="Director - Nursing (Education)">
-<option value="Chief Accountant (Stock Verification )">
-<option value="Chief Accountant (Book Keeping)">
-<option value="Chief Accountant - Care & Co-ordination">
-<option value="Accountant (Expenditure) I">
-<option value="Accountant (Expenditure) II">
-<option value="Accountant (Expenditure) III">
-<option value="Accountant (Supplies)">
-<option value="Director-Investigation I">
-<option value="Director-Investigation II">
-<option value="Director - Laboratory Services">
-<option value="Director-Buildings (Administration)">
-<option value="Director- Buildings (Engineering)">
-<option value="Director-Planning">
-<option value="Director-Organization & Development">
-<option value="Director - International Health">
-<option value="Director - Policy Analysis and Development">
-<option value="Director - Statics Unit">
-<option value="Accountant - Finance (Planning )">
-<option value="Director-Administration (Medical Services- I)">
-<option value="Director – Administration (Medical Service-II)">
-<option value="Director-Medical Services">
-<option value="Director - Tertiary Care Services">
-<option value="Director-Primary Care Services">
-<option value="Director - Private Health Sector Development">
-<option value="Director - Nursing (Medical Services)">
-<option value="Director - Health Care, Quality & Safety">
-<option value="Director –Non Communicable Diseases">
-<option value="Director - Mental Health">
-<option value="Director- Environment Health Occupational Health& Food Safety">
-<option value="Director-Estate & Urban Health">
-<option value="Director-Quarantine">
-<option value="Director-Youth, Elderly, Disabled & Displaced ">
-<option value="Director-Nursing (Public Health Services)">
-<option value="Director - Health Care, Quality & Safety">
-
-
-
-                                            <option value="Deputy Director General (Planning)">
-                                            <option value="Deputy Director General (Administration) I">
-                                            <option value="Deputy Director General (Administration) II">
-                                            <option value="Deputy Director General (Administration) III">
-                                            <option value="Deputy Director General (Dental Services)">
-                                            <option value="Deputy Director General (Education, Training & Research)">
-<option value="Deputy Director General (Investigation)">
-<option value="Deputy Director General (Laboratory Services)">
-<option value="Deputy Director General (Logistics)">
-<option value="Deputy Director General(Medical Services- I )">
-<option value="Deputy Director General(Medical Services-II)">
-<option value="Deputy Director General (Public Health Services-I)">
-<option value="Deputy Director General (Public Health Services-II)">
-<option value="Deputy Director General (Non Communicable Diseases)">
-<option value="Deputy Director General Environment Health, Occupational Health & Food safety">
-<option value="Senior Assistant Secretary (Administration)">
-<option value="Senior Assistant Secretary (Flying Squad)">
-<option value="Senior Assistant Secretary (Information and Promotion)">
-<option value="Senior Assistant Secretary (Medical Services)">
-<option value="Senior Assistant Secretary (Procurement) I">
-<option value="Senior Assistant Secretary (Procurement) II">
-<option value="Senior Assistant Secretary (Development)">
-<option value="Director General Of Health Service">
-                                           
-<option value="Additional Secretary (Administration) I">
-<option value="Additional Secretary (Administration) II">
-<option value="Additional Secretary (Development)">
-<option value="Additional Secretary (Medical Services)">
-<option value="Additional Secretary (Public Health Services)">
-<option value="Additional Secretary (Procurement)">
-<option value="Additional Secretary (Engineering)">
-<option value="Chief Finance Officer I">
-<option value="Chief Finance Officer II">
-<option value="Chief Finance Officer III">
- <option value="Secretary of Health">
-                                        </datalist>
+					                                            </datalist>
                                     </div>
                                 </div>
                             </div>
@@ -1536,14 +1452,33 @@
                         <h2 class="section-title">Vehicle Status Overview</h2>
                         <p>Current status of all vehicles in the Ministry of Health fleet.</p>
                         
-                        <div class="data-table-controls mb-20">
-                            <div class="search-control">
+                        <!-- NEW: Vehicle Filter Controls -->
+                        <div class="admin-controls mb-20">
+                            <div class="filter-control">
+                                <label class="form-label" for="userSeatFilter">Filter by Seat Count</label>
+                                <select id="userSeatFilter" class="form-control">
+                                    <option value="">All Seats</option>
+                                    <option value="4">4 Seater</option>
+                                    <option value="7">7 Seater</option>
+                                    <option value="15">15+ Seater</option>
+                                </select>
+                            </div>
+                            <div class="filter-control">
+                                <label class="form-label" for="userTypeFilter">Filter by Vehicle Type</label>
+                                <select id="userTypeFilter" class="form-control">
+                                    <option value="">All Types</option>
+                                    <option value="4 Seater">4 Seater</option>
+                                    <option value="7 Seater">7 Seater</option>
+                                    <option value="15+ Seater">15+ Seater</option>
+                                </select>
+                            </div>
+                            <div class="search-control filter-control">
+                                <label class="form-label" for="searchUserVehicles">Search Vehicles</label>
                                 <div class="search-container">
                                     <i class="fas fa-search"></i>
                                     <input type="text" id="searchUserVehicles" class="form-control" placeholder="Search vehicles...">
                                 </div>
                             </div>
-                            <div class="pagination-info" id="userVehiclePageInfo">Page 1 of 1</div>
                         </div>
                         
                         <div class="table-scroll-container">
@@ -1686,6 +1621,24 @@
                 <!-- Vehicle Status Tab -->
                 <div id="vehiclesTab" class="admin-tab-content hidden">
                     <div class="admin-controls">
+                        <div class="filter-control">
+                            <label class="form-label" for="adminSeatFilter">Filter by Seat Count</label>
+                            <select id="adminSeatFilter" class="form-control">
+                                <option value="">All Seats</option>
+                                <option value="4">4 Seater</option>
+                                <option value="7">7 Seater</option>
+                                <option value="15">15+ Seater</option>
+                            </select>
+                        </div>
+                        <div class="filter-control">
+                            <label class="form-label" for="adminTypeFilter">Filter by Vehicle Type</label>
+                            <select id="adminTypeFilter" class="form-control">
+                                <option value="">All Types</option>
+                                <option value="4 Seater">4 Seater</option>
+                                <option value="7 Seater">7 Seater</option>
+                                <option value="15+ Seater">15+ Seater</option>
+                            </select>
+                        </div>
                         <div class="search-control filter-control">
                             <label class="form-label" for="searchVehicles">Search Vehicles</label>
                             <div class="search-container">
@@ -1741,6 +1694,7 @@
                                     <option value="vehicles">Vehicle Utilization</option>
                                     <option value="drivers">Driver Assignments</option>
                                     <option value="monthly">Monthly Summary</option>
+                                    <option value="utilization">Vehicle Utilization Rate</option>
                                 </select>
                             </div>
                             
@@ -2060,1906 +2014,1721 @@
     </div>
 
     <script>
-       // Google Apps Script Web App URL
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzzjywMkUxiWek2pG7n53qCtswVUlNsUUaCulmD-lZwARt4R0NTfPUV08eogh39B-feug/exec';
+        // Google Apps Script Web App URL
+        const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzzjywMkUxiWek2pG7n53qCtswVUlNsUUaCulmD-lZwARt4R0NTfPUV08eogh39B-feug/exec';
 
-// Global variables
-let currentUserRole = 'user';
-let currentBookingId = null;
-let currentBookingRef = null;
-let currentPage = 1;
-const itemsPerPage = 10;
-let allBookings = [];
-let filteredBookings = [];
-let vehicles = [];
-let drivers = [];
-let systemLogs = [];
+        // Global variables
+        let currentUserRole = 'user';
+        let currentBookingId = null;
+        let currentBookingRef = null;
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        let allBookings = [];
+        let filteredBookings = [];
+        let vehicles = [];
+        let drivers = [];
+        let systemLogs = [];
 
-// Pagination variables
-let userVehiclePage = 1;
-let userVehicleItemsPerPage = 15;
-let filteredUserVehicles = [];
+        // Pagination variables
+        let userVehiclePage = 1;
+        let userVehicleItemsPerPage = 15;
+        let filteredUserVehicles = [];
 
-let vehicleModalPage = 1;
-let driverModalPage = 1;
-let modalItemsPerPage = 8;
-let filteredModalVehicles = [];
-let filteredModalDrivers = [];
+        let vehicleModalPage = 1;
+        let driverModalPage = 1;
+        let modalItemsPerPage = 8;
+        let filteredModalVehicles = [];
+        let filteredModalDrivers = [];
 
-let logsPage = 1;
-let logsItemsPerPage = 15;
-let filteredLogs = [];
+        let logsPage = 1;
+        let logsItemsPerPage = 15;
+        let filteredLogs = [];
 
-// Selected items for allocation
-let selectedVehicleId = null;
-let selectedDriverId = null;
+        // Selected items for allocation
+        let selectedVehicleId = null;
+        let selectedDriverId = null;
 
-// DOM elements
-const loginScreen = document.getElementById('loginScreen');
-const userDashboard = document.getElementById('userDashboard');
-const adminDashboard = document.getElementById('adminDashboard');
-const roleOptions = document.querySelectorAll('.role-option');
-const loginBtn = document.getElementById('loginBtn');
-const passwordInput = document.getElementById('password');
-const loginMessage = document.getElementById('loginMessage');
-const loginSpinner = document.getElementById('loginSpinner');
-const userLogout = document.getElementById('userLogout');
-const adminLogout = document.getElementById('adminLogout');
-const submitBookingBtn = document.getElementById('submitBooking');
-const submitSpinner = document.getElementById('submitSpinner');
-const bookingForm = document.getElementById('bookingForm');
-const bookingSuccess = document.getElementById('bookingSuccess');
-const newBookingBtn = document.getElementById('newBooking');
-const downloadPdfBtn = document.getElementById('downloadPdf');
-const sendWhatsAppBtn = document.getElementById('sendWhatsApp');
-const adminTabs = document.querySelectorAll('.admin-tab');
-const requestsTab = document.getElementById('requestsTab');
-const vehiclesTab = document.getElementById('vehiclesTab');
-const reportsTab = document.getElementById('reportsTab');
-const logsTab = document.getElementById('logsTab');
-const statusFilter = document.getElementById('statusFilter');
-const searchBookings = document.getElementById('searchBookings');
-const searchVehicles = document.getElementById('searchVehicles');
-const requestsTableBody = document.getElementById('requestsTableBody');
-const requestCount = document.getElementById('requestCount');
-const adminSpinner = document.getElementById('adminSpinner');
-const prevPageBtn = document.getElementById('prevPage');
-const nextPageBtn = document.getElementById('nextPage');
-const pageInfo = document.getElementById('pageInfo');
-const allocationModal = document.getElementById('allocationModal');
-const editModal = document.getElementById('editModal');
-const viewModal = document.getElementById('viewModal');
-const uniquePassword = document.getElementById('uniquePassword');
-const confirmAllocationBtn = document.getElementById('confirmAllocation');
-const cancelAllocationBtn = document.getElementById('cancelAllocation');
-const closeModals = document.querySelectorAll('.close-modal');
-const cancelEditBtn = document.getElementById('cancelEdit');
-const confirmEditBtn = document.getElementById('confirmEdit');
-const closeViewBtn = document.getElementById('closeView');
-const downloadFinalPdfBtn = document.getElementById('downloadFinalPdf');
-const sendWhatsAppAdminBtn = document.getElementById('sendWhatsAppAdmin');
-const availableCount = document.getElementById('availableCount');
-const bookedCount = document.getElementById('bookedCount');
-const maintenanceCount = document.getElementById('maintenanceCount');
-const availableVehiclesList = document.getElementById('availableVehiclesList');
-const bookedVehiclesList = document.getElementById('bookedVehiclesList');
-const maintenanceVehiclesList = document.getElementById('maintenanceVehiclesList');
-const reportType = document.getElementById('reportType');
-const startDate = document.getElementById('startDate');
-const endDate = document.getElementById('endDate');
-const generateReportBtn = document.getElementById('generateReport');
-const reportResults = document.getElementById('reportResults');
-const uniquePasswordDisplay = document.getElementById('uniquePasswordDisplay');
-const userTabs = document.querySelectorAll('.user-tab');
-const bookingTab = document.getElementById('bookingTab');
-const vehiclesUserTab = document.getElementById('vehiclesTab');
-const userAvailableCount = document.getElementById('userAvailableCount');
-const userBookedCount = document.getElementById('userBookedCount');
-const userMaintenanceCount = document.getElementById('userMaintenanceCount');
-const userTotalVehicles = document.getElementById('userTotalVehicles');
-const userVehiclesList = document.getElementById('userVehiclesList');
-const searchUserVehicles = document.getElementById('searchUserVehicles');
-const userPrevPage = document.getElementById('userPrevPage');
-const userNextPage = document.getElementById('userNextPage');
-const userVehiclePageInfo = document.getElementById('userVehiclePageInfo');
-const userVehiclePaginationInfo = document.getElementById('userVehiclePaginationInfo');
-
-// Stats elements
-const totalBookings = document.getElementById('totalBookings');
-const pendingBookings = document.getElementById('pendingBookings');
-const approvedBookings = document.getElementById('approvedBookings');
-const totalVehiclesStat = document.getElementById('totalVehicles');
-
-// Logs elements
-const logTypeFilter = document.getElementById('logTypeFilter');
-const searchLogs = document.getElementById('searchLogs');
-const refreshLogs = document.getElementById('refreshLogs');
-
-const systemLogsTable = document.getElementById('systemLogsTable');
-const logsPrevPage = document.getElementById('logsPrevPage');
-const logsNextPage = document.getElementById('logsNextPage');
-const logsPageInfo = document.getElementById('logsPageInfo');
-
-// Allocation modal elements
-const searchVehicleModal = document.getElementById('searchVehicleModal');
-const searchDriverModal = document.getElementById('searchDriverModal');
-const vehicleSelectionList = document.getElementById('vehicleSelectionList');
-const driverSelectionList = document.getElementById('driverSelectionList');
-const vehiclePrevPage = document.getElementById('vehiclePrevPage');
-const vehicleNextPage = document.getElementById('vehicleNextPage');
-const vehiclePageInfo = document.getElementById('vehiclePageInfo');
-const driverPrevPage = document.getElementById('driverPrevPage');
-const driverNextPage = document.getElementById('driverNextPage');
-const driverPageInfo = document.getElementById('driverPageInfo');
-const selectedVehicleText = document.getElementById('selectedVehicleText');
-const selectedDriverText = document.getElementById('selectedDriverText');
-
-// Notification badge
-const pendingBookingBadge = document.getElementById('pendingBookingBadge');
-
-// Initialize localStorage if not exists
-function initializeLocalStorage() {
-    if (!localStorage.getItem('bookings')) {
-        localStorage.setItem('bookings', JSON.stringify([]));
-    }
-    if (!localStorage.getItem('vehicles')) {
-        // Generate 200 sample vehicles
-        const sampleVehicles = [];
-        for (let i = 1; i <= 200; i++) {
-            const types = ['4 Seater', '7 Seater', '15+ Seater'];
-            const statuses = ['Available', 'Booked', 'Maintenance'];
-            const type = types[Math.floor(Math.random() * types.length)];
-            const status = statuses[Math.floor(Math.random() * statuses.length)];
-            
-            sampleVehicles.push({
-                id: i,
-                vehicleno: `V${i.toString().padStart(3, '0')}`,
-                type: type,
-                seatcapacity: type === '4 Seater' ? '4' : type === '7 Seater' ? '7' : '15',
-                status: status
-            });
-        }
-        localStorage.setItem('vehicles', JSON.stringify(sampleVehicles));
-    }
-    if (!localStorage.getItem('drivers')) {
-        // Generate 50 sample drivers
-        const sampleDrivers = [];
-        const firstNames = ['John', 'Jane', 'Robert', 'Sarah', 'Michael', 'Emily', 'David', 'Lisa', 'James', 'Maria'];
-        const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'];
-        
-        for (let i = 1; i <= 50; i++) {
-            const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
-            const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
-            const statuses = ['Available', 'Assigned', 'On Leave'];
-            const status = statuses[Math.floor(Math.random() * statuses.length)];
-            
-            sampleDrivers.push({
-                id: i,
-                name: `${firstName} ${lastName}`,
-                phone: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
-                status: status
-            });
-        }
-        localStorage.setItem('drivers', JSON.stringify(sampleDrivers));
-    }
-    if (!localStorage.getItem('systemLogs')) {
-        localStorage.setItem('systemLogs', JSON.stringify([]));
-    }
-}
-
-// Utility Functions
-function formatDateTime(dateTimeString) {
-    if (!dateTimeString) return 'N/A';
-    const date = new Date(dateTimeString);
-    return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
-}
-
-function formatDate(dateString) {
-    if (!dateString) return 'N/A';
-    return new Date(dateString).toLocaleDateString();
-}
-
-function showElement(element, show = true) {
-    element.style.display = show ? 'block' : 'none';
-}
-
-function showMessage(message, type = 'error') {
-    loginMessage.textContent = message;
-    loginMessage.style.color = type === 'error' ? 'var(--danger)' : 'var(--success)';
-    showElement(loginMessage);
-    setTimeout(() => showElement(loginMessage, false), 5000);
-}
-
-function generateUniquePassword() {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let password = '';
-    for (let i = 0; i < 6; i++) {
-        password += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return password;
-}
-
-// System Logging Function
-function logSystemActivity(type, user, action, details = '') {
-    const log = {
-        timestamp: new Date().toISOString(),
-        type: type,
-        user: user,
-        action: action,
-        details: details
-    };
-    
-    console.log('Logging activity:', log);
-    
-    // Save to localStorage
-    const logs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
-    logs.unshift(log);
-    if (logs.length > 1000) logs.pop();
-    localStorage.setItem('systemLogs', JSON.stringify(logs));
-    
-    // Update global logs array
-    systemLogs = logs;
-    
-    // Refresh logs display if we're on the logs tab
-    if (document.getElementById('logsTab') && !document.getElementById('logsTab').classList.contains('hidden')) {
-        filterLogs();
-    }
-}
-
-// Update pending booking notification
-function updatePendingBookingNotification() {
-    const pendingCount = allBookings.filter(booking => booking.status === 'Pending').length;
-    if (pendingCount > 0) {
-        pendingBookingBadge.textContent = pendingCount;
-        pendingBookingBadge.style.display = 'flex';
-    } else {
-        pendingBookingBadge.style.display = 'none';
-    }
-}
-
-// API Functions
-async function callGoogleAppsScript(action, data = {}) {
-    try {
-        const formData = new URLSearchParams();
-        formData.append('action', action);
-        
-        for (const [key, value] of Object.entries(data)) {
-            formData.append(key, value);
-        }
-
-        const response = await fetch(GAS_WEB_APP_URL, {
-            method: 'POST',
-            body: formData
-        });
-
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const result = await response.json();
-        return result;
-    } catch (error) {
-        console.error('API call failed:', error);
-        return getMockData(action, data);
-    }
-}
-
-// Enhanced Mock Data with Large Dataset Support
-function getMockData(action, data) {
-    switch(action) {
-        case 'login':
-            if (data.role === 'admin' && data.password === 'TB005') {
-                logSystemActivity('system', 'Administrator', 'Login', 'Main admin login successful');
-                return { success: true, message: 'Login successful', role: 'mainadmin' };
+        // Initialize localStorage if not exists
+        function initializeLocalStorage() {
+            if (!localStorage.getItem('bookings')) {
+                localStorage.setItem('bookings', JSON.stringify([]));
             }
-            if (data.role === 'user' && data.password) {
-                logSystemActivity('system', 'User', 'Login', 'User login successful');
-                return { success: true, message: 'Login successful' };
+            if (!localStorage.getItem('vehicles')) {
+                const sampleVehicles = [];
+                // Create 50 vehicles (reduced from 2000 for better performance)
+                const vehicleTypes = [
+                    { type: '4 Seater', capacity: '4' },
+                    { type: '7 Seater', capacity: '7' },
+                    { type: '15+ Seater', capacity: '15' }
+                ];
+                
+                for (let i = 1; i <= 50; i++) {
+                    const vehicleType = vehicleTypes[Math.floor(Math.random() * vehicleTypes.length)];
+                    const statuses = ['Available', 'Booked', 'Maintenance'];
+                    const status = statuses[Math.floor(Math.random() * statuses.length)];
+                    
+                    sampleVehicles.push({
+                        id: i,
+                        vehicleno: `V${i.toString().padStart(3, '0')}`,
+                        type: vehicleType.type,
+                        seatcapacity: vehicleType.capacity,
+                        status: status
+                    });
+                }
+                localStorage.setItem('vehicles', JSON.stringify(sampleVehicles));
             }
-            return { success: false, error: 'Invalid password' };
-        
-        case 'submitBooking':
-            const refNumber = 'VBS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
-            const uniquePassword = generateUniquePassword();
-            
-            const booking = {
-                id: Date.now(),
-                refnumber: refNumber,
-                username: data.userName,
-                userdesignation: data.userDesignation,
-                userbranch: data.userBranch,
-                userphone: data.userPhone,
-                approvedby: data.approvedBy,
-                purpose: data.purpose,
-                seatcount: data.seatCount,
-                distance: data.distance,
-                goodstransport: data.goodsTransport ? 'Yes' : 'No',
-                startdatetime: data.startDateTime,
-                enddatetime: data.endDateTime,
-                startlocation: data.startLocation,
-                destination: data.destination,
-                status: 'Pending',
-                allocatedvehicle: '',
-                allocateddriver: '',
+            if (!localStorage.getItem('drivers')) {
+                const sampleDrivers = [];
+                const firstNames = ['John', 'Jane', 'Robert', 'Sarah', 'Michael', 'Emily', 'David', 'Lisa', 'James', 'Maria'];
+                const lastNames = ['Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez'];
+                
+                for (let i = 1; i <= 30; i++) {
+                    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+                    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+                    const statuses = ['Available', 'Assigned', 'On Leave'];
+                    const status = statuses[Math.floor(Math.random() * statuses.length)];
+                    
+                    sampleDrivers.push({
+                        id: i,
+                        name: `${firstName} ${lastName}`,
+                        phone: `07${Math.floor(10000000 + Math.random() * 90000000)}`,
+                        status: status
+                    });
+                }
+                localStorage.setItem('drivers', JSON.stringify(sampleDrivers));
+            }
+            if (!localStorage.getItem('systemLogs')) {
+                localStorage.setItem('systemLogs', JSON.stringify([]));
+            }
+        }
+
+        // Utility Functions
+        function formatDateTime(dateTimeString) {
+            if (!dateTimeString) return 'N/A';
+            const date = new Date(dateTimeString);
+            return date.toLocaleDateString() + ' ' + date.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+        }
+
+        function formatDate(dateString) {
+            if (!dateString) return 'N/A';
+            return new Date(dateString).toLocaleDateString();
+        }
+
+        function showElement(element, show = true) {
+            if (element) {
+                element.style.display = show ? 'block' : 'none';
+            }
+        }
+
+        function showMessage(message, type = 'error') {
+            const loginMessage = document.getElementById('loginMessage');
+            loginMessage.textContent = message;
+            loginMessage.style.color = type === 'error' ? 'var(--danger)' : 'var(--success)';
+            showElement(loginMessage);
+            setTimeout(() => showElement(loginMessage, false), 5000);
+        }
+
+        function generateUniquePassword() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+            let password = '';
+            for (let i = 0; i < 6; i++) {
+                password += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return password;
+        }
+
+        // System Logging Function
+        function logSystemActivity(type, user, action, details = '') {
+            const log = {
                 timestamp: new Date().toISOString(),
-                uniquepassword: uniquePassword
+                type: type,
+                user: user,
+                action: action,
+                details: details
             };
             
-            let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-            bookings.push(booking);
-            localStorage.setItem('bookings', JSON.stringify(bookings));
-            
-            logSystemActivity('booking', data.userName, 'Booking Submitted', `Ref: ${refNumber}`);
-            
-            return {
-                success: true,
-                message: 'Booking submitted successfully',
-                bookingId: booking.id,
-                refNumber: refNumber,
-                uniquePassword: uniquePassword
-            };
-        
-        case 'getBookings':
-            const storedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-            return { bookings: storedBookings };
-        
-        case 'getVehicles':
-            const storedVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
-            return { vehicles: storedVehicles };
-        
-        case 'getDrivers':
-            const storedDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
-            return { drivers: storedDrivers };
-        
-        case 'allocateVehicle':
-            console.log('Allocate Vehicle called with:', data);
-            
-            let allBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-            let allVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
-            let allDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
-            
-            const bookingIndex = allBookings.findIndex(b => b.id == data.bookingId);
-            console.log('Found booking index:', bookingIndex);
-            
-            if (bookingIndex === -1) {
-                return { success: false, error: 'Booking not found' };
-            }
-            
-            const storedPassword = allBookings[bookingIndex].uniquepassword;
-            const enteredPassword = data.uniquePassword;
-            
-            if (!storedPassword || !enteredPassword) {
-                return { success: false, error: 'Password is required' };
-            }
-            
-            if (storedPassword.toUpperCase() !== enteredPassword.toUpperCase()) {
-                return { success: false, error: 'Invalid booking password. Please check and try again.' };
-            }
-            
-            const vehicleIndex = allVehicles.findIndex(v => v.id == data.vehicleId);
-            const driverIndex = allDrivers.findIndex(d => d.id == data.driverId);
-            
-            if (vehicleIndex === -1 || driverIndex === -1) {
-                return { success: false, error: 'Vehicle or driver not found' };
-            }
-            
-            // Update booking
-            allBookings[bookingIndex].allocatedvehicle = `${allVehicles[vehicleIndex].vehicleno} - ${allVehicles[vehicleIndex].type}`;
-            allBookings[bookingIndex].allocateddriver = `${allDrivers[driverIndex].name} (${allDrivers[driverIndex].phone})`;
-            allBookings[bookingIndex].status = 'Approved';
-            
-            // Update vehicle status
-            allVehicles[vehicleIndex].status = 'Booked';
-            
-            // Save back to localStorage
-            localStorage.setItem('bookings', JSON.stringify(allBookings));
-            localStorage.setItem('vehicles', JSON.stringify(allVehicles));
-            
-            logSystemActivity('allocation', 'Administrator', 'Vehicle Allocated', 
-                `Booking: ${allBookings[bookingIndex].refnumber}, Vehicle: ${allVehicles[vehicleIndex].vehicleno}, Driver: ${allDrivers[driverIndex].name}`);
-            
-            console.log('Allocation successful');
-            return { success: true, message: 'Vehicle and driver allocated successfully' };
-        
-        case 'editBooking':
-            let editBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-            const editIndex = editBookings.findIndex(b => b.id == data.bookingId);
-            
-            if (editIndex === -1) {
-                return { success: false, error: 'Booking not found' };
-            }
-            
-            editBookings[editIndex].username = data.userName;
-            editBookings[editIndex].userdesignation = data.userDesignation;
-            editBookings[editIndex].userbranch = data.userBranch;
-            editBookings[editIndex].userphone = data.userPhone;
-            editBookings[editIndex].approvedby = data.approvedBy;
-            editBookings[editIndex].purpose = data.purpose;
-            editBookings[editIndex].seatcount = data.seatCount;
-            editBookings[editIndex].distance = data.distance;
-            editBookings[editIndex].startdatetime = data.startDateTime;
-            editBookings[editIndex].enddatetime = data.endDateTime;
-            editBookings[editIndex].startlocation = data.startLocation;
-            editBookings[editIndex].destination = data.destination;
-            
-            localStorage.setItem('bookings', JSON.stringify(editBookings));
-            
-            logSystemActivity('booking', 'Administrator', 'Booking Updated', `Ref: ${editBookings[editIndex].refnumber}`);
-            
-            return { success: true, message: 'Booking updated successfully' };
-        
-        case 'deleteBooking':
-            let deleteBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
-            const deleteIndex = deleteBookings.findIndex(b => b.id == data.bookingId);
-            
-            if (deleteIndex === -1) {
-                return { success: false, error: 'Booking not found' };
-            }
-            
-            const deletedRef = deleteBookings[deleteIndex].refnumber;
-            deleteBookings.splice(deleteIndex, 1);
-            localStorage.setItem('bookings', JSON.stringify(deleteBookings));
-            
-            logSystemActivity('booking', 'Administrator', 'Booking Deleted', `Ref: ${deletedRef}`);
-            
-            return { success: true, message: 'Booking deleted successfully' };
-        
-        case 'getReports':
-            const reportData = [
-                ['Booking Ref', 'Requester', 'Destination', 'Status', 'Vehicle'],
-                ['VBS-2024-001', 'John Doe', 'Rural Health Centers', 'Approved', 'V001 - 4 Seater'],
-                ['VBS-2024-002', 'Jane Smith', 'Central Hospital', 'Pending', 'Not allocated'],
-                ['VBS-2024-003', 'Robert Brown', 'District Office', 'Completed', 'V003 - 7 Seater']
-            ];
-            
-            return {
-                success: true,
-                title: 'Booking Summary Report',
-                generatedAt: new Date().toISOString(),
-                reportData: reportData
-            };
-        
-        case 'getSystemLogs':
             const logs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
-            return { logs: logs };
-        
-        default:
-            return { success: false, error: 'Unknown action' };
-    }
-}
+            logs.unshift(log);
+            if (logs.length > 1000) logs.pop();
+            localStorage.setItem('systemLogs', JSON.stringify(logs));
+            
+            systemLogs = logs;
+            
+            const logsTab = document.getElementById('logsTab');
+            if (logsTab && !logsTab.classList.contains('hidden')) {
+                filterLogs();
+            }
+        }
 
-// Authentication Functions
-async function handleLogin() {
-    const password = passwordInput.value.trim();
-    
-    if (!password) {
-        showMessage('Please enter a password');
-        return;
-    }
-
-    showElement(loginSpinner);
-    loginBtn.disabled = true;
-
-    try {
-        const result = await callGoogleAppsScript('login', {
-            role: currentUserRole,
-            password: password
-        });
-
-        if (result.success) {
-            showElement(loginScreen, false);
-            if (currentUserRole === 'user') {
-                showElement(userDashboard);
-                resetBookingForm();
-                updateUserVehicleStatus();
+        // Update pending booking notification
+        function updatePendingBookingNotification() {
+            const pendingBookingBadge = document.getElementById('pendingBookingBadge');
+            const pendingCount = allBookings.filter(booking => booking.status === 'Pending').length;
+            if (pendingCount > 0) {
+                pendingBookingBadge.textContent = pendingCount;
+                pendingBookingBadge.style.display = 'flex';
             } else {
-                showElement(adminDashboard);
-                document.getElementById('adminDisplayName').textContent = 
-                    result.role === 'mainadmin' ? 'Main Administrator' : 'Administrator';
-                loadAdminData();
-                loadSystemLogs();
+                pendingBookingBadge.style.display = 'none';
             }
-        } else {
-            showMessage(result.error || 'Invalid password');
         }
-    } catch (error) {
-        showMessage('Login failed. Please try again.');
-    } finally {
-        showElement(loginSpinner, false);
-        loginBtn.disabled = false;
-    }
-}
 
-function logout() {
-    logSystemActivity('system', currentUserRole === 'user' ? 'User' : 'Administrator', 'Logout');
-    showElement(userDashboard, false);
-    showElement(adminDashboard, false);
-    showElement(loginScreen);
-    passwordInput.value = '';
-    showElement(loginMessage, false);
-}
+        // API Functions
+        async function callGoogleAppsScript(action, data = {}) {
+            try {
+                const formData = new URLSearchParams();
+                formData.append('action', action);
+                
+                for (const [key, value] of Object.entries(data)) {
+                    formData.append(key, value);
+                }
 
-// Booking Functions
-async function submitBooking() {
-    const requiredFields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
-    
-    for (const fieldId of requiredFields) {
-        const field = document.getElementById(fieldId);
-        if (!field.value.trim()) {
-            alert(`Please fill in the ${field.previousElementSibling.textContent}`);
-            field.focus();
-            return;
-        }
-    }
+                const response = await fetch(GAS_WEB_APP_URL, {
+                    method: 'POST',
+                    body: formData
+                });
 
-    const startDateTime = new Date(document.getElementById('startDateTime').value);
-    const endDateTime = new Date(document.getElementById('endDateTime').value);
-    
-    if (startDateTime >= endDateTime) {
-        alert('End date and time must be after start date and time');
-        return;
-    }
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
 
-    if (startDateTime < new Date()) {
-        alert('Start date and time cannot be in the past');
-        return;
-    }
-
-    const bookingData = {
-        userName: document.getElementById('userName').value.trim(),
-        userDesignation: document.getElementById('userDesignation').value.trim(),
-        userBranch: document.getElementById('userBranch').value.trim(),
-        userPhone: document.getElementById('userPhone').value.trim(),
-        approvedBy: document.getElementById('approvedBy').value.trim(),
-        purpose: document.getElementById('purpose').value.trim(),
-        seatCount: document.getElementById('seatCount').value,
-        distance: document.getElementById('distance').value,
-        goodsTransport: document.getElementById('goodsTransport').checked,
-        startDateTime: document.getElementById('startDateTime').value,
-        endDateTime: document.getElementById('endDateTime').value,
-        startLocation: document.getElementById('startLocation').value.trim(),
-        destination: document.getElementById('destination').value.trim()
-    };
-
-    submitBookingBtn.disabled = true;
-    showElement(submitSpinner);
-
-    try {
-        const result = await callGoogleAppsScript('submitBooking', bookingData);
-        
-        if (result.success) {
-            currentBookingId = result.bookingId;
-            currentBookingRef = result.refNumber;
-            updateBookingConfirmation(result, bookingData);
-            showElement(bookingForm, false);
-            showElement(bookingSuccess);
-            
-            // Update admin dashboard if it's open
-            if (document.getElementById('adminDashboard').style.display === 'block') {
-                loadAdminData();
+                const result = await response.json();
+                return result;
+            } catch (error) {
+                console.error('API call failed:', error);
+                return getMockData(action, data);
             }
-        } else {
-            alert('Booking submission failed: ' + (result.error || 'Unknown error'));
-        }
-    } catch (error) {
-        alert('Booking submission failed. Please try again.');
-    } finally {
-        submitBookingBtn.disabled = false;
-        showElement(submitSpinner, false);
-    }
-}
-
-function updateBookingConfirmation(result, data) {
-    document.getElementById('enhancedPdfRefNumber').textContent = result.refNumber;
-    document.getElementById('enhancedPdfPassword').textContent = result.uniquePassword;
-    document.getElementById('enhancedPdfDate').textContent = new Date().toLocaleDateString();
-    document.getElementById('enhancedPdfUserDetails').textContent = 
-        `${data.userName}, ${data.userDesignation}, ${data.userPhone}`;
-    document.getElementById('enhancedPdfBranch').textContent = data.userBranch;
-    document.getElementById('enhancedPdfApprovedBy').textContent = data.approvedBy;
-    document.getElementById('enhancedPdfTripDetails').textContent = 
-        `${data.purpose}. From ${data.startLocation} to ${data.destination}. ${formatDateTime(data.startDateTime)} to ${formatDateTime(data.endDateTime)}`;
-    document.getElementById('enhancedPdfVehicleReq').textContent = 
-        `${data.seatCount} seats, Goods Transport: ${data.goodsTransport ? 'Yes' : 'No'}`;
-    document.getElementById('enhancedPdfDistance').textContent = 
-        `${data.distance} KM`;
-    uniquePasswordDisplay.textContent = result.uniquePassword;
-        
-    generateQRCode(result.refNumber, data.startDateTime, data.endDateTime, 'qrCodeUser', '', result.uniquePassword);
-}
-
-function resetBookingForm() {
-    const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
-    fields.forEach(id => {
-        const field = document.getElementById(id);
-        if (field) field.value = '';
-    });
-    
-    const goodsCheckbox = document.getElementById('goodsTransport');
-    if (goodsCheckbox) goodsCheckbox.checked = false;
-    
-    showElement(bookingForm);
-    showElement(bookingSuccess, false);
-}
-
-// User Vehicle Status Functions with Pagination
-async function updateUserVehicleStatus() {
-    try {
-        const vehiclesResult = await callGoogleAppsScript('getVehicles');
-        vehicles = vehiclesResult.vehicles || [];
-        
-        // Update stats
-        const available = vehicles.filter(v => v.status === 'Available').length;
-        const booked = vehicles.filter(v => v.status === 'Booked').length;
-        const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
-        
-        userAvailableCount.textContent = available;
-        userBookedCount.textContent = booked;
-        userMaintenanceCount.textContent = maintenance;
-        userTotalVehicles.textContent = vehicles.length;
-        
-        // Filter vehicles based on search
-        filterUserVehicles();
-    } catch (error) {
-        console.error('Error loading user vehicle data:', error);
-    }
-}
-
-function filterUserVehicles() {
-    const searchTerm = searchUserVehicles.value.toLowerCase();
-    
-    filteredUserVehicles = vehicles.filter(vehicle => {
-        const searchMatch = !searchTerm || 
-            vehicle.vehicleno.toLowerCase().includes(searchTerm) ||
-            vehicle.type.toLowerCase().includes(searchTerm) ||
-            vehicle.status.toLowerCase().includes(searchTerm);
-        
-        return searchMatch;
-    });
-    
-    userVehiclePage = 1;
-    displayUserVehicles();
-    updateUserVehiclePagination();
-}
-
-function displayUserVehicles() {
-    userVehiclesList.innerHTML = '';
-    
-    if (filteredUserVehicles.length === 0) {
-        userVehiclesList.innerHTML = '<tr><td colspan="4" class="text-center">No vehicles found</td></tr>';
-        return;
-    }
-
-    const startIndex = (userVehiclePage - 1) * userVehicleItemsPerPage;
-    const endIndex = Math.min(startIndex + userVehicleItemsPerPage, filteredUserVehicles.length);
-    const currentVehicles = filteredUserVehicles.slice(startIndex, endIndex);
-
-    currentVehicles.forEach(vehicle => {
-        const tr = document.createElement('tr');
-        const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
-                        vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
-        const statusClass = `status-${vehicle.status.toLowerCase()}`;
-        
-        tr.innerHTML = `
-            <td>${vehicle.vehicleno}</td>
-            <td><span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></td>
-            <td>${vehicle.seatcapacity} seats</td>
-            <td><span class="status-badge ${statusClass}">${vehicle.status}</span></td>
-        `;
-        userVehiclesList.appendChild(tr);
-    });
-}
-
-function updateUserVehiclePagination() {
-    const totalPages = Math.ceil(filteredUserVehicles.length / userVehicleItemsPerPage);
-    userVehiclePageInfo.textContent = `Page ${userVehiclePage} of ${totalPages}`;
-    userVehiclePaginationInfo.textContent = `Page ${userVehiclePage} of ${totalPages}`;
-    userPrevPage.disabled = userVehiclePage === 1;
-    userNextPage.disabled = userVehiclePage === totalPages || totalPages === 0;
-}
-
-function goToUserPrevPage() {
-    if (userVehiclePage > 1) {
-        userVehiclePage--;
-        displayUserVehicles();
-        updateUserVehiclePagination();
-    }
-}
-
-function goToUserNextPage() {
-    const totalPages = Math.ceil(filteredUserVehicles.length / userVehicleItemsPerPage);
-    if (userVehiclePage < totalPages) {
-        userVehiclePage++;
-        displayUserVehicles();
-        updateUserVehiclePagination();
-    }
-}
-
-// Admin Functions with Enhanced Stats
-async function loadAdminData() {
-    showElement(adminSpinner);
-    
-    try {
-        const [bookingsResult, vehiclesResult, driversResult] = await Promise.all([
-            callGoogleAppsScript('getBookings'),
-            callGoogleAppsScript('getVehicles'),
-            callGoogleAppsScript('getDrivers')
-        ]);
-
-        allBookings = bookingsResult.bookings || [];
-        vehicles = vehiclesResult.vehicles || [];
-        drivers = driversResult.drivers || [];
-
-        // Update stats
-        updateAdminStats();
-        
-        populateVehicleDropdown();
-        populateDriverDropdown();
-        filterBookings();
-        updateVehicleStatus();
-        
-        // Update notification badge
-        updatePendingBookingNotification();
-    } catch (error) {
-        console.error('Error loading admin data:', error);
-        requestsTableBody.innerHTML = '<tr><td colspan="9" class="text-center">Error loading data</td></tr>';
-    } finally {
-        showElement(adminSpinner, false);
-    }
-}
-
-function updateAdminStats() {
-    // Booking stats
-    totalBookings.textContent = allBookings.length;
-    pendingBookings.textContent = allBookings.filter(b => b.status === 'Pending').length;
-    approvedBookings.textContent = allBookings.filter(b => b.status === 'Approved').length;
-    totalVehiclesStat.textContent = vehicles.length;
-}
-
-function populateVehicleDropdown() {
-    // This is now handled by the selection list in the modal
-}
-
-function populateDriverDropdown() {
-    // This is now handled by the selection list in the modal
-}
-
-function filterBookings() {
-    const status = statusFilter.value;
-    const searchTerm = searchBookings.value.toLowerCase();
-    
-    filteredBookings = allBookings.filter(booking => {
-        const statusMatch = status === 'all' || booking.status === status;
-        const searchMatch = !searchTerm || 
-            booking.refnumber.toLowerCase().includes(searchTerm) ||
-            booking.username.toLowerCase().includes(searchTerm) ||
-            booking.destination.toLowerCase().includes(searchTerm) ||
-            booking.userbranch.toLowerCase().includes(searchTerm);
-        
-        return statusMatch && searchMatch;
-    });
-    
-    currentPage = 1;
-    displayBookings();
-    updatePagination();
-    updateAdminStats();
-}
-
-function displayBookings() {
-    requestsTableBody.innerHTML = '';
-    
-    if (filteredBookings.length === 0) {
-        requestsTableBody.innerHTML = '<tr><td colspan="9" class="text-center">No booking requests found</td></tr>';
-        requestCount.textContent = '0 requests';
-        return;
-    }
-
-    const startIndex = (currentPage - 1) * itemsPerPage;
-    const endIndex = Math.min(startIndex + itemsPerPage, filteredBookings.length);
-    const currentBookings = filteredBookings.slice(startIndex, endIndex);
-
-    requestCount.textContent = `${filteredBookings.length} requests`;
-
-    currentBookings.forEach(booking => {
-        const row = document.createElement('tr');
-        if (booking.status === 'Pending') {
-            row.classList.add('highlighted-row');
         }
 
-        const statusClass = `status-${booking.status.toLowerCase()}`;
-        
-        let actions = '';
-        if (booking.status === 'Pending') {
-            actions = `
-                <button class="action-btn btn" onclick="openAllocationModal(${booking.id})">Allocate</button>
-                <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
-                <button class="action-btn btn btn-danger" onclick="deleteBooking(${booking.id})">Delete</button>
-            `;
-        } else if (booking.status === 'Approved') {
-            actions = `
-                <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
-                <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
-            `;
-        } else {
-            actions = `
-                <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
-                <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
-            `;
+        // Enhanced Mock Data - FIXED REPORT GENERATION
+        function getMockData(action, data) {
+            switch(action) {
+                case 'login':
+                    if (data.role === 'admin' && data.password === 'TB005') {
+                        logSystemActivity('system', 'Administrator', 'Login', 'Main admin login successful');
+                        return { success: true, message: 'Login successful', role: 'mainadmin' };
+                    }
+                    if (data.role === 'user' && data.password) {
+                        logSystemActivity('system', 'User', 'Login', 'User login successful');
+                        return { success: true, message: 'Login successful' };
+                    }
+                    return { success: false, error: 'Invalid password' };
+                
+                case 'submitBooking':
+                    const refNumber = 'VBS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
+                    const uniquePassword = generateUniquePassword();
+                    
+                    const booking = {
+                        id: Date.now(),
+                        refnumber: refNumber,
+                        username: data.userName,
+                        userdesignation: data.userDesignation,
+                        userbranch: data.userBranch,
+                        userphone: data.userPhone,
+                        approvedby: data.approvedBy,
+                        purpose: data.purpose,
+                        seatcount: data.seatCount,
+                        distance: data.distance,
+                        goodstransport: data.goodsTransport ? 'Yes' : 'No',
+                        startdatetime: data.startDateTime,
+                        enddatetime: data.endDateTime,
+                        startlocation: data.startLocation,
+                        destination: data.destination,
+                        status: 'Pending',
+                        allocatedvehicle: '',
+                        allocateddriver: '',
+                        timestamp: new Date().toISOString(),
+                        uniquepassword: uniquePassword
+                    };
+                    
+                    let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    bookings.push(booking);
+                    localStorage.setItem('bookings', JSON.stringify(bookings));
+                    
+                    logSystemActivity('booking', data.userName, 'Booking Submitted', `Ref: ${refNumber}`);
+                    
+                    return {
+                        success: true,
+                        message: 'Booking submitted successfully',
+                        bookingId: booking.id,
+                        refNumber: refNumber,
+                        uniquePassword: uniquePassword
+                    };
+                
+                case 'getBookings':
+                    const storedBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    return { bookings: storedBookings };
+                
+                case 'getVehicles':
+                    const storedVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
+                    return { vehicles: storedVehicles };
+                
+                case 'getDrivers':
+                    const storedDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
+                    return { drivers: storedDrivers };
+                
+                case 'allocateVehicle':
+                    let allBookingsData = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    let allVehiclesData = JSON.parse(localStorage.getItem('vehicles') || '[]');
+                    let allDriversData = JSON.parse(localStorage.getItem('drivers') || '[]');
+                    
+                    const bookingIndex = allBookingsData.findIndex(b => b.id == data.bookingId);
+                    
+                    if (bookingIndex === -1) {
+                        return { success: false, error: 'Booking not found' };
+                    }
+                    
+                    const storedPassword = allBookingsData[bookingIndex].uniquepassword;
+                    const enteredPassword = data.uniquePassword;
+                    
+                    if (!storedPassword || !enteredPassword) {
+                        return { success: false, error: 'Password is required' };
+                    }
+                    
+                    if (storedPassword.toUpperCase() !== enteredPassword.toUpperCase()) {
+                        return { success: false, error: 'Invalid booking password. Please check and try again.' };
+                    }
+                    
+                    const vehicleIndex = allVehiclesData.findIndex(v => v.id == data.vehicleId);
+                    const driverIndex = allDriversData.findIndex(d => d.id == data.driverId);
+                    
+                    if (vehicleIndex === -1 || driverIndex === -1) {
+                        return { success: false, error: 'Vehicle or driver not found' };
+                    }
+                    
+                    allBookingsData[bookingIndex].allocatedvehicle = `${allVehiclesData[vehicleIndex].vehicleno} - ${allVehiclesData[vehicleIndex].type}`;
+                    allBookingsData[bookingIndex].allocateddriver = `${allDriversData[driverIndex].name} (${allDriversData[driverIndex].phone})`;
+                    allBookingsData[bookingIndex].status = 'Approved';
+                    
+                    allVehiclesData[vehicleIndex].status = 'Booked';
+                    allDriversData[driverIndex].status = 'Assigned';
+                    
+                    localStorage.setItem('bookings', JSON.stringify(allBookingsData));
+                    localStorage.setItem('vehicles', JSON.stringify(allVehiclesData));
+                    localStorage.setItem('drivers', JSON.stringify(allDriversData));
+                    
+                    logSystemActivity('allocation', 'Administrator', 'Vehicle Allocated', 
+                        `Booking: ${allBookingsData[bookingIndex].refnumber}, Vehicle: ${allVehiclesData[vehicleIndex].vehicleno}, Driver: ${allDriversData[driverIndex].name}`);
+                    
+                    return { success: true, message: 'Vehicle and driver allocated successfully' };
+                
+                case 'editBooking':
+                    let editBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    const editIndex = editBookings.findIndex(b => b.id == data.bookingId);
+                    
+                    if (editIndex === -1) {
+                        return { success: false, error: 'Booking not found' };
+                    }
+                    
+                    editBookings[editIndex].username = data.userName;
+                    editBookings[editIndex].userdesignation = data.userDesignation;
+                    editBookings[editIndex].userbranch = data.userBranch;
+                    editBookings[editIndex].userphone = data.userPhone;
+                    editBookings[editIndex].approvedby = data.approvedBy;
+                    editBookings[editIndex].purpose = data.purpose;
+                    editBookings[editIndex].seatcount = data.seatCount;
+                    editBookings[editIndex].distance = data.distance;
+                    editBookings[editIndex].startdatetime = data.startDateTime;
+                    editBookings[editIndex].enddatetime = data.endDateTime;
+                    editBookings[editIndex].startlocation = data.startLocation;
+                    editBookings[editIndex].destination = data.destination;
+                    
+                    localStorage.setItem('bookings', JSON.stringify(editBookings));
+                    
+                    logSystemActivity('booking', 'Administrator', 'Booking Updated', `Ref: ${editBookings[editIndex].refnumber}`);
+                    
+                    return { success: true, message: 'Booking updated successfully' };
+                
+                case 'deleteBooking':
+                    let deleteBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    const deleteIndex = deleteBookings.findIndex(b => b.id == data.bookingId);
+                    
+                    if (deleteIndex === -1) {
+                        return { success: false, error: 'Booking not found' };
+                    }
+                    
+                    const deletedRef = deleteBookings[deleteIndex].refnumber;
+                    deleteBookings.splice(deleteIndex, 1);
+                    localStorage.setItem('bookings', JSON.stringify(deleteBookings));
+                    
+                    logSystemActivity('booking', 'Administrator', 'Booking Deleted', `Ref: ${deletedRef}`);
+                    
+                    return { success: true, message: 'Booking deleted successfully' };
+                
+                case 'getReports':
+                    // FIXED: Enhanced report generation with proper data handling
+                    const reportBookings = JSON.parse(localStorage.getItem('bookings') || '[]');
+                    const reportVehicles = JSON.parse(localStorage.getItem('vehicles') || '[]');
+                    const reportDrivers = JSON.parse(localStorage.getItem('drivers') || '[]');
+                    
+                    let filteredData = reportBookings;
+                    
+                    if (data.startDate && data.endDate) {
+                        const startTimestamp = new Date(data.startDate).getTime();
+                        const endTimestamp = new Date(data.endDate).getTime() + 86400000;
+                        
+                        filteredData = reportBookings.filter(booking => {
+                            const bookingTime = new Date(booking.timestamp).getTime();
+                            return bookingTime >= startTimestamp && bookingTime < endTimestamp;
+                        });
+                    }
+                    
+                    let reportData = [];
+                    let title = '';
+                    
+                    // FIXED: Proper report type validation
+                    const reportType = data.type.toLowerCase();
+                    
+                    switch(reportType) {
+                        case 'bookings':
+                            title = 'Booking Summary Report';
+                            reportData = [['Booking Ref', 'Requester', 'Branch', 'Destination', 'Status', 'Vehicle', 'Date']];
+                            filteredData.forEach(booking => {
+                                reportData.push([
+                                    booking.refnumber,
+                                    booking.username,
+                                    booking.userbranch,
+                                    booking.destination,
+                                    booking.status,
+                                    booking.allocatedvehicle || 'Not allocated',
+                                    formatDate(booking.timestamp)
+                                ]);
+                            });
+                            break;
+                            
+                        case 'vehicles':
+                            title = 'Vehicle Utilization Report';
+                            reportData = [['Vehicle No', 'Type', 'Capacity', 'Status', 'Current Booking']];
+                            reportVehicles.forEach(vehicle => {
+                                const currentBooking = reportBookings.find(b => 
+                                    b.allocatedvehicle && b.allocatedvehicle.includes(vehicle.vehicleno) && 
+                                    b.status === 'Approved'
+                                );
+                                reportData.push([
+                                    vehicle.vehicleno,
+                                    vehicle.type,
+                                    vehicle.seatcapacity + ' seats',
+                                    vehicle.status,
+                                    currentBooking ? currentBooking.refnumber : '-'
+                                ]);
+                            });
+                            break;
+                            
+                        case 'drivers':
+                            title = 'Driver Assignments Report';
+                            reportData = [['Driver Name', 'Phone', 'Status', 'Current Assignment']];
+                            reportDrivers.forEach(driver => {
+                                const currentBooking = reportBookings.find(b => 
+                                    b.allocateddriver && b.allocateddriver.includes(driver.name) && 
+                                    b.status === 'Approved'
+                                );
+                                reportData.push([
+                                    driver.name,
+                                    driver.phone,
+                                    driver.status,
+                                    currentBooking ? currentBooking.refnumber : '-'
+                                ]);
+                            });
+                            break;
+                            
+                        case 'monthly':
+                            title = 'Monthly Summary Report';
+                            const monthlyData = {};
+                            
+                            filteredData.forEach(booking => {
+                                const monthYear = new Date(booking.timestamp).toLocaleDateString('en-US', { year: 'numeric', month: 'long' });
+                                if (!monthlyData[monthYear]) {
+                                    monthlyData[monthYear] = { total: 0, pending: 0, approved: 0, rejected: 0, completed: 0 };
+                                }
+                                monthlyData[monthYear].total++;
+                                monthlyData[monthYear][booking.status.toLowerCase()]++;
+                            });
+                            
+                            reportData = [['Month', 'Total', 'Pending', 'Approved', 'Rejected', 'Completed']];
+                            Object.keys(monthlyData).forEach(month => {
+                                const data = monthlyData[month];
+                                reportData.push([
+                                    month,
+                                    data.total.toString(),
+                                    data.pending.toString(),
+                                    data.approved.toString(),
+                                    data.rejected.toString(),
+                                    data.completed.toString()
+                                ]);
+                            });
+                            break;
+                            
+                        case 'utilization':
+                            title = 'Vehicle Utilization Rate Report';
+                            const utilizationData = {};
+                            
+                            reportVehicles.forEach(vehicle => {
+                                const bookingsForVehicle = reportBookings.filter(b => 
+                                    b.allocatedvehicle && b.allocatedvehicle.includes(vehicle.vehicleno)
+                                );
+                                
+                                utilizationData[vehicle.vehicleno] = {
+                                    type: vehicle.type,
+                                    capacity: vehicle.seatcapacity,
+                                    totalBookings: bookingsForVehicle.length,
+                                    utilizationRate: Math.round((bookingsForVehicle.length / 30) * 100) // Assuming 30 days period
+                                };
+                            });
+                            
+                            reportData = [['Vehicle No', 'Type', 'Capacity', 'Total Bookings', 'Utilization Rate (%)']];
+                            Object.keys(utilizationData).forEach(vehicleNo => {
+                                const data = utilizationData[vehicleNo];
+                                reportData.push([
+                                    vehicleNo,
+                                    data.type,
+                                    data.capacity + ' seats',
+                                    data.totalBookings.toString(),
+                                    data.utilizationRate + '%'
+                                ]);
+                            });
+                            break;
+                            
+                        default:
+                            return { success: false, error: 'Invalid report type' };
+                    }
+                    
+                    return {
+                        success: true,
+                        title: title,
+                        generatedAt: new Date().toISOString(),
+                        reportData: reportData
+                    };
+                
+                case 'getSystemLogs':
+                    const logs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
+                    return { logs: logs };
+                
+                default:
+                    return { success: false, error: 'Unknown action' };
+            }
         }
 
-        row.innerHTML = `
-            <td>${booking.refnumber}</td>
-            <td>${booking.username}</td>
-            <td>${booking.userbranch}</td>
-            <td>${booking.destination}</td>
-            <td>${formatDateTime(booking.startdatetime)}</td>
-            <td>${booking.seatcount}</td>
-            <td>${booking.distance} KM</td>
-            <td><span class="status-badge ${statusClass}">${booking.status}</span></td>
-            <td>${actions}</td>
-        `;
-
-        requestsTableBody.appendChild(row);
-    });
-}
-
-function updatePagination() {
-    const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
-    pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
-    prevPageBtn.disabled = currentPage === 1;
-    nextPageBtn.disabled = currentPage === totalPages || totalPages === 0;
-}
-
-function goToPrevPage() {
-    if (currentPage > 1) {
-        currentPage--;
-        displayBookings();
-        updatePagination();
-    }
-}
-
-function goToNextPage() {
-    const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
-    if (currentPage < totalPages) {
-        currentPage++;
-        displayBookings();
-        updatePagination();
-    }
-}
-
-// Modal Functions with Enhanced Selection
-function openAllocationModal(bookingId) {
-    currentBookingId = bookingId;
-    const booking = allBookings.find(b => b.id === bookingId);
-    
-    if (booking) {
-        // Reset selection
-        selectedVehicleId = null;
-        selectedDriverId = null;
-        selectedVehicleText.textContent = 'None selected';
-        selectedDriverText.textContent = 'None selected';
-        
-        // Reset search and pagination
-        searchVehicleModal.value = '';
-        searchDriverModal.value = '';
-        vehicleModalPage = 1;
-        driverModalPage = 1;
-        
-        // Load available vehicles and drivers
-        filterModalVehicles();
-        filterModalDrivers();
-        
-        showElement(allocationModal);
-        
-        console.log('Opening allocation modal for booking:', booking);
-        console.log('Booking password:', booking.uniquepassword);
-    }
-}
-
-function filterModalVehicles() {
-    const searchTerm = searchVehicleModal.value.toLowerCase();
-    
-    filteredModalVehicles = vehicles.filter(vehicle => {
-        const searchMatch = !searchTerm || 
-            vehicle.vehicleno.toLowerCase().includes(searchTerm) ||
-            vehicle.type.toLowerCase().includes(searchTerm);
-        
-        return searchMatch && vehicle.status === 'Available';
-    });
-    
-    displayModalVehicles();
-    updateVehicleModalPagination();
-}
-
-function displayModalVehicles() {
-    vehicleSelectionList.innerHTML = '';
-    
-    if (filteredModalVehicles.length === 0) {
-        vehicleSelectionList.innerHTML = '<div class="selection-item">No available vehicles found</div>';
-        return;
-    }
-
-    const startIndex = (vehicleModalPage - 1) * modalItemsPerPage;
-    const endIndex = Math.min(startIndex + modalItemsPerPage, filteredModalVehicles.length);
-    const currentVehicles = filteredModalVehicles.slice(startIndex, endIndex);
-
-    currentVehicles.forEach(vehicle => {
-        const div = document.createElement('div');
-        div.className = `selection-item ${selectedVehicleId === vehicle.id ? 'selected' : ''}`;
-        div.innerHTML = `
-            <div><strong>${vehicle.vehicleno}</strong> - ${vehicle.type}</div>
-            <div>${vehicle.seatcapacity} seats</div>
-        `;
-        div.addEventListener('click', () => selectVehicle(vehicle, div));
-        vehicleSelectionList.appendChild(div);
-    });
-}
-
-function selectVehicle(vehicle, element) {
-    selectedVehicleId = vehicle.id;
-    selectedVehicleText.textContent = `${vehicle.vehicleno} - ${vehicle.type} (${vehicle.seatcapacity} seats)`;
-    
-    // Update UI
-    document.querySelectorAll('#vehicleSelectionList .selection-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    element.classList.add('selected');
-}
-
-function filterModalDrivers() {
-    const searchTerm = searchDriverModal.value.toLowerCase();
-    
-    filteredModalDrivers = drivers.filter(driver => {
-        const searchMatch = !searchTerm || 
-            driver.name.toLowerCase().includes(searchTerm) ||
-            driver.phone.toLowerCase().includes(searchTerm);
-        
-        return searchMatch && driver.status === 'Available';
-    });
-    
-    displayModalDrivers();
-    updateDriverModalPagination();
-}
-
-function displayModalDrivers() {
-    driverSelectionList.innerHTML = '';
-    
-    if (filteredModalDrivers.length === 0) {
-        driverSelectionList.innerHTML = '<div class="selection-item">No available drivers found</div>';
-        return;
-    }
-
-    const startIndex = (driverModalPage - 1) * modalItemsPerPage;
-    const endIndex = Math.min(startIndex + modalItemsPerPage, filteredModalDrivers.length);
-    const currentDrivers = filteredModalDrivers.slice(startIndex, endIndex);
-
-    currentDrivers.forEach(driver => {
-        const div = document.createElement('div');
-        div.className = `selection-item ${selectedDriverId === driver.id ? 'selected' : ''}`;
-        div.innerHTML = `
-            <div><strong>${driver.name}</strong></div>
-            <div>${driver.phone}</div>
-        `;
-        div.addEventListener('click', () => selectDriver(driver, div));
-        driverSelectionList.appendChild(div);
-    });
-}
-
-function selectDriver(driver, element) {
-    selectedDriverId = driver.id;
-    selectedDriverText.textContent = `${driver.name} (${driver.phone})`;
-    
-    // Update UI
-    document.querySelectorAll('#driverSelectionList .selection-item').forEach(item => {
-        item.classList.remove('selected');
-    });
-    element.classList.add('selected');
-}
-
-function updateVehicleModalPagination() {
-    const totalPages = Math.ceil(filteredModalVehicles.length / modalItemsPerPage);
-    vehiclePageInfo.textContent = `Page ${vehicleModalPage} of ${totalPages}`;
-    vehiclePrevPage.disabled = vehicleModalPage === 1;
-    vehicleNextPage.disabled = vehicleModalPage === totalPages || totalPages === 0;
-}
-
-function updateDriverModalPagination() {
-    const totalPages = Math.ceil(filteredModalDrivers.length / modalItemsPerPage);
-    driverPageInfo.textContent = `Page ${driverModalPage} of ${totalPages}`;
-    driverPrevPage.disabled = driverModalPage === 1;
-    driverNextPage.disabled = driverModalPage === totalPages || totalPages === 0;
-}
-
-function goToVehiclePrevPage() {
-    if (vehicleModalPage > 1) {
-        vehicleModalPage--;
-        displayModalVehicles();
-        updateVehicleModalPagination();
-    }
-}
-
-function goToVehicleNextPage() {
-    const totalPages = Math.ceil(filteredModalVehicles.length / modalItemsPerPage);
-    if (vehicleModalPage < totalPages) {
-        vehicleModalPage++;
-        displayModalVehicles();
-        updateVehicleModalPagination();
-    }
-}
-
-function goToDriverPrevPage() {
-    if (driverModalPage > 1) {
-        driverModalPage--;
-        displayModalDrivers();
-        updateDriverModalPagination();
-    }
-}
-
-function goToDriverNextPage() {
-    const totalPages = Math.ceil(filteredModalDrivers.length / modalItemsPerPage);
-    if (driverModalPage < totalPages) {
-        driverModalPage++;
-        displayModalDrivers();
-        updateDriverModalPagination();
-    }
-}
-
-function openEditModal(bookingId) {
-    currentBookingId = bookingId;
-    const booking = allBookings.find(b => b.id === bookingId);
-    
-    if (booking) {
-        document.getElementById('editUserName').value = booking.username || '';
-        document.getElementById('editUserDesignation').value = booking.userdesignation || '';
-        document.getElementById('editUserBranch').value = booking.userbranch || '';
-        document.getElementById('editUserPhone').value = booking.userphone || '';
-        document.getElementById('editApprovedBy').value = booking.approvedby || '';
-        document.getElementById('editPurpose').value = booking.purpose || '';
-        document.getElementById('editSeatCount').value = booking.seatcount || '';
-        document.getElementById('editDistance').value = booking.distance || '';
-        document.getElementById('editStartDateTime').value = booking.startdatetime ? booking.startdatetime.substring(0, 16) : '';
-        document.getElementById('editEndDateTime').value = booking.enddatetime ? booking.enddatetime.substring(0, 16) : '';
-        document.getElementById('editStartLocation').value = booking.startlocation || '';
-        document.getElementById('editDestination').value = booking.destination || '';
-        
-        showElement(editModal);
-    }
-}
-
-function viewBooking(bookingId) {
-    currentBookingId = bookingId;
-    const booking = allBookings.find(b => b.id === bookingId);
-    
-    if (booking) {
-        document.getElementById('viewRefNumber').textContent = booking.refnumber;
-        document.getElementById('viewDate').textContent = formatDate(booking.timestamp);
-        document.getElementById('viewUserDetails').textContent = 
-            `${booking.username}, ${booking.userdesignation}, ${booking.userphone}`;
-        document.getElementById('viewBranch').textContent = booking.userbranch;
-        document.getElementById('viewApprovedBy').textContent = booking.approvedby || 'Not specified';
-        document.getElementById('viewTripDetails').textContent = 
-            `${booking.purpose}. From ${booking.startlocation} to ${booking.destination}. ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}`;
-        document.getElementById('viewVehicleReq').textContent = 
-            `${booking.seatcount} seats, Goods Transport: ${booking.goodstransport || 'No'}`;
-        document.getElementById('viewDistance').textContent = 
-            `${booking.distance} KM`;
-        document.getElementById('viewStatus').textContent = booking.status;
-        document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
-        document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
-        
-        const vehicleNumber = booking.allocatedvehicle ? booking.allocatedvehicle.split(' - ')[0] : '';
-        generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
-        
-        showElement(viewModal);
-    }
-}
-
-async function allocateVehicle() {
-    if (!selectedVehicleId || !selectedDriverId) {
-        alert('Please select both a vehicle and a driver');
-        return;
-    }
-    
-    const password = uniquePassword.value.trim();
-    
-    if (!password) {
-        alert('Please enter the booking password for verification');
-        return;
-    }
-
-    confirmAllocationBtn.disabled = true;
-    confirmAllocationBtn.innerHTML = '<div class="spinner"></div>';
-
-    try {
-        const result = await callGoogleAppsScript('allocateVehicle', {
-            bookingId: currentBookingId,
-            vehicleId: selectedVehicleId,
-            driverId: selectedDriverId,
-            uniquePassword: password.toUpperCase()
-        });
-
-        if (result.success) {
-            showElement(allocationModal, false);
-            loadAdminData();
-            alert('Vehicle and driver allocated successfully!');
-        } else {
-            alert('Allocation failed: ' + (result.error || 'Unknown error'));
-        }
-    } catch (error) {
-        alert('Allocation failed. Please try again.');
-    } finally {
-        confirmAllocationBtn.disabled = false;
-        confirmAllocationBtn.innerHTML = 'Allocate';
-    }
-}
-
-async function saveBookingEdit() {
-    const editData = {
-        bookingId: currentBookingId,
-        userName: document.getElementById('editUserName').value,
-        userDesignation: document.getElementById('editUserDesignation').value,
-        userBranch: document.getElementById('editUserBranch').value,
-        userPhone: document.getElementById('editUserPhone').value,
-        approvedBy: document.getElementById('editApprovedBy').value,
-        purpose: document.getElementById('editPurpose').value,
-        seatCount: document.getElementById('editSeatCount').value,
-        distance: document.getElementById('editDistance').value,
-        startDateTime: document.getElementById('editStartDateTime').value,
-        endDateTime: document.getElementById('editEndDateTime').value,
-        startLocation: document.getElementById('editStartLocation').value,
-        destination: document.getElementById('editDestination').value
-    };
-
-    confirmEditBtn.disabled = true;
-    confirmEditBtn.innerHTML = '<div class="spinner"></div>';
-
-    try {
-        const result = await callGoogleAppsScript('editBooking', editData);
-        
-        if (result.success) {
-            showElement(editModal, false);
-            loadAdminData();
-            alert('Booking updated successfully!');
-        } else {
-            alert('Update failed: ' + (result.error || 'Unknown error'));
-        }
-    } catch (error) {
-        alert('Update failed. Please try again.');
-    } finally {
-        confirmEditBtn.disabled = false;
-        confirmEditBtn.innerHTML = 'Save Changes';
-    }
-}
-
-async function deleteBooking(bookingId) {
-    if (confirm('Are you sure you want to delete this booking?')) {
-        try {
-            const result = await callGoogleAppsScript('deleteBooking', { bookingId: bookingId });
+        // Authentication Functions
+        async function handleLogin() {
+            const passwordInput = document.getElementById('password');
+            const loginSpinner = document.getElementById('loginSpinner');
+            const loginBtn = document.getElementById('loginBtn');
+            const password = passwordInput.value.trim();
             
-            if (result.success) {
-                loadAdminData();
-                alert('Booking deleted successfully!');
+            if (!password) {
+                showMessage('Please enter a password');
+                return;
+            }
+
+            showElement(loginSpinner);
+            loginBtn.disabled = true;
+
+            try {
+                const result = await callGoogleAppsScript('login', {
+                    role: currentUserRole,
+                    password: password
+                });
+
+                if (result.success) {
+                    showElement(document.getElementById('loginScreen'), false);
+                    if (currentUserRole === 'user') {
+                        showElement(document.getElementById('userDashboard'));
+                        resetBookingForm();
+                        updateUserVehicleStatus();
+                    } else {
+                        showElement(document.getElementById('adminDashboard'));
+                        document.getElementById('adminDisplayName').textContent = 
+                            result.role === 'mainadmin' ? 'Main Administrator' : 'Administrator';
+                        loadAdminData();
+                        loadSystemLogs();
+                    }
+                } else {
+                    showMessage(result.error || 'Invalid password');
+                }
+            } catch (error) {
+                showMessage('Login failed. Please try again.');
+            } finally {
+                showElement(loginSpinner, false);
+                loginBtn.disabled = false;
+            }
+        }
+
+        function logout() {
+            logSystemActivity('system', currentUserRole === 'user' ? 'User' : 'Administrator', 'Logout');
+            showElement(document.getElementById('userDashboard'), false);
+            showElement(document.getElementById('adminDashboard'), false);
+            showElement(document.getElementById('loginScreen'));
+            document.getElementById('password').value = '';
+            showElement(document.getElementById('loginMessage'), false);
+        }
+
+        // Booking Functions
+        async function submitBooking() {
+            const requiredFields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+            
+            for (const fieldId of requiredFields) {
+                const field = document.getElementById(fieldId);
+                if (!field.value.trim()) {
+                    alert(`Please fill in the ${field.previousElementSibling.textContent}`);
+                    field.focus();
+                    return;
+                }
+            }
+
+            const startDateTime = new Date(document.getElementById('startDateTime').value);
+            const endDateTime = new Date(document.getElementById('endDateTime').value);
+            
+            if (startDateTime >= endDateTime) {
+                alert('End date and time must be after start date and time');
+                return;
+            }
+
+            if (startDateTime < new Date()) {
+                alert('Start date and time cannot be in the past');
+                return;
+            }
+
+            const bookingData = {
+                userName: document.getElementById('userName').value.trim(),
+                userDesignation: document.getElementById('userDesignation').value.trim(),
+                userBranch: document.getElementById('userBranch').value.trim(),
+                userPhone: document.getElementById('userPhone').value.trim(),
+                approvedBy: document.getElementById('approvedBy').value.trim(),
+                purpose: document.getElementById('purpose').value.trim(),
+                seatCount: document.getElementById('seatCount').value,
+                distance: document.getElementById('distance').value,
+                goodsTransport: document.getElementById('goodsTransport').checked,
+                startDateTime: document.getElementById('startDateTime').value,
+                endDateTime: document.getElementById('endDateTime').value,
+                startLocation: document.getElementById('startLocation').value.trim(),
+                destination: document.getElementById('destination').value.trim()
+            };
+
+            const submitBookingBtn = document.getElementById('submitBooking');
+            const submitSpinner = document.getElementById('submitSpinner');
+            submitBookingBtn.disabled = true;
+            showElement(submitSpinner);
+
+            try {
+                const result = await callGoogleAppsScript('submitBooking', bookingData);
+                
+                if (result.success) {
+                    currentBookingId = result.bookingId;
+                    currentBookingRef = result.refNumber;
+                    updateBookingConfirmation(result, bookingData);
+                    showElement(document.getElementById('bookingForm'), false);
+                    showElement(document.getElementById('bookingSuccess'));
+                    
+                    if (document.getElementById('adminDashboard').style.display === 'block') {
+                        loadAdminData();
+                    }
+                } else {
+                    alert('Booking submission failed: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Booking submission failed. Please try again.');
+            } finally {
+                submitBookingBtn.disabled = false;
+                showElement(submitSpinner, false);
+            }
+        }
+
+        function updateBookingConfirmation(result, data) {
+            document.getElementById('enhancedPdfRefNumber').textContent = result.refNumber;
+            document.getElementById('enhancedPdfPassword').textContent = result.uniquePassword;
+            document.getElementById('enhancedPdfDate').textContent = new Date().toLocaleDateString();
+            document.getElementById('enhancedPdfUserDetails').textContent = 
+                `${data.userName}, ${data.userDesignation}, ${data.userPhone}`;
+            document.getElementById('enhancedPdfBranch').textContent = data.userBranch;
+            document.getElementById('enhancedPdfApprovedBy').textContent = data.approvedBy;
+            document.getElementById('enhancedPdfTripDetails').textContent = 
+                `${data.purpose}. From ${data.startLocation} to ${data.destination}. ${formatDateTime(data.startDateTime)} to ${formatDateTime(data.endDateTime)}`;
+            document.getElementById('enhancedPdfVehicleReq').textContent = 
+                `${data.seatCount} seats, Goods Transport: ${data.goodsTransport ? 'Yes' : 'No'}`;
+            document.getElementById('enhancedPdfDistance').textContent = 
+                `${data.distance} KM`;
+            document.getElementById('uniquePasswordDisplay').textContent = result.uniquePassword;
+                
+            generateQRCode(result.refNumber, data.startDateTime, data.endDateTime, 'qrCodeUser', '', result.uniquePassword);
+        }
+
+        function resetBookingForm() {
+            const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+            fields.forEach(id => {
+                const field = document.getElementById(id);
+                if (field) field.value = '';
+            });
+            
+            const goodsCheckbox = document.getElementById('goodsTransport');
+            if (goodsCheckbox) goodsCheckbox.checked = false;
+            
+            showElement(document.getElementById('bookingForm'));
+            showElement(document.getElementById('bookingSuccess'), false);
+        }
+
+        // User Vehicle Status Functions - ENHANCED WITH FILTERS
+        async function updateUserVehicleStatus() {
+            try {
+                const vehiclesResult = await callGoogleAppsScript('getVehicles');
+                vehicles = vehiclesResult.vehicles || [];
+                
+                const available = vehicles.filter(v => v.status === 'Available').length;
+                const booked = vehicles.filter(v => v.status === 'Booked').length;
+                const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
+                
+                document.getElementById('userAvailableCount').textContent = available;
+                document.getElementById('userBookedCount').textContent = booked;
+                document.getElementById('userMaintenanceCount').textContent = maintenance;
+                document.getElementById('userTotalVehicles').textContent = vehicles.length;
+                
+                filterUserVehicles();
+            } catch (error) {
+                console.error('Error loading user vehicle data:', error);
+            }
+        }
+
+        // NEW: Enhanced filtering with seat count and type
+        function filterUserVehicles() {
+            const searchTerm = document.getElementById('searchUserVehicles').value.toLowerCase();
+            const seatFilter = document.getElementById('userSeatFilter').value;
+            const typeFilter = document.getElementById('userTypeFilter').value;
+            
+            filteredUserVehicles = vehicles.filter(vehicle => {
+                const searchMatch = !searchTerm || 
+                    vehicle.vehicleno.toLowerCase().includes(searchTerm) ||
+                    vehicle.type.toLowerCase().includes(searchTerm) ||
+                    vehicle.status.toLowerCase().includes(searchTerm);
+                
+                const seatMatch = !seatFilter || vehicle.seatcapacity === seatFilter;
+                const typeMatch = !typeFilter || vehicle.type === typeFilter;
+                
+                return searchMatch && seatMatch && typeMatch;
+            });
+            
+            userVehiclePage = 1;
+            displayUserVehicles();
+            updateUserVehiclePagination();
+        }
+
+        function displayUserVehicles() {
+            const userVehiclesList = document.getElementById('userVehiclesList');
+            userVehiclesList.innerHTML = '';
+            
+            if (filteredUserVehicles.length === 0) {
+                userVehiclesList.innerHTML = '<tr><td colspan="4" class="text-center">No vehicles found</td></tr>';
+                return;
+            }
+
+            const startIndex = (userVehiclePage - 1) * userVehicleItemsPerPage;
+            const endIndex = Math.min(startIndex + userVehicleItemsPerPage, filteredUserVehicles.length);
+            const currentVehicles = filteredUserVehicles.slice(startIndex, endIndex);
+
+            currentVehicles.forEach(vehicle => {
+                const tr = document.createElement('tr');
+                const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
+                                vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
+                const statusClass = `status-${vehicle.status.toLowerCase()}`;
+                
+                tr.innerHTML = `
+                    <td>${vehicle.vehicleno}</td>
+                    <td><span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></td>
+                    <td>${vehicle.seatcapacity} seats</td>
+                    <td><span class="status-badge ${statusClass}">${vehicle.status}</span></td>
+                `;
+                userVehiclesList.appendChild(tr);
+            });
+        }
+
+        function updateUserVehiclePagination() {
+            const totalPages = Math.ceil(filteredUserVehicles.length / userVehicleItemsPerPage);
+            document.getElementById('userVehiclePageInfo').textContent = `Page ${userVehiclePage} of ${totalPages}`;
+            document.getElementById('userVehiclePaginationInfo').textContent = `Page ${userVehiclePage} of ${totalPages}`;
+            document.getElementById('userPrevPage').disabled = userVehiclePage === 1;
+            document.getElementById('userNextPage').disabled = userVehiclePage === totalPages || totalPages === 0;
+        }
+
+        function goToUserPrevPage() {
+            if (userVehiclePage > 1) {
+                userVehiclePage--;
+                displayUserVehicles();
+                updateUserVehiclePagination();
+            }
+        }
+
+        function goToUserNextPage() {
+            const totalPages = Math.ceil(filteredUserVehicles.length / userVehicleItemsPerPage);
+            if (userVehiclePage < totalPages) {
+                userVehiclePage++;
+                displayUserVehicles();
+                updateUserVehiclePagination();
+            }
+        }
+
+        // Admin Functions
+        async function loadAdminData() {
+            const adminSpinner = document.getElementById('adminSpinner');
+            showElement(adminSpinner);
+            
+            try {
+                const [bookingsResult, vehiclesResult, driversResult] = await Promise.all([
+                    callGoogleAppsScript('getBookings'),
+                    callGoogleAppsScript('getVehicles'),
+                    callGoogleAppsScript('getDrivers')
+                ]);
+
+                allBookings = bookingsResult.bookings || [];
+                vehicles = vehiclesResult.vehicles || [];
+                drivers = driversResult.drivers || [];
+
+                updateAdminStats();
+                filterBookings();
+                updateVehicleStatus();
+                updatePendingBookingNotification();
+            } catch (error) {
+                console.error('Error loading admin data:', error);
+                document.getElementById('requestsTableBody').innerHTML = '<tr><td colspan="9" class="text-center">Error loading data</td></tr>';
+            } finally {
+                showElement(adminSpinner, false);
+            }
+        }
+
+        function updateAdminStats() {
+            document.getElementById('totalBookings').textContent = allBookings.length;
+            document.getElementById('pendingBookings').textContent = allBookings.filter(b => b.status === 'Pending').length;
+            document.getElementById('approvedBookings').textContent = allBookings.filter(b => b.status === 'Approved').length;
+            document.getElementById('totalVehicles').textContent = vehicles.length;
+        }
+
+        function filterBookings() {
+            const status = document.getElementById('statusFilter').value;
+            const searchTerm = document.getElementById('searchBookings').value.toLowerCase();
+            
+            filteredBookings = allBookings.filter(booking => {
+                const statusMatch = status === 'all' || booking.status === status;
+                const searchMatch = !searchTerm || 
+                    booking.refnumber.toLowerCase().includes(searchTerm) ||
+                    booking.username.toLowerCase().includes(searchTerm) ||
+                    booking.destination.toLowerCase().includes(searchTerm) ||
+                    booking.userbranch.toLowerCase().includes(searchTerm);
+                
+                return statusMatch && searchMatch;
+            });
+            
+            currentPage = 1;
+            displayBookings();
+            updatePagination();
+            updateAdminStats();
+        }
+
+        function displayBookings() {
+            const requestsTableBody = document.getElementById('requestsTableBody');
+            const requestCount = document.getElementById('requestCount');
+            requestsTableBody.innerHTML = '';
+            
+            if (filteredBookings.length === 0) {
+                requestsTableBody.innerHTML = '<tr><td colspan="9" class="text-center">No booking requests found</td></tr>';
+                requestCount.textContent = '0 requests';
+                return;
+            }
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, filteredBookings.length);
+            const currentBookings = filteredBookings.slice(startIndex, endIndex);
+
+            requestCount.textContent = `${filteredBookings.length} requests`;
+
+            currentBookings.forEach(booking => {
+                const row = document.createElement('tr');
+                if (booking.status === 'Pending') {
+                    row.classList.add('highlighted-row');
+                }
+
+                const statusClass = `status-${booking.status.toLowerCase()}`;
+                
+                let actions = '';
+                if (booking.status === 'Pending') {
+                    actions = `
+                        <button class="action-btn btn" onclick="openAllocationModal(${booking.id})">Allocate</button>
+                        <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+                        <button class="action-btn btn btn-danger" onclick="deleteBooking(${booking.id})">Delete</button>
+                    `;
+                } else if (booking.status === 'Approved') {
+                    actions = `
+                        <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
+                        <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+                    `;
+                } else {
+                    actions = `
+                        <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
+                        <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+                    `;
+                }
+
+                row.innerHTML = `
+                    <td>${booking.refnumber}</td>
+                    <td>${booking.username}</td>
+                    <td>${booking.userbranch}</td>
+                    <td>${booking.destination}</td>
+                    <td>${formatDateTime(booking.startdatetime)}</td>
+                    <td>${booking.seatcount}</td>
+                    <td>${booking.distance} KM</td>
+                    <td><span class="status-badge ${statusClass}">${booking.status}</span></td>
+                    <td>${actions}</td>
+                `;
+
+                requestsTableBody.appendChild(row);
+            });
+        }
+
+        function updatePagination() {
+            const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+            document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+            document.getElementById('prevPage').disabled = currentPage === 1;
+            document.getElementById('nextPage').disabled = currentPage === totalPages || totalPages === 0;
+        }
+
+        function goToPrevPage() {
+            if (currentPage > 1) {
+                currentPage--;
+                displayBookings();
+                updatePagination();
+            }
+        }
+
+        function goToNextPage() {
+            const totalPages = Math.ceil(filteredBookings.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                displayBookings();
+                updatePagination();
+            }
+        }
+
+        // Modal Functions - FIXED
+        function openAllocationModal(bookingId) {
+            currentBookingId = bookingId;
+            const booking = allBookings.find(b => b.id === bookingId);
+            
+            if (booking) {
+                selectedVehicleId = null;
+                selectedDriverId = null;
+                document.getElementById('selectedVehicleText').textContent = 'None selected';
+                document.getElementById('selectedDriverText').textContent = 'None selected';
+                
+                document.getElementById('searchVehicleModal').value = '';
+                document.getElementById('searchDriverModal').value = '';
+                vehicleModalPage = 1;
+                driverModalPage = 1;
+                
+                document.getElementById('uniquePassword').value = '';
+                
+                filterModalVehicles();
+                filterModalDrivers();
+                
+                showElement(document.getElementById('allocationModal'));
+            }
+        }
+
+        function filterModalVehicles() {
+            const searchTerm = document.getElementById('searchVehicleModal').value.toLowerCase();
+            
+            filteredModalVehicles = vehicles.filter(vehicle => {
+                // Ensure all properties are strings before calling string methods
+                const vehicleNo = String(vehicle.vehicleno || '');
+                const vehicleType = String(vehicle.type || '');
+                const seatCapacity = String(vehicle.seatcapacity || '');
+                
+                const isAvailable = vehicle.status === 'Available';
+                const searchMatch = !searchTerm || 
+                    vehicleNo.toLowerCase().includes(searchTerm) ||
+                    vehicleType.toLowerCase().includes(searchTerm) ||
+                    seatCapacity.includes(searchTerm);
+                
+                return isAvailable && searchMatch;
+            });
+            
+            vehicleModalPage = 1;
+            displayModalVehicles();
+            updateVehicleModalPagination();
+        }
+
+        function displayModalVehicles() {
+            const vehicleSelectionList = document.getElementById('vehicleSelectionList');
+            vehicleSelectionList.innerHTML = '';
+            
+            if (filteredModalVehicles.length === 0) {
+                vehicleSelectionList.innerHTML = '<div class="selection-item" style="text-align: center; color: #999;">No available vehicles found</div>';
+                return;
+            }
+
+            const startIndex = (vehicleModalPage - 1) * modalItemsPerPage;
+            const endIndex = Math.min(startIndex + modalItemsPerPage, filteredModalVehicles.length);
+            const currentVehicles = filteredModalVehicles.slice(startIndex, endIndex);
+
+            currentVehicles.forEach(vehicle => {
+                const div = document.createElement('div');
+                div.className = `selection-item ${selectedVehicleId === vehicle.id ? 'selected' : ''}`;
+                div.innerHTML = `
+                    <div><strong>${vehicle.vehicleno}</strong> - ${vehicle.type}</div>
+                    <div style="color: #666; font-size: 0.9em;">${vehicle.seatcapacity} seats - ${vehicle.status}</div>
+                `;
+                div.addEventListener('click', () => selectVehicle(vehicle, div));
+                vehicleSelectionList.appendChild(div);
+            });
+        }
+
+        function selectVehicle(vehicle, element) {
+            selectedVehicleId = vehicle.id;
+            document.getElementById('selectedVehicleText').textContent = `${vehicle.vehicleno} - ${vehicle.type} (${vehicle.seatcapacity} seats)`;
+            
+            document.querySelectorAll('#vehicleSelectionList .selection-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function filterModalDrivers() {
+            const searchTerm = document.getElementById('searchDriverModal').value.toLowerCase();
+            
+            filteredModalDrivers = drivers.filter(driver => {
+                // Ensure all properties are strings before calling string methods
+                const driverName = String(driver.name || '');
+                const driverPhone = String(driver.phone || '');
+                
+                const isAvailable = driver.status === 'Available';
+                const searchMatch = !searchTerm || 
+                    driverName.toLowerCase().includes(searchTerm) ||
+                    driverPhone.toLowerCase().includes(searchTerm);
+                
+                return isAvailable && searchMatch;
+            });
+            
+            driverModalPage = 1;
+            displayModalDrivers();
+            updateDriverModalPagination();
+        }
+
+        function displayModalDrivers() {
+            const driverSelectionList = document.getElementById('driverSelectionList');
+            driverSelectionList.innerHTML = '';
+            
+            if (filteredModalDrivers.length === 0) {
+                driverSelectionList.innerHTML = '<div class="selection-item" style="text-align: center; color: #999;">No available drivers found</div>';
+                return;
+            }
+
+            const startIndex = (driverModalPage - 1) * modalItemsPerPage;
+            const endIndex = Math.min(startIndex + modalItemsPerPage, filteredModalDrivers.length);
+            const currentDrivers = filteredModalDrivers.slice(startIndex, endIndex);
+
+            currentDrivers.forEach(driver => {
+                const div = document.createElement('div');
+                div.className = `selection-item ${selectedDriverId === driver.id ? 'selected' : ''}`;
+                div.innerHTML = `
+                    <div><strong>${driver.name}</strong></div>
+                    <div style="color: #666; font-size: 0.9em;">${driver.phone} - ${driver.status}</div>
+                `;
+                div.addEventListener('click', () => selectDriver(driver, div));
+                driverSelectionList.appendChild(div);
+            });
+        }
+
+        function selectDriver(driver, element) {
+            selectedDriverId = driver.id;
+            document.getElementById('selectedDriverText').textContent = `${driver.name} (${driver.phone})`;
+            
+            document.querySelectorAll('#driverSelectionList .selection-item').forEach(item => {
+                item.classList.remove('selected');
+            });
+            element.classList.add('selected');
+        }
+
+        function updateVehicleModalPagination() {
+            const totalPages = Math.ceil(filteredModalVehicles.length / modalItemsPerPage);
+            document.getElementById('vehiclePageInfo').textContent = `Page ${vehicleModalPage} of ${totalPages || 1}`;
+            document.getElementById('vehiclePrevPage').disabled = vehicleModalPage === 1;
+            document.getElementById('vehicleNextPage').disabled = vehicleModalPage === totalPages || totalPages === 0;
+        }
+
+        function updateDriverModalPagination() {
+            const totalPages = Math.ceil(filteredModalDrivers.length / modalItemsPerPage);
+            document.getElementById('driverPageInfo').textContent = `Page ${driverModalPage} of ${totalPages || 1}`;
+            document.getElementById('driverPrevPage').disabled = driverModalPage === 1;
+            document.getElementById('driverNextPage').disabled = driverModalPage === totalPages || totalPages === 0;
+        }
+
+        function goToVehiclePrevPage() {
+            if (vehicleModalPage > 1) {
+                vehicleModalPage--;
+                displayModalVehicles();
+                updateVehicleModalPagination();
+            }
+        }
+
+        function goToVehicleNextPage() {
+            const totalPages = Math.ceil(filteredModalVehicles.length / modalItemsPerPage);
+            if (vehicleModalPage < totalPages) {
+                vehicleModalPage++;
+                displayModalVehicles();
+                updateVehicleModalPagination();
+            }
+        }
+
+        function goToDriverPrevPage() {
+            if (driverModalPage > 1) {
+                driverModalPage--;
+                displayModalDrivers();
+                updateDriverModalPagination();
+            }
+        }
+
+        function goToDriverNextPage() {
+            const totalPages = Math.ceil(filteredModalDrivers.length / modalItemsPerPage);
+            if (driverModalPage < totalPages) {
+                driverModalPage++;
+                displayModalDrivers();
+                updateDriverModalPagination();
+            }
+        }
+
+        function openEditModal(bookingId) {
+            currentBookingId = bookingId;
+            const booking = allBookings.find(b => b.id === bookingId);
+            
+            if (booking) {
+                document.getElementById('editUserName').value = booking.username || '';
+                document.getElementById('editUserDesignation').value = booking.userdesignation || '';
+                document.getElementById('editUserBranch').value = booking.userbranch || '';
+                document.getElementById('editUserPhone').value = booking.userphone || '';
+                document.getElementById('editApprovedBy').value = booking.approvedby || '';
+                document.getElementById('editPurpose').value = booking.purpose || '';
+                document.getElementById('editSeatCount').value = booking.seatcount || '';
+                document.getElementById('editDistance').value = booking.distance || '';
+                document.getElementById('editStartDateTime').value = booking.startdatetime ? booking.startdatetime.substring(0, 16) : '';
+                document.getElementById('editEndDateTime').value = booking.enddatetime ? booking.enddatetime.substring(0, 16) : '';
+                document.getElementById('editStartLocation').value = booking.startlocation || '';
+                document.getElementById('editDestination').value = booking.destination || '';
+                
+                showElement(document.getElementById('editModal'));
+            }
+        }
+
+        function viewBooking(bookingId) {
+            currentBookingId = bookingId;
+            const booking = allBookings.find(b => b.id === bookingId);
+            
+            if (booking) {
+                document.getElementById('viewRefNumber').textContent = booking.refnumber;
+                document.getElementById('viewDate').textContent = formatDate(booking.timestamp);
+                document.getElementById('viewUserDetails').textContent = 
+                    `${booking.username}, ${booking.userdesignation}, ${booking.userphone}`;
+                document.getElementById('viewBranch').textContent = booking.userbranch;
+                document.getElementById('viewApprovedBy').textContent = booking.approvedby || 'Not specified';
+                document.getElementById('viewTripDetails').textContent = 
+                    `${booking.purpose}. From ${booking.startlocation} to ${booking.destination}. ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}`;
+                document.getElementById('viewVehicleReq').textContent = 
+                    `${booking.seatcount} seats, Goods Transport: ${booking.goodstransport || 'No'}`;
+                document.getElementById('viewDistance').textContent = 
+                    `${booking.distance} KM`;
+                document.getElementById('viewStatus').textContent = booking.status;
+                document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
+                document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
+                
+                const vehicleNumber = booking.allocatedvehicle ? booking.allocatedvehicle.split(' - ')[0] : '';
+                generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
+                
+                showElement(document.getElementById('viewModal'));
+            }
+        }
+
+        async function allocateVehicle() {
+            if (!selectedVehicleId || !selectedDriverId) {
+                alert('Please select both a vehicle and a driver');
+                return;
+            }
+            
+            const password = document.getElementById('uniquePassword').value.trim();
+            
+            if (!password) {
+                alert('Please enter the booking password for verification');
+                return;
+            }
+
+            const confirmAllocationBtn = document.getElementById('confirmAllocation');
+            confirmAllocationBtn.disabled = true;
+            confirmAllocationBtn.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                const result = await callGoogleAppsScript('allocateVehicle', {
+                    bookingId: currentBookingId,
+                    vehicleId: selectedVehicleId,
+                    driverId: selectedDriverId,
+                    uniquePassword: password.toUpperCase()
+                });
+
+                if (result.success) {
+                    showElement(document.getElementById('allocationModal'), false);
+                    loadAdminData();
+                    alert('Vehicle and driver allocated successfully!');
+                } else {
+                    alert('Allocation failed: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Allocation failed. Please try again.');
+            } finally {
+                confirmAllocationBtn.disabled = false;
+                confirmAllocationBtn.innerHTML = 'Allocate';
+            }
+        }
+
+        async function saveBookingEdit() {
+            const editData = {
+                bookingId: currentBookingId,
+                userName: document.getElementById('editUserName').value,
+                userDesignation: document.getElementById('editUserDesignation').value,
+                userBranch: document.getElementById('editUserBranch').value,
+                userPhone: document.getElementById('editUserPhone').value,
+                approvedBy: document.getElementById('editApprovedBy').value,
+                purpose: document.getElementById('editPurpose').value,
+                seatCount: document.getElementById('editSeatCount').value,
+                distance: document.getElementById('editDistance').value,
+                startDateTime: document.getElementById('editStartDateTime').value,
+                endDateTime: document.getElementById('editEndDateTime').value,
+                startLocation: document.getElementById('editStartLocation').value,
+                destination: document.getElementById('editDestination').value
+            };
+
+            const confirmEditBtn = document.getElementById('confirmEdit');
+            confirmEditBtn.disabled = true;
+            confirmEditBtn.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                const result = await callGoogleAppsScript('editBooking', editData);
+                
+                if (result.success) {
+                    showElement(document.getElementById('editModal'), false);
+                    loadAdminData();
+                    alert('Booking updated successfully!');
+                } else {
+                    alert('Update failed: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                alert('Update failed. Please try again.');
+            } finally {
+                confirmEditBtn.disabled = false;
+                confirmEditBtn.innerHTML = 'Save Changes';
+            }
+        }
+
+        async function deleteBooking(bookingId) {
+            if (confirm('Are you sure you want to delete this booking?')) {
+                try {
+                    const result = await callGoogleAppsScript('deleteBooking', { bookingId: bookingId });
+                    
+                    if (result.success) {
+                        loadAdminData();
+                        alert('Booking deleted successfully!');
+                    } else {
+                        alert('Delete failed: ' + (result.error || 'Unknown error'));
+                    }
+                } catch (error) {
+                    alert('Delete failed. Please try again.');
+                }
+            }
+        }
+
+        // Vehicle Status Functions - ENHANCED WITH FILTERS
+        function updateVehicleStatus() {
+            const searchTerm = document.getElementById('searchVehicles').value.toLowerCase();
+            const seatFilter = document.getElementById('adminSeatFilter').value;
+            const typeFilter = document.getElementById('adminTypeFilter').value;
+            
+            let displayVehicles = vehicles;
+            
+            // Apply filters
+            if (searchTerm || seatFilter || typeFilter) {
+                displayVehicles = vehicles.filter(vehicle => {
+                    const searchMatch = !searchTerm || 
+                        vehicle.vehicleno.toLowerCase().includes(searchTerm) || 
+                        vehicle.type.toLowerCase().includes(searchTerm);
+                    
+                    const seatMatch = !seatFilter || vehicle.seatcapacity === seatFilter;
+                    const typeMatch = !typeFilter || vehicle.type === typeFilter;
+                    
+                    return searchMatch && seatMatch && typeMatch;
+                });
+            }
+            
+            const available = displayVehicles.filter(v => v.status === 'Available').length;
+            const booked = displayVehicles.filter(v => v.status === 'Booked').length;
+            const maintenance = displayVehicles.filter(v => v.status === 'Maintenance').length;
+            
+            document.getElementById('availableCount').textContent = available;
+            document.getElementById('bookedCount').textContent = booked;
+            document.getElementById('maintenanceCount').textContent = maintenance;
+            
+            // Update vehicle lists with filtered data
+            updateVehicleList('availableVehiclesList', 'Available', displayVehicles);
+            updateVehicleList('bookedVehiclesList', 'Booked', displayVehicles);
+            updateVehicleList('maintenanceVehiclesList', 'Maintenance', displayVehicles);
+        }
+
+        function updateVehicleList(listId, status, vehiclesToDisplay = vehicles) {
+            const list = document.getElementById(listId);
+            if (!list) return;
+            
+            let filtered = vehiclesToDisplay.filter(v => v.status === status);
+            
+            // Always show all vehicles for admin (no truncation)
+            const displayItems = filtered;
+            
+            list.innerHTML = '';
+            
+            if (displayItems.length === 0) {
+                const li = document.createElement('li');
+                li.textContent = 'No vehicles found';
+                li.style.color = '#999';
+                li.style.textAlign = 'center';
+                list.appendChild(li);
             } else {
-                alert('Delete failed: ' + (result.error || 'Unknown error'));
+                displayItems.forEach(vehicle => {
+                    const li = document.createElement('li');
+                    const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
+                                    vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
+                    
+                    li.innerHTML = `
+                        <span>${vehicle.vehicleno} - <span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></span>
+                        <span>${vehicle.seatcapacity} seats</span>
+                    `;
+                    list.appendChild(li);
+                });
             }
-        } catch (error) {
-            alert('Delete failed. Please try again.');
         }
-    }
-}
 
-// Vehicle Status Functions
-function updateVehicleStatus() {
-    const available = vehicles.filter(v => v.status === 'Available').length;
-    const booked = vehicles.filter(v => v.status === 'Booked').length;
-    const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
-    
-    availableCount.textContent = available;
-    bookedCount.textContent = booked;
-    maintenanceCount.textContent = maintenance;
-    
-    updateVehicleList('availableVehiclesList', 'Available');
-    updateVehicleList('bookedVehiclesList', 'Booked');
-    updateVehicleList('maintenanceVehiclesList', 'Maintenance');
-}
+        // System Logs Functions
+        async function loadSystemLogs() {
+            try {
+                const result = await callGoogleAppsScript('getSystemLogs');
+                systemLogs = result.logs || [];
+                filterLogs();
+            } catch (error) {
+                console.error('Error loading system logs:', error);
+                systemLogs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
+                filterLogs();
+            }
+        }
 
-function updateVehicleList(listId, status) {
-    const list = document.getElementById(listId);
-    const searchTerm = searchVehicles.value.toLowerCase();
-    let filtered = vehicles.filter(v => v.status === status);
-    
-    if (searchTerm) {
-        filtered = filtered.filter(v => 
-            v.vehicleno.toLowerCase().includes(searchTerm) || 
-            v.type.toLowerCase().includes(searchTerm)
-        );
-    }
-    
-    // Show only first 10 items in the admin dashboard cards
-    const displayItems = filtered.slice(0, 10);
-    
-    list.innerHTML = '';
-    
-    if (displayItems.length === 0) {
-        const li = document.createElement('li');
-        li.textContent = 'No vehicles found';
-        list.appendChild(li);
-    } else {
-        displayItems.forEach(vehicle => {
-            const li = document.createElement('li');
-            const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
-                            vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
+        function filterLogs() {
+            const typeFilter = document.getElementById('logTypeFilter').value;
+            const searchTerm = document.getElementById('searchLogs').value.toLowerCase();
             
-            li.innerHTML = `
-                <span>${vehicle.vehicleno} - <span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></span>
-                <span>${vehicle.seatcapacity} seats</span>
+            filteredLogs = systemLogs.filter(log => {
+                const typeMatch = typeFilter === 'all' || log.type === typeFilter;
+                const searchMatch = !searchTerm || 
+                    log.user.toLowerCase().includes(searchTerm) ||
+                    log.action.toLowerCase().includes(searchTerm) ||
+                    log.details.toLowerCase().includes(searchTerm);
+                
+                return typeMatch && searchMatch;
+            });
+            
+            logsPage = 1;
+            displayLogs();
+            updateLogsPagination();
+        }
+
+        function displayLogs() {
+            const systemLogsTable = document.getElementById('systemLogsTable');
+            systemLogsTable.innerHTML = '';
+            
+            if (filteredLogs.length === 0) {
+                systemLogsTable.innerHTML = '<tr><td colspan="5" class="text-center">No logs found</td></tr>';
+                return;
+            }
+
+            const startIndex = (logsPage - 1) * logsItemsPerPage;
+            const endIndex = Math.min(startIndex + logsItemsPerPage, filteredLogs.length);
+            const currentLogs = filteredLogs.slice(startIndex, endIndex);
+
+            currentLogs.forEach(log => {
+                const tr = document.createElement('tr');
+                const typeClass = `status-${log.type.toLowerCase()}`;
+                
+                tr.innerHTML = `
+                    <td>${formatDateTime(log.timestamp)}</td>
+                    <td><span class="status-badge ${typeClass}">${log.type}</span></td>
+                    <td>${log.user}</td>
+                    <td>${log.action}</td>
+                    <td>${log.details || '-'}</td>
+                `;
+                systemLogsTable.appendChild(tr);
+            });
+        }
+
+        function updateLogsPagination() {
+            const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
+            document.getElementById('logsPageInfo').textContent = `Page ${logsPage} of ${totalPages || 1}`;
+            document.getElementById('logsPrevPage').disabled = logsPage === 1;
+            document.getElementById('logsNextPage').disabled = logsPage === totalPages || totalPages === 0;
+        }
+
+        function goToLogsPrevPage() {
+            if (logsPage > 1) {
+                logsPage--;
+                displayLogs();
+                updateLogsPagination();
+            }
+        }
+
+        function goToLogsNextPage() {
+            const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
+            if (logsPage < totalPages) {
+                logsPage++;
+                displayLogs();
+                updateLogsPagination();
+            }
+        }
+
+        // Report Functions - FIXED
+        async function generateReport() {
+            const type = document.getElementById('reportType').value;
+            const start = document.getElementById('startDate').value;
+            const end = document.getElementById('endDate').value;
+            
+            if (start && end && new Date(start) > new Date(end)) {
+                alert('Start date cannot be after end date');
+                return;
+            }
+
+            const generateReportBtn = document.getElementById('generateReport');
+            generateReportBtn.disabled = true;
+            generateReportBtn.innerHTML = '<div class="spinner"></div>';
+
+            try {
+                const result = await callGoogleAppsScript('getReports', {
+                    type: type,
+                    startDate: start,
+                    endDate: end
+                });
+
+                if (result.success) {
+                    displayReport(result);
+                    logSystemActivity('report', 'Administrator', 'Report Generated', `Type: ${type}`);
+                } else {
+                    alert('Report generation failed: ' + (result.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Report generation error:', error);
+                alert('Report generation failed. Please try again.');
+            } finally {
+                generateReportBtn.disabled = false;
+                generateReportBtn.innerHTML = 'Generate Report';
+            }
+        }
+
+        function displayReport(result) {
+            let html = `
+                <div class="enhanced-pdf">
+                    <div class="enhanced-pdf-header">
+                        <div class="enhanced-pdf-title">${result.title}</div>
+                        <div class="enhanced-pdf-subtitle">Generated on ${formatDateTime(result.generatedAt)}</div>
+                    </div>
             `;
-            list.appendChild(li);
-        });
-        
-        // Show "and X more..." if there are more items
-        if (filtered.length > 10) {
-            const li = document.createElement('li');
-            li.innerHTML = `<span class="text-muted">... and ${filtered.length - 10} more</span>`;
-            list.appendChild(li);
-        }
-    }
-}
 
-// System Logs Functions
-async function loadSystemLogs() {
-    try {
-        const result = await callGoogleAppsScript('getSystemLogs');
-        systemLogs = result.logs || [];
-        filterLogs();
-    } catch (error) {
-        console.error('Error loading system logs:', error);
-        // Fallback to localStorage
-        systemLogs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
-        filterLogs();
-    }
-}
-
-function filterLogs() {
-    const typeFilter = logTypeFilter.value;
-    const searchTerm = searchLogs.value.toLowerCase();
-    
-    filteredLogs = systemLogs.filter(log => {
-        const typeMatch = typeFilter === 'all' || log.type === typeFilter;
-        const searchMatch = !searchTerm || 
-            log.user.toLowerCase().includes(searchTerm) ||
-            log.action.toLowerCase().includes(searchTerm) ||
-            log.details.toLowerCase().includes(searchTerm);
-        
-        return typeMatch && searchMatch;
-    });
-    
-    logsPage = 1;
-    displayLogs();
-    updateLogsPagination();
-}
-
-function displayLogs() {
-    systemLogsTable.innerHTML = '';
-    
-    if (filteredLogs.length === 0) {
-        systemLogsTable.innerHTML = '<tr><td colspan="5" class="text-center">No logs found</td></tr>';
-        return;
-    }
-
-    const startIndex = (logsPage - 1) * logsItemsPerPage;
-    const endIndex = Math.min(startIndex + logsItemsPerPage, filteredLogs.length);
-    const currentLogs = filteredLogs.slice(startIndex, endIndex);
-
-    currentLogs.forEach(log => {
-        const tr = document.createElement('tr');
-        const typeClass = `status-${log.type.toLowerCase()}`;
-        
-        tr.innerHTML = `
-            <td>${formatDateTime(log.timestamp)}</td>
-            <td><span class="status-badge ${typeClass}">${log.type}</span></td>
-            <td>${log.user}</td>
-            <td>${log.action}</td>
-            <td>${log.details || '-'}</td>
-        `;
-        systemLogsTable.appendChild(tr);
-    });
-}
-
-function updateLogsPagination() {
-    const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
-    logsPageInfo.textContent = `Page ${logsPage} of ${totalPages}`;
-    logsPrevPage.disabled = logsPage === 1;
-    logsNextPage.disabled = logsPage === totalPages || totalPages === 0;
-}
-
-function goToLogsPrevPage() {
-    if (logsPage > 1) {
-        logsPage--;
-        displayLogs();
-        updateLogsPagination();
-    }
-}
-
-function goToLogsNextPage() {
-    const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
-    if (logsPage < totalPages) {
-        logsPage++;
-        displayLogs();
-        updateLogsPagination();
-    }
-}
-
-// Report Functions
-async function generateReport() {
-    const type = reportType.value;
-    const start = startDate.value;
-    const end = endDate.value;
-    
-    if (start && end && new Date(start) > new Date(end)) {
-        alert('Start date cannot be after end date');
-        return;
-    }
-
-    generateReportBtn.disabled = true;
-    generateReportBtn.innerHTML = '<div class="spinner"></div>';
-
-    try {
-        const result = await callGoogleAppsScript('getReports', {
-            type: type,
-            startDate: start,
-            endDate: end
-        });
-
-        if (result.success) {
-            displayReport(result);
-        } else {
-            alert('Report generation failed: ' + (result.error || 'Unknown error'));
-        }
-    } catch (error) {
-        alert('Report generation failed. Please try again.');
-    } finally {
-        generateReportBtn.disabled = false;
-        generateReportBtn.innerHTML = 'Generate Report';
-    }
-}
-
-function displayReport(result) {
-    let html = `
-        <div class="enhanced-pdf">
-            <div class="enhanced-pdf-header">
-                <div class="enhanced-pdf-title">${result.title}</div>
-                <div class="enhanced-pdf-subtitle">Generated on ${formatDateTime(result.generatedAt)}</div>
-            </div>
-    `;
-
-    if (result.reportData && result.reportData.length > 0) {
-        html += '<table class="user-vehicle-table" style="width: 100%; margin-top: 20px;">';
-        
-        // Header row
-        html += '<thead><tr>';
-        result.reportData[0].forEach(cell => {
-            html += `<th>${cell}</th>`;
-        });
-        html += '</tr></thead>';
-        
-        // Data rows
-        html += '<tbody>';
-        for (let i = 1; i < result.reportData.length; i++) {
-            html += '<tr>';
-            result.reportData[i].forEach(cell => {
-                html += `<td>${cell}</td>`;
-            });
-            html += '</tr>';
-        }
-        html += '</tbody>';
-        html += '</table>';
-    } else {
-        html += '<p>No data available for the selected criteria.</p>';
-    }
-
-    html += '</div>';
-
-    reportResults.innerHTML = html;
-}
-
-// QR Code Generation
-function generateQRCode(refNumber, startTime, endTime, elementId, vehicleNumber = '', password = '') {
-    const qrData = `Booking Ref: ${refNumber}
-Start: ${formatDateTime(startTime)}
-End: ${formatDateTime(endTime)}
-Vehicle: ${vehicleNumber || 'Not allocated'}
-Password: ${password}
-Ministry of Health Vehicle Booking System`;
-    
-    const qr = qrcode(0, 'M');
-    qr.addData(qrData);
-    qr.make();
-    
-    const qrElement = document.getElementById(elementId);
-    qrElement.innerHTML = qr.createImgTag(5);
-}
-
-// PDF Generation Functions - COMPLETE VERSION
-function generatePDF(isFinal = false) {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-    
-    // Add Ministry of Health logo/header
-    doc.setFontSize(20);
-    doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
-    doc.text('MINISTRY OF HEALTH', 105, 20, { align: 'center' });
-    
-    doc.setFontSize(16);
-    doc.setTextColor(95, 99, 104);
-    doc.text('Vehicle Booking System', 105, 30, { align: 'center' });
-    
-    // Add a horizontal line
-    doc.setDrawColor(26, 115, 232);
-    doc.line(20, 40, 190, 40);
-    
-    // Title based on document type
-    doc.setFontSize(18);
-    doc.setTextColor(0, 0, 0);
-    doc.text(isFinal ? 'VEHICLE BOOKING CONFIRMATION' : 'VEHICLE BOOKING REQUEST', 105, 55, { align: 'center' });
-    
-    // Add content based on whether it's final or preview
-    if (isFinal) {
-        const booking = allBookings.find(b => b.id === currentBookingId);
-        if (booking) {
-            addFormalBookingContentToPDF(doc, booking, true);
-        }
-    } else {
-        // For preview, use the data from the confirmation section
-        addFormalPreviewContentToPDF(doc);
-    }
-    
-    // Add QR Code to PDF
-    if (!isFinal) {
-        // Get QR code data URL
-        const qrCodeElement = document.querySelector('#qrCodeUser img');
-        if (qrCodeElement) {
-            const qrCodeDataURL = qrCodeElement.src;
-            // Position QR code at bottom right
-            doc.addImage(qrCodeDataURL, 'PNG', 150, 230, 40, 40);
-        }
-    } else {
-        const qrCodeElement = document.querySelector('#qrCodeAdmin img');
-        if (qrCodeElement) {
-            const qrCodeDataURL = qrCodeElement.src;
-            // Position QR code at bottom right for final PDF
-            doc.addImage(qrCodeDataURL, 'PNG', 150, 230, 40, 40);
-        }
-    }
-    
-    // Add footer
-    doc.setFontSize(10);
-    doc.setTextColor(128, 128, 128);
-    doc.text('Official Document - Ministry of Health Vehicle Booking System', 105, 275, { align: 'center' });
-    doc.text(`Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`, 105, 280, { align: 'center' });
-    doc.text(`Page 1 of 1`, 105, 285, { align: 'center' });
-    
-    // Save the PDF
-    const fileName = isFinal ? 
-        `booking_confirmation_${currentBookingRef}.pdf` : 
-        `booking_request_${currentBookingRef}.pdf`;
-    
-    doc.save(fileName);
-    
-    logSystemActivity('system', currentUserRole, 'PDF Downloaded', 
-        isFinal ? `Final confirmation for ${currentBookingRef}` : `Request preview for ${currentBookingRef}`);
-}
-
-function addFormalPreviewContentToPDF(doc) {
-    let yPosition = 70;
-    
-    // Reference and Date section
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Booking Reference: ${currentBookingRef}`, 20, yPosition);
-    doc.text(`Submission Date: ${new Date().toLocaleDateString()}`, 120, yPosition);
-    yPosition += 15;
-    
-    // User Details section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('REQUESTOR DETAILS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Full Name: ${document.getElementById('userName').value}`, 20, yPosition);
-    doc.text(`Designation: ${document.getElementById('userDesignation').value}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Branch/Section: ${document.getElementById('userBranch').value}`, 20, yPosition);
-    doc.text(`Phone: ${document.getElementById('userPhone').value}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Approved By: ${document.getElementById('approvedBy').value}`, 20, yPosition);
-    yPosition += 15;
-    
-    // Trip Details section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('TRIP DETAILS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Purpose: ${document.getElementById('purpose').value}`, 20, yPosition);
-    yPosition += 8;
-    
-    doc.text(`From: ${document.getElementById('startLocation').value}`, 20, yPosition);
-    doc.text(`To: ${document.getElementById('destination').value}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Start: ${formatDateTime(document.getElementById('startDateTime').value)}`, 20, yPosition);
-    doc.text(`End: ${formatDateTime(document.getElementById('endDateTime').value)}`, 120, yPosition);
-    yPosition += 15;
-    
-    // Vehicle Requirements section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Seats Required: ${document.getElementById('seatCount').value}`, 20, yPosition);
-    doc.text(`Distance: ${document.getElementById('distance').value} KM`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}`, 20, yPosition);
-    yPosition += 15;
-    
-    // Status and Password
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('BOOKING INFORMATION', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Status: Pending Approval`, 20, yPosition);
-    doc.text(`Unique Password: ${uniquePasswordDisplay.textContent}`, 120, yPosition);
-    yPosition += 20;
-    
-    // Signature section
-    doc.setDrawColor(0, 0, 0);
-    doc.line(20, yPosition, 100, yPosition);
-    doc.text('Approval Signature:', 20, yPosition + 10);
-    doc.text('_________________________', 20, yPosition + 20);
-    doc.text('Head of Department / Deputy Director General', 20, yPosition + 30);
-}
-
-function addFormalBookingContentToPDF(doc, booking, isFinal) {
-    let yPosition = 70;
-    
-    // Reference and Date section
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Booking Reference: ${booking.refnumber}`, 20, yPosition);
-    doc.text(`Submission Date: ${formatDate(booking.timestamp)}`, 120, yPosition);
-    yPosition += 15;
-    
-    // User Details section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('REQUESTOR DETAILS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Full Name: ${booking.username}`, 20, yPosition);
-    doc.text(`Designation: ${booking.userdesignation}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Branch/Section: ${booking.userbranch}`, 20, yPosition);
-    doc.text(`Phone: ${booking.userphone}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Approved By: ${booking.approvedby}`, 20, yPosition);
-    yPosition += 15;
-    
-    // Trip Details section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('TRIP DETAILS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Purpose: ${booking.purpose}`, 20, yPosition);
-    yPosition += 8;
-    
-    doc.text(`From: ${booking.startlocation}`, 20, yPosition);
-    doc.text(`To: ${booking.destination}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 20, yPosition);
-    doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 120, yPosition);
-    yPosition += 15;
-    
-    // Vehicle Requirements section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Seats Required: ${booking.seatcount}`, 20, yPosition);
-    doc.text(`Distance: ${booking.distance} KM`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Goods Transport: ${booking.goodstransport}`, 20, yPosition);
-    yPosition += 15;
-    
-    // Status and Allocation
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('BOOKING INFORMATION', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Status: ${booking.status}`, 20, yPosition);
-    yPosition += 8;
-    
-    if (isFinal && booking.allocatedvehicle) {
-        doc.text(`Allocated Vehicle: ${booking.allocatedvehicle}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Allocated Driver: ${booking.allocateddriver}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Unique Password: ${booking.uniquepassword}`, 20, yPosition);
-        yPosition += 15;
-    }
-    
-    // Signature section
-    doc.setDrawColor(0, 0, 0);
-    doc.line(20, yPosition, 100, yPosition);
-    doc.text('Approval Signature:', 20, yPosition + 10);
-    doc.text('_________________________', 20, yPosition + 20);
-    doc.text('Head of Department / Deputy Director General', 20, yPosition + 30);
-}
-
-// WhatsApp Integration
-function sendWhatsAppMessage(isFinal = false) {
-    let message = '';
-    
-    if (isFinal) {
-        const booking = allBookings.find(b => b.id === currentBookingId);
-        if (booking) {
-            message = `*Ministry of Health - Vehicle Booking Confirmation*
-
-*Booking Reference:* ${booking.refnumber}
-*Status:* ${booking.status}
-
-*Requestor Details:*
-Name: ${booking.username}
-Designation: ${booking.userdesignation}
-Branch: ${booking.userbranch}
-Phone: ${booking.userphone}
-
-*Trip Details:*
-Purpose: ${booking.purpose}
-From: ${booking.startlocation} to ${booking.destination}
-Start: ${formatDateTime(booking.startdatetime)}
-End: ${formatDateTime(booking.enddatetime)}
-
-*Vehicle Allocation:*
-Vehicle: ${booking.allocatedvehicle || 'Not allocated'}
-Driver: ${booking.allocateddriver || 'Not allocated'}
-
-*Important:* Keep your booking password (${booking.uniquepassword}) secure for any inquiries.
-
-Thank you for using the Ministry of Health Vehicle Booking System.`;
-        }
-    } else {
-        message = `*Ministry of Health - Vehicle Booking Request*
-
-*Booking Reference:* ${currentBookingRef}
-*Status:* Pending Approval
-
-*Requestor Details:*
-Name: ${document.getElementById('userName').value}
-Designation: ${document.getElementById('userDesignation').value}
-Branch: ${document.getElementById('userBranch').value}
-Phone: ${document.getElementById('userPhone').value}
-
-*Trip Details:*
-Purpose: ${document.getElementById('purpose').value}
-From: ${document.getElementById('startLocation').value} to ${document.getElementById('destination').value}
-Start: ${formatDateTime(document.getElementById('startDateTime').value)}
-End: ${formatDateTime(document.getElementById('endDateTime').value)}
-
-*Vehicle Requirements:*
-Seats: ${document.getElementById('seatCount').value}
-Distance: ${document.getElementById('distance').value} KM
-Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}
-
-*Important:* Your booking password is ${uniquePasswordDisplay.textContent}. Keep it secure for any inquiries.
-
-Your request is being processed. You will receive confirmation shortly.
-
-Thank you for using the Ministry of Health Vehicle Booking System.`;
-    }
-    
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
-    window.open(whatsappUrl, '_blank');
-    
-    logSystemActivity('system', currentUserRole, 'WhatsApp Message Sent', 
-        isFinal ? `Final confirmation for ${currentBookingRef}` : `Request preview for ${currentBookingRef}`);
-}
-
-// Event Listeners
-document.addEventListener('DOMContentLoaded', function() {
-    initializeLocalStorage();
-    
-    // Role selection
-    roleOptions.forEach(option => {
-        option.addEventListener('click', function() {
-            roleOptions.forEach(o => o.classList.remove('active'));
-            this.classList.add('active');
-            currentUserRole = this.dataset.role;
-        });
-    });
-    
-    // Login
-    loginBtn.addEventListener('click', handleLogin);
-    passwordInput.addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') handleLogin();
-    });
-    
-    // Logout
-    userLogout.addEventListener('click', logout);
-    adminLogout.addEventListener('click', logout);
-    
-    // Booking form
-    submitBookingBtn.addEventListener('click', submitBooking);
-    newBookingBtn.addEventListener('click', resetBookingForm);
-    
-    // PDF download
-    downloadPdfBtn.addEventListener('click', () => generatePDF(false));
-    downloadFinalPdfBtn.addEventListener('click', () => generatePDF(true));
-    
-    // WhatsApp
-    sendWhatsAppBtn.addEventListener('click', () => sendWhatsAppMessage(false));
-    sendWhatsAppAdminBtn.addEventListener('click', () => sendWhatsAppMessage(true));
-    
-    // Admin tabs
-    adminTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            adminTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            const tabId = this.dataset.tab + 'Tab';
-            document.querySelectorAll('.admin-tab-content').forEach(content => {
-                showElement(content, content.id === tabId);
-            });
-            
-            if (this.dataset.tab === 'logs') {
-                loadSystemLogs();
+            if (result.reportData && result.reportData.length > 0) {
+                html += '<div style="overflow-x: auto; margin-top: 20px;">';
+                html += '<table class="user-vehicle-table" style="width: 100%; border-collapse: collapse;">';
+                
+                // Header row
+                html += '<thead><tr>';
+                result.reportData[0].forEach(cell => {
+                    html += `<th style="padding: 12px; background: #1a73e8; color: white; text-align: left;">${cell}</th>`;
+                });
+                html += '</tr></thead>';
+                
+                // Data rows
+                html += '<tbody>';
+                for (let i = 1; i < result.reportData.length; i++) {
+                    const rowClass = i % 2 === 0 ? 'style="background-color: #f8f9fa;"' : '';
+                    html += `<tr ${rowClass} style="border-bottom: 1px solid #e0e0e0;">`;
+                    result.reportData[i].forEach(cell => {
+                        html += `<td style="padding: 12px;">${cell}</td>`;
+                    });
+                    html += '</tr>';
+                }
+                html += '</tbody>';
+                
+                html += '</table></div>';
+            } else {
+                html += '<p class="text-center">No data available for the selected criteria</p>';
             }
-        });
-    });
-    
-    // User tabs
-    userTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            userTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
+
+            html += '</div>';
             
-            const tabId = this.dataset.tab + 'Tab';
-            document.querySelectorAll('.user-tab-content').forEach(content => {
-                showElement(content, content.id === tabId);
+            document.getElementById('reportResults').innerHTML = html;
+        }
+
+        // QR Code Generation
+        function generateQRCode(refNumber, startDateTime, endDateTime, elementId, vehicleNumber = '', uniquePassword = '') {
+            const qrData = `Booking Ref: ${refNumber}\nStart: ${formatDateTime(startDateTime)}\nEnd: ${formatDateTime(endDateTime)}\nVehicle: ${vehicleNumber}\nPassword: ${uniquePassword}`;
+            
+            const qr = qrcode(0, 'M');
+            qr.addData(qrData);
+            qr.make();
+            
+            const qrElement = document.getElementById(elementId);
+            if (qrElement) {
+                qrElement.innerHTML = qr.createImgTag(4);
+            }
+        }
+
+        // PDF Generation - ENHANCED WITH WHATSAPP INTEGRATION
+        function generatePDF(elementId = 'enhancedPdfPreview') {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF('p', 'mm', 'a4');
+            
+            const pdfElement = document.getElementById(elementId);
+            if (!pdfElement) {
+                alert('PDF content not found');
+                return;
+            }
+
+            // Add title
+            doc.setFontSize(20);
+            doc.setTextColor(26, 115, 232);
+            doc.text('Ministry of Health', 105, 20, { align: 'center' });
+            
+            doc.setFontSize(16);
+            doc.setTextColor(0, 0, 0);
+            doc.text('Vehicle Booking Confirmation', 105, 30, { align: 'center' });
+            
+            // Add booking details
+            doc.setFontSize(10);
+            let yPos = 50;
+            
+            const sections = pdfElement.querySelectorAll('.enhanced-pdf-section');
+            sections.forEach(section => {
+                const label = section.querySelector('.enhanced-pdf-label').textContent;
+                const value = section.querySelector('.enhanced-pdf-value').textContent;
+                
+                doc.setFont(undefined, 'bold');
+                doc.text(label + ':', 20, yPos);
+                doc.setFont(undefined, 'normal');
+                doc.text(value, 60, yPos);
+                
+                yPos += 8;
             });
             
-            if (this.dataset.tab === 'vehicles') {
-                updateUserVehicleStatus();
-            }
-        });
-    });
-    
-    // Filtering and search
-    statusFilter.addEventListener('change', filterBookings);
-    searchBookings.addEventListener('input', filterBookings);
-    searchVehicles.addEventListener('input', () => {
-        updateVehicleStatus();
-        filterModalVehicles();
-    });
-    
-    // Pagination
-    prevPageBtn.addEventListener('click', goToPrevPage);
-    nextPageBtn.addEventListener('click', goToNextPage);
-    
-    // User vehicle pagination
-    userPrevPage.addEventListener('click', goToUserPrevPage);
-    userNextPage.addEventListener('click', goToUserNextPage);
-    searchUserVehicles.addEventListener('input', filterUserVehicles);
-    
-    // Modal pagination
-    vehiclePrevPage.addEventListener('click', goToVehiclePrevPage);
-    vehicleNextPage.addEventListener('click', goToVehicleNextPage);
-    driverPrevPage.addEventListener('click', goToDriverPrevPage);
-    driverNextPage.addEventListener('click', goToDriverNextPage);
-    
-    // Search in modals
-    searchVehicleModal.addEventListener('input', filterModalVehicles);
-    searchDriverModal.addEventListener('input', filterModalDrivers);
-    
-    // Modals
-    closeModals.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            showElement(modal, false);
-        });
-    });
-    
-    // Allocation modal
-    confirmAllocationBtn.addEventListener('click', allocateVehicle);
-    cancelAllocationBtn.addEventListener('click', () => showElement(allocationModal, false));
-    
-    // Edit modal
-    confirmEditBtn.addEventListener('click', saveBookingEdit);
-    cancelEditBtn.addEventListener('click', () => showElement(editModal, false));
-    
-    // View modal
-    closeViewBtn.addEventListener('click', () => showElement(viewModal, false));
-    
-    // Reports
-    generateReportBtn.addEventListener('click', generateReport);
-    
-    // System logs
-    logTypeFilter.addEventListener('change', filterLogs);
-    searchLogs.addEventListener('input', filterLogs);
-    refreshLogs.addEventListener('click', loadSystemLogs);
-    logsPrevPage.addEventListener('click', goToLogsPrevPage);
-    logsNextPage.addEventListener('click', goToLogsNextPage);
-    
-    // Export logs
-    document.getElementById('exportLogs').addEventListener('click', exportLogs);
-    
-    // Close modals when clicking outside
-    window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal')) {
-            showElement(event.target, false);
+            // Add signature area
+            yPos += 10;
+            doc.line(20, yPos, 80, yPos);
+            doc.text('Approval Signature', 20, yPos + 5);
+            doc.text('Head of Department / Deputy Director General', 20, yPos + 10);
+            
+            // Save the PDF
+            const fileName = `VBS_${document.getElementById('enhancedPdfRefNumber').textContent}.pdf`;
+            doc.save(fileName);
+            
+            logSystemActivity('system', currentUserRole === 'user' ? 'User' : 'Administrator', 'PDF Downloaded', `File: ${fileName}`);
         }
-    });
-    
-    // Set default dates for reports
-    const today = new Date();
-    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-    startDate.value = lastWeek.toISOString().split('T')[0];
-    endDate.value = today.toISOString().split('T')[0];
-    
-    // Initialize with some sample logs if empty
-    if (systemLogs.length === 0) {
-        logSystemActivity('system', 'System', 'Initialization', 'Vehicle Booking System initialized');
-    }
-});
 
-// Export logs function
-function exportLogs() {
-    const csvContent = "data:text/csv;charset=utf-8," 
-        + "Timestamp,Type,User,Action,Details\n"
-        + filteredLogs.map(log => 
-            `"${formatDateTime(log.timestamp)}","${log.type}","${log.user}","${log.action}","${log.details}"`
-        ).join("\n");
-    
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `system_logs_${new Date().toISOString().split('T')[0]}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+        // NEW: WhatsApp Integration Function
+        function sendWhatsAppMessage() {
+            const refNumber = document.getElementById('enhancedPdfRefNumber').textContent;
+            const userName = document.getElementById('userName').value || 'User';
+            const startDateTime = document.getElementById('startDateTime').value;
+            const destination = document.getElementById('destination').value || '';
+            
+            // Create the message
+            const message = `Vehicle Booking Confirmation%0A%0A` +
+                           `Reference: ${refNumber}%0A` +
+                           `Name: ${userName}%0A` +
+                           `Destination: ${destination}%0A` +
+                           `Start: ${formatDateTime(startDateTime)}%0A%0A` +
+                           `Please find the attached PDF for complete details.`;
+            
+            // Use the provided WhatsApp profile link
+            const whatsappUrl = `https://wa.me/qr/75KQXL23R7UXH1?text=${message}`;
+            
+            // Open WhatsApp in a new window
+            window.open(whatsappUrl, '_blank');
+            
+            logSystemActivity('system', currentUserRole === 'user' ? 'User' : 'Administrator', 'WhatsApp Message Sent', `Ref: ${refNumber}`);
+        }
+
+        // Event Listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeLocalStorage();
+            
+            // Role selection
+            document.querySelectorAll('.role-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    document.querySelectorAll('.role-option').forEach(o => o.classList.remove('active'));
+                    this.classList.add('active');
+                    currentUserRole = this.dataset.role;
+                });
+            });
+            
+            // Login
+            document.getElementById('loginBtn').addEventListener('click', handleLogin);
+            document.getElementById('password').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') handleLogin();
+            });
+            
+            // Logout
+            document.getElementById('userLogout').addEventListener('click', logout);
+            document.getElementById('adminLogout').addEventListener('click', logout);
+            
+            // User tabs
+            document.querySelectorAll('.user-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.user-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.user-tab-content').forEach(c => c.classList.add('hidden'));
+                    this.classList.add('active');
+                    document.getElementById(this.dataset.tab + 'Tab').classList.remove('hidden');
+                    
+                    if (this.dataset.tab === 'vehicles') {
+                        updateUserVehicleStatus();
+                    }
+                });
+            });
+            
+            // Admin tabs
+            document.querySelectorAll('.admin-tab').forEach(tab => {
+                tab.addEventListener('click', function() {
+                    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+                    document.querySelectorAll('.admin-tab-content').forEach(c => c.classList.add('hidden'));
+                    this.classList.add('active');
+                    document.getElementById(this.dataset.tab + 'Tab').classList.remove('hidden');
+                    
+                    if (this.dataset.tab === 'vehicles') {
+                        updateVehicleStatus();
+                    } else if (this.dataset.tab === 'logs') {
+                        filterLogs();
+                    }
+                });
+            });
+            
+            // Booking form submission
+            document.getElementById('submitBooking').addEventListener('click', submitBooking);
+            
+            // New booking button
+            document.getElementById('newBooking').addEventListener('click', resetBookingForm);
+            
+            // PDF download
+            document.getElementById('downloadPdf').addEventListener('click', function() {
+                generatePDF('enhancedPdfPreview');
+            });
+            
+            // WhatsApp integration
+            document.getElementById('sendWhatsApp').addEventListener('click', sendWhatsAppMessage);
+            document.getElementById('sendWhatsAppAdmin').addEventListener('click', function() {
+                sendWhatsAppMessage();
+            });
+            
+            // Admin filters and search
+            document.getElementById('statusFilter').addEventListener('change', filterBookings);
+            document.getElementById('searchBookings').addEventListener('input', filterBookings);
+            
+            // User vehicle filters and search - NEW
+            document.getElementById('searchUserVehicles').addEventListener('input', filterUserVehicles);
+            document.getElementById('userSeatFilter').addEventListener('change', filterUserVehicles);
+            document.getElementById('userTypeFilter').addEventListener('change', filterUserVehicles);
+            
+            // Admin vehicle filters and search - ENHANCED
+            document.getElementById('searchVehicles').addEventListener('input', updateVehicleStatus);
+            document.getElementById('adminSeatFilter').addEventListener('change', updateVehicleStatus);
+            document.getElementById('adminTypeFilter').addEventListener('change', updateVehicleStatus);
+            
+            // Pagination
+            document.getElementById('prevPage').addEventListener('click', goToPrevPage);
+            document.getElementById('nextPage').addEventListener('click', goToNextPage);
+            
+            document.getElementById('userPrevPage').addEventListener('click', goToUserPrevPage);
+            document.getElementById('userNextPage').addEventListener('click', goToUserNextPage);
+            
+            document.getElementById('vehiclePrevPage').addEventListener('click', goToVehiclePrevPage);
+            document.getElementById('vehicleNextPage').addEventListener('click', goToVehicleNextPage);
+            
+            document.getElementById('driverPrevPage').addEventListener('click', goToDriverPrevPage);
+            document.getElementById('driverNextPage').addEventListener('click', goToDriverNextPage);
+            
+            document.getElementById('logsPrevPage').addEventListener('click', goToLogsPrevPage);
+            document.getElementById('logsNextPage').addEventListener('click', goToLogsNextPage);
+            
+            // Modal events
+            document.querySelectorAll('.close-modal').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    this.closest('.modal').style.display = 'none';
+                });
+            });
+            
+            document.getElementById('cancelAllocation').addEventListener('click', function() {
+                document.getElementById('allocationModal').style.display = 'none';
+            });
+            
+            document.getElementById('confirmAllocation').addEventListener('click', allocateVehicle);
+            
+            document.getElementById('cancelEdit').addEventListener('click', function() {
+                document.getElementById('editModal').style.display = 'none';
+            });
+            
+            document.getElementById('confirmEdit').addEventListener('click', saveBookingEdit);
+            
+            document.getElementById('closeView').addEventListener('click', function() {
+                document.getElementById('viewModal').style.display = 'none';
+            });
+            
+            document.getElementById('downloadFinalPdf').addEventListener('click', function() {
+                generatePDF('viewModal');
+            });
+            
+            // Modal search and pagination
+            document.getElementById('searchVehicleModal').addEventListener('input', filterModalVehicles);
+            document.getElementById('searchDriverModal').addEventListener('input', filterModalDrivers);
+            
+            // Report generation
+            document.getElementById('generateReport').addEventListener('click', generateReport);
+            
+            // System logs
+            document.getElementById('logTypeFilter').addEventListener('change', filterLogs);
+            document.getElementById('searchLogs').addEventListener('input', filterLogs);
+            document.getElementById('refreshLogs').addEventListener('click', loadSystemLogs);
+            document.getElementById('exportLogs').addEventListener('click', function() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF('p', 'mm', 'a4');
+                
+                doc.setFontSize(16);
+                doc.text('System Activity Log', 105, 15, { align: 'center' });
+                doc.setFontSize(10);
+                doc.text(`Generated on ${new Date().toLocaleDateString()}`, 105, 22, { align: 'center' });
+                
+                let yPos = 35;
+                filteredLogs.forEach(log => {
+                    if (yPos > 270) {
+                        doc.addPage();
+                        yPos = 20;
+                    }
+                    
+                    doc.setFont(undefined, 'bold');
+                    doc.text(`${formatDateTime(log.timestamp)} - ${log.type} - ${log.user}`, 10, yPos);
+                    doc.setFont(undefined, 'normal');
+                    doc.text(`${log.action}: ${log.details}`, 10, yPos + 5);
+                    yPos += 12;
+                });
+                
+                doc.save('VBS_System_Logs.pdf');
+                logSystemActivity('system', 'Administrator', 'Logs Exported');
+            });
+            
+            // Close modal when clicking outside
+            window.addEventListener('click', function(event) {
+                document.querySelectorAll('.modal').forEach(modal => {
+                    if (event.target === modal) {
+                        modal.style.display = 'none';
+                    }
+                });
+            });
+        });
     </script>
 </body>
 </html>
