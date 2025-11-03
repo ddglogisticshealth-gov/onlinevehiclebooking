@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +7,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <style>
         /* ========== CSS VARIABLES ========== */
         :root {
@@ -1203,6 +1203,102 @@
             </div>
             
             <div class="form-group">
+    <label class="form-label" for="userSelect">Select User</label>
+    <select id="userSelect" class="form-control">
+        <option value="">Select User</option>
+
+        <option value="dhi">Director (Health Information)</option>
+        <option value="da1">Director Administration I</option>
+        <option value="dna2">Director Nursing Admin II</option>
+        <option value="da2t">Director Admin II (Technical)</option>
+        <option value="da3nta">Director Admin III (NTA)</option>
+        <option value="da4">Director Admin IV</option>
+        <option value="da5">Director Admin V</option>
+        <option value="da6">Director Admin VI</option>
+        <option value="da7">Director Admin VII</option>
+        <option value="daex">Director Admin (Exam)</option>
+        <option value="dt">Director (Transport)</option>
+        <option value="dds">Director Dental Services</option>
+        <option value="dtr">Director Training</option>
+        <option value="dre">Director Research</option>
+        <option value="dne">Director Nursing (Education)</option>
+        <option value="cas">Chief Accountant (Stock)</option>
+        <option value="cab">Chief Accountant (Book)</option>
+        <option value="cac">Chief Accountant (Care)</option>
+        <option value="ae1">Accountant (Expenditure) I</option>
+        <option value="ae2">Accountant (Expenditure) II</option>
+        <option value="ae3">Accountant (Expenditure) III</option>
+        <option value="as">Accountant (Supplies)</option>
+        <option value="di1">Director Investigation I</option>
+        <option value="di2">Director Investigation II</option>
+        <option value="dls">Director Laboratory Services</option>
+        <option value="dba">Director Buildings (Admin)</option>
+        <option value="dbe">Director Buildings (Engineering)</option>
+        <option value="dp">Director Planning</option>
+        <option value="dod">Director Organization & Dev</option>
+        <option value="dih">Director International Health</option>
+        <option value="dpa">Director Policy Analysis</option>
+        <option value="dsu">Director Statistics Unit</option>
+        <option value="afp">Accountant Finance (Planning)</option>
+        <option value="dam1">Director Admin Medical I</option>
+        <option value="dam2">Director Admin Medical II</option>
+        <option value="dms">Director Medical Services</option>
+        <option value="dtc">Director Tertiary Care</option>
+        <option value="dpc">Director Primary Care</option>
+        <option value="dph">Director Private Health</option>
+        <option value="dnm">Director Nursing (Medical)</option>
+        <option value="dqs">Director Quality & Safety</option>
+        <option value="dncd">Director NCD</option>
+        <option value="dmh">Director Mental Health</option>
+        <option value="dfs">Director Food Safety</option>
+        <option value="deu">Director Estate & Urban Health</option>
+        <option value="dq">Director Quarantine</option>
+        <option value="dve">Director Youth/Elderly/Disabled</option>
+        <option value="dnp">Director Nursing (Public Health)</option>
+
+        <option value="ddgp">DDG Planning</option>
+        <option value="ddga1">DDG Admin I</option>
+        <option value="ddga2">DDG Admin II</option>
+        <option value="ddga3">DDG Admin III</option>
+        <option value="ddgd">DDG Dental Services</option>
+        <option value="ddger">DDG Education/Research</option>
+        <option value="ddgi">DDG Investigation</option>
+        <option value="ddgl">DDG Lab Services</option>
+        <option value="ddglog">DDG Logistics</option>
+        <option value="ddgm1">DDG Medical Services I</option>
+        <option value="ddgm2">DDG Medical Services II</option>
+        <option value="ddgph1">DDG Public Health I</option>
+        <option value="ddgph2">DDG Public Health II</option>
+        <option value="ddgncd">DDG NCD</option>
+        <option value="ddgeh">DDG Env & Health Safety</option>
+
+        <option value="sasadm">Senior Asst Sec Admin</option>
+        <option value="sasfs">Senior Asst Sec Flying Squad</option>
+        <option value="sasp">Senior Asst Sec Info</option>
+        <option value="sasmed">Senior Asst Sec Medical</option>
+        <option value="sasp1">Senior Asst Sec Procurement I</option>
+        <option value="sasp2">Senior Asst Sec Procurement II</option>
+        <option value="sasdev">Senior Asst Sec Development</option>
+
+        <option value="dgh">Director General Health</option>
+
+        <option value="asa1">Add Sec Admin I</option>
+        <option value="asa2">Add Sec Admin II</option>
+        <option value="asdev">Add Sec Development</option>
+        <option value="asmed">Add Sec Medical</option>
+        <option value="asph">Add Sec Public Health</option>
+        <option value="asproc">Add Sec Procurement</option>
+        <option value="aseng">Add Sec Engineering</option>
+
+        <option value="cfo1">Chief Finance Officer I</option>
+        <option value="cfo2">Chief Finance Officer II</option>
+        <option value="cfo3">Chief Finance Officer III</option>
+
+        <option value="soh">Secretary of Health</option>
+    </select>
+</div>
+            
+            <div class="form-group">
                 <label class="form-label" for="password">Password</label>
                 <input type="password" id="password" class="form-control" placeholder="Enter your password">
                 <small class="form-text">For System Inquiries 011 2 692 382</small>
@@ -1237,6 +1333,7 @@
                 
                 <div class="user-tabs">
                     <div class="user-tab active" data-tab="booking">Booking Request</div>
+                    <div class="user-tab" data-tab="myRequests">My Requests</div>
                     <div class="user-tab" data-tab="vehicles">Vehicle Status</div>
                 </div>
                 
@@ -1506,6 +1603,60 @@
                             </button>
                             <button id="newBooking" class="btn btn-secondary">Make Another Booking</button>
                         </div>
+                    </div>
+                </div>
+                
+                <!-- My Requests Tab -->
+                <div id="myRequestsTab" class="user-tab-content hidden">
+                    <div class="admin-controls">
+                        <div class="filter-control">
+                            <label class="form-label" for="myRequestsStatusFilter">Filter by Status</label>
+                            <select id="myRequestsStatusFilter" class="form-control">
+                                <option value="all">All Requests</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Approved">Approved</option>
+                                <option value="Rejected">Rejected</option>
+                                <option value="Completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="search-control filter-control">
+                            <label class="form-label" for="searchMyRequests">Search My Requests</label>
+                            <div class="search-container">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchMyRequests" class="form-control" placeholder="Search by reference or destination">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="requests-table">
+                        <div class="table-header">
+                            <div class="table-title">My Booking Requests</div>
+                            <div id="myRequestCount">0 requests</div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Ref No.</th>
+                                        <th>Destination</th>
+                                        <th>Date/Time</th>
+                                        <th>Seats</th>
+                                        <th>Distance</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="myRequestsTableBody"></tbody>
+                            </table>
+                        </div>
+                        
+                        <div class="pagination">
+                            <button id="myRequestsPrevPage" disabled>Previous</button>
+                            <span class="pagination-info" id="myRequestsPageInfo">Page 1 of 1</span>
+                            <button id="myRequestsNextPage" disabled>Next</button>
+                        </div>
+                        
+                        <div id="myRequestsSpinner" class="spinner mt-20 mb-20" style="display: none;"></div>
                     </div>
                 </div>
                 
@@ -1781,6 +1932,13 @@
                                     <option value="system">System</option>
                                 </select>
                             </div>
+                            <div class="filter-control">
+                                <label class="form-label" for="userFilter">Filter by User</label>
+                                <select id="userFilter" class="form-control">
+                                    <option value="all">All Users</option>
+                                    <!-- User options will be populated here -->
+                                </select>
+                            </div>
                             <div class="search-control filter-control">
                                 <label class="form-label" for="searchLogs">Search Logs</label>
                                 <div class="search-container">
@@ -1871,12 +2029,27 @@
                         <button id="driverNextPage" disabled>Next</button>
                     </div>
                 </div>
+
+                <!-- NEW: Fuel Station Input -->
+                <div class="form-section">
+                    <h4 class="section-title">Fuel Station Details</h4>
+                    <div class="form-group">
+                        <label class="form-label" for="fuelStation">Nominated Fuel Station *</label>
+                        <input type="text" id="fuelStation" class="form-control" placeholder="Enter nominated fuel station" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label" for="extraFuel">Extra Fuel (Liters) *</label>
+                        <input type="number" id="extraFuel" class="form-control" placeholder="Enter amount of extra fuel in liters" required>
+                    </div>
+                </div>
                 
                 <div class="form-group">
                     <label class="form-label">Selected Allocation:</label>
                     <div id="selectedAllocation" class="enhanced-pdf-section">
                         <div><strong>Vehicle:</strong> <span id="selectedVehicleText">None selected</span></div>
                         <div><strong>Driver:</strong> <span id="selectedDriverText">None selected</span></div>
+                        <div><strong>Fuel Station:</strong> <span id="selectedFuelStationText">None selected</span></div>
+                        <div><strong>Extra Fuel:</strong> <span id="selectedExtraFuelText">None specified</span></div>
                     </div>
                 </div>
             </div>
@@ -2039,6 +2212,14 @@
                             <div class="enhanced-pdf-label">Allocated Driver:</div>
                             <div class="enhanced-pdf-value" id="viewDriver"></div>
                         </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Fuel Station:</div>
+                            <div class="enhanced-pdf-value" id="viewFuelStation"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Extra Fuel:</div>
+                            <div class="enhanced-pdf-value" id="viewExtraFuel"></div>
+                        </div>
                     </div>
                     <div class="qrcode-container">
                         <div id="qrCodeAdmin" class="qrcode"></div>
@@ -2054,6 +2235,7 @@
             <div class="modal-footer">
                 <button id="closeView" class="btn">Close</button>
                 <button id="downloadFinalPdf" class="btn btn-secondary">Download PDF</button>
+                <button id="downloadGatePass" class="btn">Download Gate Pass QR</button>
                 <button id="sendWhatsAppAdmin" class="btn whatsapp-btn">
                     <i class="fab fa-whatsapp"></i> Send via WhatsApp
                 </button>
@@ -2064,10 +2246,11 @@
     <script>
 
 // Google Apps Script Web App URL
-const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbzzjywMkUxiWek2pG7n53qCtswVUlNsUUaCulmD-lZwARt4R0NTfPUV08eogh39B-feug/exec';
+const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyL1HVfeUrbeOsx_ZbDMt3u4W14EfQn55GA-bkfPnZwgT8sG8Hggz_JjpT8OQGcu6xqkg/exec';
 
 // Global variables
 let currentUserRole = 'user';
+let currentUserId = null;
 let currentBookingId = null;
 let currentBookingRef = null;
 let currentPage = 1;
@@ -2083,6 +2266,10 @@ let userVehiclePage = 1;
 let userVehicleItemsPerPage = 15;
 let filteredUserVehicles = [];
 
+let myRequestsPage = 1;
+let myRequestsItemsPerPage = 10;
+let filteredMyRequests = [];
+
 let vehicleModalPage = 1;
 let driverModalPage = 1;
 let modalItemsPerPage = 8;
@@ -2096,6 +2283,94 @@ let filteredLogs = [];
 // Selected items for allocation
 let selectedVehicleId = null;
 let selectedDriverId = null;
+let selectedFuelStation = '';
+let selectedExtraFuel = '';
+
+// User accounts
+const userAccounts = {
+    'dhi': { name: 'Director (Health Information)', password: 'dhi123' },
+    'da1': { name: 'Director Administration I', password: 'da1123' },
+    'dna2': { name: 'Director Nursing Admin II', password: 'dna2123' },
+    'da2t': { name: 'Director Admin II (Technical)', password: 'da2t123' },
+    'da3nta': { name: 'Director Admin III (NTA)', password: 'da3nta123' },
+    'da4': { name: 'Director Admin IV', password: 'da4123' },
+    'da5': { name: 'Director Admin V', password: 'da5123' },
+    'da6': { name: 'Director Admin VI', password: 'da6123' },
+    'da7': { name: 'Director Admin VII', password: 'da7123' },
+    'daex': { name: 'Director Admin (Exam)', password: 'daex123' },
+    'dt': { name: 'Director (Transport)', password: 'dt123' },
+    'dds': { name: 'Director Dental Services', password: 'dds123' },
+    'dtr': { name: 'Director Training', password: 'dtr123' },
+    'dre': { name: 'Director Research', password: 'dre123' },
+    'dne': { name: 'Director Nursing (Education)', password: 'dne123' },
+    'cas': { name: 'Chief Accountant (Stock)', password: 'cas123' },
+    'cab': { name: 'Chief Accountant (Book)', password: 'cab123' },
+    'cac': { name: 'Chief Accountant (Care)', password: 'cac123' },
+    'ae1': { name: 'Accountant (Expenditure) I', password: 'ae1123' },
+    'ae2': { name: 'Accountant (Expenditure) II', password: 'ae2123' },
+    'ae3': { name: 'Accountant (Expenditure) III', password: 'ae3123' },
+    'as': { name: 'Accountant (Supplies)', password: 'as123' },
+    'di1': { name: 'Director Investigation I', password: 'di1123' },
+    'di2': { name: 'Director Investigation II', password: 'di2123' },
+    'dls': { name: 'Director Laboratory Services', password: 'dls123' },
+    'dba': { name: 'Director Buildings (Admin)', password: 'dba123' },
+    'dbe': { name: 'Director Buildings (Engineering)', password: 'dbe123' },
+    'dp': { name: 'Director Planning', password: 'dp123' },
+    'dod': { name: 'Director Organization & Dev', password: 'dod123' },
+    'dih': { name: 'Director International Health', password: 'dih123' },
+    'dpa': { name: 'Director Policy Analysis', password: 'dpa123' },
+    'dsu': { name: 'Director Statistics Unit', password: 'dsu123' },
+    'afp': { name: 'Accountant Finance (Planning)', password: 'afp123' },
+    'dam1': { name: 'Director Admin Medical I', password: 'dam1123' },
+    'dam2': { name: 'Director Admin Medical II', password: 'dam2123' },
+    'dms': { name: 'Director Medical Services', password: 'dms123' },
+    'dtc': { name: 'Director Tertiary Care', password: 'dtc123' },
+    'dpc': { name: 'Director Primary Care', password: 'dpc123' },
+    'dph': { name: 'Director Private Health', password: 'dph123' },
+    'dnm': { name: 'Director Nursing (Medical)', password: 'dnm123' },
+    'dqs': { name: 'Director Quality & Safety', password: 'dqs123' },
+    'dncd': { name: 'Director NCD', password: 'dncd123' },
+    'dmh': { name: 'Director Mental Health', password: 'dmh123' },
+    'dfs': { name: 'Director Food Safety', password: 'dfs123' },
+    'deu': { name: 'Director Estate & Urban Health', password: 'deu123' },
+    'dq': { name: 'Director Quarantine', password: 'dq123' },
+    'dve': { name: 'Director Youth/Elderly/Disabled', password: 'dve123' },
+    'dnp': { name: 'Director Nursing (Public Health)', password: 'dnp123' },
+    'ddgp': { name: 'DDG Planning', password: 'ddgp123' },
+    'ddga1': { name: 'DDG Admin I', password: 'ddga1123' },
+    'ddga2': { name: 'DDG Admin II', password: 'ddga2123' },
+    'ddga3': { name: 'DDG Admin III', password: 'ddga3123' },
+    'ddgd': { name: 'DDG Dental Services', password: 'ddgd123' },
+    'ddger': { name: 'DDG Education/Research', password: 'ddger123' },
+    'ddgi': { name: 'DDG Investigation', password: 'ddgi123' },
+    'ddgl': { name: 'DDG Lab Services', password: 'ddgl123' },
+    'ddglog': { name: 'DDG Logistics', password: 'ddglog123' },
+    'ddgm1': { name: 'DDG Medical Services I', password: 'ddgm1123' },
+    'ddgm2': { name: 'DDG Medical Services II', password: 'ddgm2123' },
+    'ddgph1': { name: 'DDG Public Health I', password: 'ddgph1123' },
+    'ddgph2': { name: 'DDG Public Health II', password: 'ddgph2123' },
+    'ddgncd': { name: 'DDG NCD', password: 'ddgncd123' },
+    'ddgeh': { name: 'DDG Env & Health Safety', password: 'ddgeh123' },
+    'sasadm': { name: 'Senior Asst Sec Admin', password: 'sasadm123' },
+    'sasfs': { name: 'Senior Asst Sec Flying Squad', password: 'sasfs123' },
+    'sasp': { name: 'Senior Asst Sec Info', password: 'sasp123' },
+    'sasmed': { name: 'Senior Asst Sec Medical', password: 'sasmed123' },
+    'sasp1': { name: 'Senior Asst Sec Procurement I', password: 'sasp1123' },
+    'sasp2': { name: 'Senior Asst Sec Procurement II', password: 'sasp2123' },
+    'sasdev': { name: 'Senior Asst Sec Development', password: 'sasdev123' },
+    'dgh': { name: 'Director General Health', password: 'dgh123' },
+    'asa1': { name: 'Add Sec Admin I', password: 'asa1123' },
+    'asa2': { name: 'Add Sec Admin II', password: 'asa2123' },
+    'asdev': { name: 'Add Sec Development', password: 'asdev123' },
+    'asmed': { name: 'Add Sec Medical', password: 'asmed123' },
+    'asph': { name: 'Add Sec Public Health', password: 'asph123' },
+    'asproc': { name: 'Add Sec Procurement', password: 'asproc123' },
+    'aseng': { name: 'Add Sec Engineering', password: 'aseng123' },
+    'cfo1': { name: 'Chief Finance Officer I', password: 'cfo1123' },
+    'cfo2': { name: 'Chief Finance Officer II', password: 'cfo2123' },
+    'cfo3': { name: 'Chief Finance Officer III', password: 'cfo3123' },
+    'soh': { name: 'Secretary of Health', password: 'soh123' }
+};
 
 // Initialize localStorage if not exists
 function initializeLocalStorage() {
@@ -2104,7 +2379,6 @@ function initializeLocalStorage() {
     }
     if (!localStorage.getItem('vehicles')) {
         const sampleVehicles = [];
-        // Create 50 vehicles (reduced from 2000 for better performance)
         const vehicleTypes = [
             { type: '4 Seater', capacity: '4' },
             { type: '7 Seater', capacity: '7' },
@@ -2256,11 +2530,11 @@ function getMockData(action, data) {
                 logSystemActivity('system', 'Administrator', 'Login', 'Main admin login successful');
                 return { success: true, message: 'Login successful', role: 'mainadmin' };
             }
-            if (data.role === 'user' && data.password) {
-                logSystemActivity('system', 'User', 'Login', 'User login successful');
-                return { success: true, message: 'Login successful' };
+            if (data.role === 'user' && data.userId && userAccounts[data.userId] && data.password === userAccounts[data.userId].password) {
+                logSystemActivity('system', 'User', 'Login', `User ${data.userId} login successful`);
+                return { success: true, message: 'Login successful', userName: userAccounts[data.userId].name, userId: data.userId };
             }
-            return { success: false, error: 'Invalid password' };
+            return { success: false, error: 'Invalid credentials' };
         
         case 'submitBooking':
             const refNumber = 'VBS-' + new Date().getFullYear() + '-' + Math.floor(1000 + Math.random() * 9000);
@@ -2285,8 +2559,11 @@ function getMockData(action, data) {
                 status: 'Pending',
                 allocatedvehicle: '',
                 allocateddriver: '',
+                fuelstation: '',
+                extrafuel: '',
                 timestamp: new Date().toISOString(),
-                uniquepassword: uniquePassword
+                uniquepassword: uniquePassword,
+                userId: data.userId
             };
             
             let bookings = JSON.parse(localStorage.getItem('bookings') || '[]');
@@ -2346,6 +2623,8 @@ function getMockData(action, data) {
             
             allBookingsData[bookingIndex].allocatedvehicle = `${allVehiclesData[vehicleIndex].vehicleno} - ${allVehiclesData[vehicleIndex].type}`;
             allBookingsData[bookingIndex].allocateddriver = `${allDriversData[driverIndex].name} (${allDriversData[driverIndex].phone})`;
+            allBookingsData[bookingIndex].fuelstation = data.fuelStation;
+            allBookingsData[bookingIndex].extrafuel = data.extraFuel;
             allBookingsData[bookingIndex].status = 'Approved';
             
             allVehiclesData[vehicleIndex].status = 'Booked';
@@ -2534,10 +2813,18 @@ function getMockData(action, data) {
 
 // Authentication Functions
 async function handleLogin() {
+    const userSelect = document.getElementById('userSelect');
     const passwordInput = document.getElementById('password');
     const loginSpinner = document.getElementById('loginSpinner');
     const loginBtn = document.getElementById('loginBtn');
+    
+    const userId = userSelect.value;
     const password = passwordInput.value.trim();
+    
+    if (currentUserRole === 'user' && !userId) {
+        showMessage('Please select a user');
+        return;
+    }
     
     if (!password) {
         showMessage('Please enter a password');
@@ -2550,15 +2837,19 @@ async function handleLogin() {
     try {
         const result = await callGoogleAppsScript('login', {
             role: currentUserRole,
+            userId: userId,
             password: password
         });
 
         if (result.success) {
             showElement(document.getElementById('loginScreen'), false);
             if (currentUserRole === 'user') {
+                currentUserId = userId;
                 showElement(document.getElementById('userDashboard'));
+                document.getElementById('userDisplayName').textContent = result.userName || 'Staff Member';
                 resetBookingForm();
                 updateUserVehicleStatus();
+                loadMyRequests();
             } else {
                 showElement(document.getElementById('adminDashboard'));
                 document.getElementById('adminDisplayName').textContent = 
@@ -2583,7 +2874,9 @@ function logout() {
     showElement(document.getElementById('adminDashboard'), false);
     showElement(document.getElementById('loginScreen'));
     document.getElementById('password').value = '';
+    document.getElementById('userSelect').value = '';
     showElement(document.getElementById('loginMessage'), false);
+    currentUserId = null;
 }
 
 // Booking Functions
@@ -2625,7 +2918,8 @@ async function submitBooking() {
         startDateTime: document.getElementById('startDateTime').value,
         endDateTime: document.getElementById('endDateTime').value,
         startLocation: document.getElementById('startLocation').value.trim(),
-        destination: document.getElementById('destination').value.trim()
+        destination: document.getElementById('destination').value.trim(),
+        userId: currentUserId
     };
 
     const submitBookingBtn = document.getElementById('submitBooking');
@@ -2646,6 +2940,8 @@ async function submitBooking() {
             if (document.getElementById('adminDashboard').style.display === 'block') {
                 loadAdminData();
             }
+            
+            loadMyRequests();
         } else {
             alert('Booking submission failed: ' + (result.error || 'Unknown error'));
         }
@@ -2688,6 +2984,134 @@ function resetBookingForm() {
     
     showElement(document.getElementById('bookingForm'));
     showElement(document.getElementById('bookingSuccess'), false);
+}
+
+// User My Requests Functions
+async function loadMyRequests() {
+    try {
+        const bookingsResult = await callGoogleAppsScript('getBookings');
+        const myBookings = bookingsResult.bookings.filter(booking => booking.userId === currentUserId) || [];
+        filteredMyRequests = myBookings;
+        displayMyRequests();
+        updateMyRequestsPagination();
+    } catch (error) {
+        console.error('Error loading my requests:', error);
+    }
+}
+
+function filterMyRequests() {
+    const status = document.getElementById('myRequestsStatusFilter').value;
+    const searchTerm = document.getElementById('searchMyRequests').value.toLowerCase();
+    
+    let myBookings = allBookings.filter(booking => booking.userId === currentUserId);
+    
+    filteredMyRequests = myBookings.filter(booking => {
+        const statusMatch = status === 'all' || booking.status === status;
+        const searchMatch = !searchTerm || 
+            booking.refnumber.toLowerCase().includes(searchTerm) ||
+            booking.destination.toLowerCase().includes(searchTerm);
+        
+        return statusMatch && searchMatch;
+    });
+    
+    myRequestsPage = 1;
+    displayMyRequests();
+    updateMyRequestsPagination();
+}
+
+function displayMyRequests() {
+    const myRequestsTableBody = document.getElementById('myRequestsTableBody');
+    const myRequestCount = document.getElementById('myRequestCount');
+    myRequestsTableBody.innerHTML = '';
+    
+    if (filteredMyRequests.length === 0) {
+        myRequestsTableBody.innerHTML = '<tr><td colspan="7" class="text-center">No booking requests found</td></tr>';
+        myRequestCount.textContent = '0 requests';
+        return;
+    }
+
+    const startIndex = (myRequestsPage - 1) * myRequestsItemsPerPage;
+    const endIndex = Math.min(startIndex + myRequestsItemsPerPage, filteredMyRequests.length);
+    const currentRequests = filteredMyRequests.slice(startIndex, endIndex);
+
+    myRequestCount.textContent = `${filteredMyRequests.length} requests`;
+
+    currentRequests.forEach(booking => {
+        const row = document.createElement('tr');
+        if (booking.status === 'Pending') {
+            row.classList.add('highlighted-row');
+        }
+
+        const statusClass = `status-${booking.status.toLowerCase()}`;
+        
+        row.innerHTML = `
+            <td>${booking.refnumber}</td>
+            <td>${booking.destination}</td>
+            <td>${formatDateTime(booking.startdatetime)}</td>
+            <td>${booking.seatcount}</td>
+            <td>${booking.distance} KM</td>
+            <td><span class="status-badge ${statusClass}">${booking.status}</span></td>
+            <td>
+                <button class="action-btn btn" onclick="viewMyBooking(${booking.id})">View</button>
+            </td>
+        `;
+
+        myRequestsTableBody.appendChild(row);
+    });
+}
+
+function updateMyRequestsPagination() {
+    const totalPages = Math.ceil(filteredMyRequests.length / myRequestsItemsPerPage);
+    document.getElementById('myRequestsPageInfo').textContent = `Page ${myRequestsPage} of ${totalPages}`;
+    document.getElementById('myRequestsPrevPage').disabled = myRequestsPage === 1;
+    document.getElementById('myRequestsNextPage').disabled = myRequestsPage === totalPages || totalPages === 0;
+}
+
+function goToMyRequestsPrevPage() {
+    if (myRequestsPage > 1) {
+        myRequestsPage--;
+        displayMyRequests();
+        updateMyRequestsPagination();
+    }
+}
+
+function goToMyRequestsNextPage() {
+    const totalPages = Math.ceil(filteredMyRequests.length / myRequestsItemsPerPage);
+    if (myRequestsPage < totalPages) {
+        myRequestsPage++;
+        displayMyRequests();
+        updateMyRequestsPagination();
+    }
+}
+
+function viewMyBooking(bookingId) {
+    currentBookingId = bookingId;
+    const booking = allBookings.find(b => b.id === bookingId);
+    
+    if (booking) {
+        document.getElementById('viewRefNumber').textContent = booking.refnumber;
+        document.getElementById('viewDate').textContent = formatDate(booking.timestamp);
+        document.getElementById('viewUserDetails').textContent = 
+            `${booking.username}, ${booking.userdesignation}, ${booking.userphone}`;
+        document.getElementById('viewBranch').textContent = booking.userbranch;
+        document.getElementById('viewApprovedBy').textContent = booking.approvedby || 'Not specified';
+        document.getElementById('viewTripDetails').textContent = 
+            `${booking.purpose}. From ${booking.startlocation} to ${booking.destination}. ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}`;
+        document.getElementById('viewVehicleReq').textContent = 
+            `${booking.seatcount} seats, Goods Transport: ${booking.goodstransport || 'No'}`;
+        document.getElementById('viewDistance').textContent = 
+            `${booking.distance} KM`;
+        document.getElementById('viewStatus').textContent = booking.status;
+        document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
+        document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
+        document.getElementById('viewFuelStation').textContent = booking.fuelstation || 'Not specified';
+        document.getElementById('viewExtraFuel').textContent = booking.extrafuel ? `${booking.extrafuel} liters` : 'Not specified';
+        
+        const vehicleNumber = booking.allocatedvehicle ? booking.allocatedvehicle.split(' - ')[0] : '';
+        generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
+        
+        showElement(document.getElementById('viewModal'));
+    }
 }
 
 // User Vehicle Status Functions
@@ -2922,7 +3346,7 @@ function goToNextPage() {
     }
 }
 
-// Modal Functions - FIXED
+// Modal Functions
 function openAllocationModal(bookingId) {
     currentBookingId = bookingId;
     const booking = allBookings.find(b => b.id === bookingId);
@@ -2930,15 +3354,20 @@ function openAllocationModal(bookingId) {
     if (booking) {
         selectedVehicleId = null;
         selectedDriverId = null;
+        selectedFuelStation = '';
+        selectedExtraFuel = '';
         document.getElementById('selectedVehicleText').textContent = 'None selected';
         document.getElementById('selectedDriverText').textContent = 'None selected';
+        document.getElementById('selectedFuelStationText').textContent = 'None selected';
+        document.getElementById('selectedExtraFuelText').textContent = 'None specified';
         
         document.getElementById('searchVehicleModal').value = '';
         document.getElementById('searchDriverModal').value = '';
+        document.getElementById('fuelStation').value = '';
+        document.getElementById('extraFuel').value = '';
         vehicleModalPage = 1;
         driverModalPage = 1;
         
-        // MODIFICATION 1: Autofill the unique password
         document.getElementById('uniquePassword').value = booking.uniquepassword || '';
         
         filterModalVehicles();
@@ -2952,7 +3381,6 @@ function filterModalVehicles() {
     const searchTerm = document.getElementById('searchVehicleModal').value.toLowerCase();
     
     filteredModalVehicles = vehicles.filter(vehicle => {
-        // Ensure all properties are strings before calling string methods
         const vehicleNo = String(vehicle.vehicleno || '');
         const vehicleType = String(vehicle.type || '');
         const seatCapacity = String(vehicle.seatcapacity || '');
@@ -3010,7 +3438,6 @@ function filterModalDrivers() {
     const searchTerm = document.getElementById('searchDriverModal').value.toLowerCase();
     
     filteredModalDrivers = drivers.filter(driver => {
-        // Ensure all properties are strings before calling string methods
         const driverName = String(driver.name || '');
         const driverPhone = String(driver.phone || '');
         
@@ -3152,6 +3579,8 @@ function viewBooking(bookingId) {
         document.getElementById('viewStatus').textContent = booking.status;
         document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
         document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
+        document.getElementById('viewFuelStation').textContent = booking.fuelstation || 'Not specified';
+        document.getElementById('viewExtraFuel').textContent = booking.extrafuel ? `${booking.extrafuel} liters` : 'Not specified';
         
         const vehicleNumber = booking.allocatedvehicle ? booking.allocatedvehicle.split(' - ')[0] : '';
         generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
@@ -3161,34 +3590,52 @@ function viewBooking(bookingId) {
 }
 
 async function allocateVehicle() {
-    if (!selectedVehicleId || !selectedDriverId) {
-        alert('Please select both a vehicle and a driver');
+    const uniquePassword = document.getElementById('uniquePassword').value.trim();
+    const fuelStation = document.getElementById('fuelStation').value.trim();
+    const extraFuel = document.getElementById('extraFuel').value.trim();
+    
+    if (!uniquePassword) {
+        alert('Please enter the booking password');
         return;
     }
     
-    const password = document.getElementById('uniquePassword').value.trim();
-    
-    if (!password) {
-        alert('Please enter the booking password for verification');
+    if (!selectedVehicleId) {
+        alert('Please select a vehicle');
         return;
     }
-
+    
+    if (!selectedDriverId) {
+        alert('Please select a driver');
+        return;
+    }
+    
+    if (!fuelStation) {
+        alert('Please enter the nominated fuel station');
+        return;
+    }
+    
+    if (!extraFuel) {
+        alert('Please enter the amount of extra fuel');
+        return;
+    }
+    
     const confirmAllocationBtn = document.getElementById('confirmAllocation');
     confirmAllocationBtn.disabled = true;
-    confirmAllocationBtn.innerHTML = '<div class="spinner"></div>';
-
+    
     try {
         const result = await callGoogleAppsScript('allocateVehicle', {
             bookingId: currentBookingId,
             vehicleId: selectedVehicleId,
             driverId: selectedDriverId,
-            uniquePassword: password.toUpperCase()
+            fuelStation: fuelStation,
+            extraFuel: extraFuel,
+            uniquePassword: uniquePassword
         });
-
+        
         if (result.success) {
-            showElement(document.getElementById('allocationModal'), false);
+            alert('Vehicle and driver allocated successfully');
+            hideModal('allocationModal');
             loadAdminData();
-            alert('Vehicle and driver allocated successfully!');
         } else {
             alert('Allocation failed: ' + (result.error || 'Unknown error'));
         }
@@ -3196,38 +3643,34 @@ async function allocateVehicle() {
         alert('Allocation failed. Please try again.');
     } finally {
         confirmAllocationBtn.disabled = false;
-        confirmAllocationBtn.innerHTML = 'Allocate';
     }
 }
 
-async function saveBookingEdit() {
-    const editData = {
-        bookingId: currentBookingId,
-        userName: document.getElementById('editUserName').value,
-        userDesignation: document.getElementById('editUserDesignation').value,
-        userBranch: document.getElementById('editUserBranch').value,
-        userPhone: document.getElementById('editUserPhone').value,
-        approvedBy: document.getElementById('editApprovedBy').value,
-        purpose: document.getElementById('editPurpose').value,
-        seatCount: document.getElementById('editSeatCount').value,
-        distance: document.getElementById('editDistance').value,
-        startDateTime: document.getElementById('editStartDateTime').value,
-        endDateTime: document.getElementById('editEndDateTime').value,
-        startLocation: document.getElementById('editStartLocation').value,
-        destination: document.getElementById('editDestination').value
-    };
-
+async function saveEdit() {
     const confirmEditBtn = document.getElementById('confirmEdit');
     confirmEditBtn.disabled = true;
-    confirmEditBtn.innerHTML = '<div class="spinner"></div>';
-
+    
     try {
-        const result = await callGoogleAppsScript('editBooking', editData);
+        const result = await callGoogleAppsScript('editBooking', {
+            bookingId: currentBookingId,
+            userName: document.getElementById('editUserName').value.trim(),
+            userDesignation: document.getElementById('editUserDesignation').value.trim(),
+            userBranch: document.getElementById('editUserBranch').value.trim(),
+            userPhone: document.getElementById('editUserPhone').value.trim(),
+            approvedBy: document.getElementById('editApprovedBy').value.trim(),
+            purpose: document.getElementById('editPurpose').value.trim(),
+            seatCount: document.getElementById('editSeatCount').value,
+            distance: document.getElementById('editDistance').value,
+            startDateTime: document.getElementById('editStartDateTime').value,
+            endDateTime: document.getElementById('editEndDateTime').value,
+            startLocation: document.getElementById('editStartLocation').value.trim(),
+            destination: document.getElementById('editDestination').value.trim()
+        });
         
         if (result.success) {
-            showElement(document.getElementById('editModal'), false);
+            alert('Booking updated successfully');
+            hideModal('editModal');
             loadAdminData();
-            alert('Booking updated successfully!');
         } else {
             alert('Update failed: ' + (result.error || 'Unknown error'));
         }
@@ -3235,85 +3678,162 @@ async function saveBookingEdit() {
         alert('Update failed. Please try again.');
     } finally {
         confirmEditBtn.disabled = false;
-        confirmEditBtn.innerHTML = 'Save Changes';
     }
 }
 
 async function deleteBooking(bookingId) {
-    if (confirm('Are you sure you want to delete this booking?')) {
-        try {
-            const result = await callGoogleAppsScript('deleteBooking', { bookingId: bookingId });
-            
-            if (result.success) {
-                loadAdminData();
-                alert('Booking deleted successfully!');
-            } else {
-                alert('Delete failed: ' + (result.error || 'Unknown error'));
-            }
-        } catch (error) {
-            alert('Delete failed. Please try again.');
+    if (!confirm('Are you sure you want to delete this booking?')) {
+        return;
+    }
+    
+    try {
+        const result = await callGoogleAppsScript('deleteBooking', { bookingId: bookingId });
+        
+        if (result.success) {
+            alert('Booking deleted successfully');
+            loadAdminData();
+        } else {
+            alert('Delete failed: ' + (result.error || 'Unknown error'));
         }
+    } catch (error) {
+        alert('Delete failed. Please try again.');
     }
 }
 
-// Vehicle Status Functions - FIXED
+function hideModal(modalId) {
+    showElement(document.getElementById(modalId), false);
+}
+
+// Vehicle Status Functions
 function updateVehicleStatus() {
-    const searchTerm = document.getElementById('searchVehicles').value.toLowerCase();
-    
-    let displayVehicles = vehicles;
-    if (searchTerm) {
-        displayVehicles = vehicles.filter(v => 
-            v.vehicleno.toLowerCase().includes(searchTerm) || 
-            v.type.toLowerCase().includes(searchTerm)
-        );
-    }
-    
-    const available = displayVehicles.filter(v => v.status === 'Available').length;
-    const booked = displayVehicles.filter(v => v.status === 'Booked').length;
-    const maintenance = displayVehicles.filter(v => v.status === 'Maintenance').length;
+    const available = vehicles.filter(v => v.status === 'Available').length;
+    const booked = vehicles.filter(v => v.status === 'Booked').length;
+    const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
     
     document.getElementById('availableCount').textContent = available;
     document.getElementById('bookedCount').textContent = booked;
     document.getElementById('maintenanceCount').textContent = maintenance;
     
-    // Show ALL vehicles without truncation for admin
-    updateVehicleList('availableVehiclesList', 'Available', displayVehicles);
-    updateVehicleList('bookedVehiclesList', 'Booked', displayVehicles);
-    updateVehicleList('maintenanceVehiclesList', 'Maintenance', displayVehicles);
+    displayVehicleList('availableVehiclesList', vehicles.filter(v => v.status === 'Available'));
+    displayVehicleList('bookedVehiclesList', vehicles.filter(v => v.status === 'Booked'));
+    displayVehicleList('maintenanceVehiclesList', vehicles.filter(v => v.status === 'Maintenance'));
 }
 
-function updateVehicleList(listId, status, vehiclesToDisplay = vehicles) {
-    const list = document.getElementById(listId);
-    if (!list) return;
+function displayVehicleList(elementId, vehicleList) {
+    const element = document.getElementById(elementId);
+    element.innerHTML = '';
     
-    let filtered = vehiclesToDisplay.filter(v => v.status === status);
+    if (vehicleList.length === 0) {
+        element.innerHTML = '<div style="padding: 15px; text-align: center; color: #999;">No vehicles found</div>';
+        return;
+    }
     
-    // Always show all vehicles for admin (no truncation)
-    const displayItems = filtered;
-    
-    list.innerHTML = '';
-    
-    if (displayItems.length === 0) {
+    vehicleList.forEach(vehicle => {
         const li = document.createElement('li');
-        li.textContent = 'No vehicles found';
-        li.style.color = '#999';
-        li.style.textAlign = 'center';
-        list.appendChild(li);
-    } else {
-        displayItems.forEach(vehicle => {
-            const li = document.createElement('li');
-            const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
-                            vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
-            
-            li.innerHTML = `
-                <span>${vehicle.vehicleno} - <span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span></span>
-                <span>${vehicle.seatcapacity} seats</span>
-            `;
-            list.appendChild(li);
+        const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
+                        vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
+        
+        li.innerHTML = `
+            <div>
+                <strong>${vehicle.vehicleno}</strong>
+                <div style="margin-top: 5px;">
+                    <span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span>
+                    <span style="margin-left: 10px; color: #666;">${vehicle.seatcapacity} seats</span>
+                </div>
+            </div>
+        `;
+        element.appendChild(li);
+    });
+}
+
+function searchVehicles() {
+    const searchTerm = document.getElementById('searchVehicles').value.toLowerCase();
+    
+    const availableVehicles = vehicles.filter(v => 
+        v.status === 'Available' && (
+            v.vehicleno.toLowerCase().includes(searchTerm) ||
+            v.type.toLowerCase().includes(searchTerm)
+        )
+    );
+    
+    const bookedVehicles = vehicles.filter(v => 
+        v.status === 'Booked' && (
+            v.vehicleno.toLowerCase().includes(searchTerm) ||
+            v.type.toLowerCase().includes(searchTerm)
+        )
+    );
+    
+    const maintenanceVehicles = vehicles.filter(v => 
+        v.status === 'Maintenance' && (
+            v.vehicleno.toLowerCase().includes(searchTerm) ||
+            v.type.toLowerCase().includes(searchTerm)
+        )
+    );
+    
+    displayVehicleList('availableVehiclesList', availableVehicles);
+    displayVehicleList('bookedVehiclesList', bookedVehicles);
+    displayVehicleList('maintenanceVehiclesList', maintenanceVehicles);
+}
+
+// Report Functions
+async function generateReport() {
+    const reportType = document.getElementById('reportType').value;
+    const startDate = document.getElementById('startDate').value;
+    const endDate = document.getElementById('endDate').value;
+    
+    const reportResults = document.getElementById('reportResults');
+    reportResults.innerHTML = '<div class="spinner"></div>';
+    
+    try {
+        const result = await callGoogleAppsScript('getReports', {
+            type: reportType,
+            startDate: startDate,
+            endDate: endDate
         });
         
-        // No truncation message for admin - show all vehicles
+        if (result.success) {
+            displayReport(result);
+        } else {
+            reportResults.innerHTML = `<div style="color: var(--danger);">Error: ${result.error || 'Failed to generate report'}</div>`;
+        }
+    } catch (error) {
+        reportResults.innerHTML = `<div style="color: var(--danger);">Error generating report: ${error.message}</div>`;
     }
+}
+
+function displayReport(result) {
+    const reportResults = document.getElementById('reportResults');
+    
+    let html = `
+        <div class="enhanced-pdf">
+            <div class="enhanced-pdf-header">
+                <div class="enhanced-pdf-title">${result.title}</div>
+                <div class="enhanced-pdf-subtitle">Generated on ${formatDateTime(result.generatedAt)}</div>
+            </div>
+    `;
+    
+    if (result.reportData && result.reportData.length > 0) {
+        html += '<div class="table-scroll-container"><table>';
+        
+        result.reportData.forEach((row, rowIndex) => {
+            const rowClass = rowIndex === 0 ? 'style="font-weight: bold; background-color: #f8f9fa;"' : '';
+            html += '<tr ' + rowClass + '>';
+            
+            row.forEach(cell => {
+                html += '<td>' + (cell || '') + '</td>';
+            });
+            
+            html += '</tr>';
+        });
+        
+        html += '</table></div>';
+    } else {
+        html += '<p style="text-align: center; color: #999;">No data available for this report</p>';
+    }
+    
+    html += '</div>';
+    
+    reportResults.innerHTML = html;
 }
 
 // System Logs Functions
@@ -3321,26 +3841,38 @@ async function loadSystemLogs() {
     try {
         const result = await callGoogleAppsScript('getSystemLogs');
         systemLogs = result.logs || [];
+        
+        const userFilter = document.getElementById('userFilter');
+        const uniqueUsers = [...new Set(systemLogs.map(log => log.user))];
+        
+        userFilter.innerHTML = '<option value="all">All Users</option>';
+        uniqueUsers.forEach(user => {
+            const option = document.createElement('option');
+            option.value = user;
+            option.textContent = user;
+            userFilter.appendChild(option);
+        });
+        
         filterLogs();
     } catch (error) {
         console.error('Error loading system logs:', error);
-        systemLogs = JSON.parse(localStorage.getItem('systemLogs') || '[]');
-        filterLogs();
     }
 }
 
 function filterLogs() {
     const typeFilter = document.getElementById('logTypeFilter').value;
+    const userFilter = document.getElementById('userFilter').value;
     const searchTerm = document.getElementById('searchLogs').value.toLowerCase();
     
     filteredLogs = systemLogs.filter(log => {
         const typeMatch = typeFilter === 'all' || log.type === typeFilter;
+        const userMatch = userFilter === 'all' || log.user === userFilter;
         const searchMatch = !searchTerm || 
             log.user.toLowerCase().includes(searchTerm) ||
             log.action.toLowerCase().includes(searchTerm) ||
             log.details.toLowerCase().includes(searchTerm);
         
-        return typeMatch && searchMatch;
+        return typeMatch && userMatch && searchMatch;
     });
     
     logsPage = 1;
@@ -3370,7 +3902,7 @@ function displayLogs() {
             <td><span class="status-badge ${typeClass}">${log.type}</span></td>
             <td>${log.user}</td>
             <td>${log.action}</td>
-            <td>${log.details || '-'}</td>
+            <td>${log.details}</td>
         `;
         systemLogsTable.appendChild(tr);
     });
@@ -3378,7 +3910,7 @@ function displayLogs() {
 
 function updateLogsPagination() {
     const totalPages = Math.ceil(filteredLogs.length / logsItemsPerPage);
-    document.getElementById('logsPageInfo').textContent = `Page ${logsPage} of ${totalPages || 1}`;
+    document.getElementById('logsPageInfo').textContent = `Page ${logsPage} of ${totalPages}`;
     document.getElementById('logsPrevPage').disabled = logsPage === 1;
     document.getElementById('logsNextPage').disabled = logsPage === totalPages || totalPages === 0;
 }
@@ -3400,148 +3932,6 @@ function goToLogsNextPage() {
     }
 }
 
-// Report Functions - FIXED
-async function generateReport() {
-    const type = document.getElementById('reportType').value;
-    const start = document.getElementById('startDate').value;
-    const end = document.getElementById('endDate').value;
-    
-    if (start && end && new Date(start) > new Date(end)) {
-        alert('Start date cannot be after end date');
-        return;
-    }
-
-    const generateReportBtn = document.getElementById('generateReport');
-    generateReportBtn.disabled = true;
-    generateReportBtn.innerHTML = '<div class="spinner"></div>';
-
-    try {
-        const result = await callGoogleAppsScript('getReports', {
-            type: type,
-            startDate: start,
-            endDate: end
-        });
-
-        if (result.success) {
-            displayReport(result);
-            logSystemActivity('report', 'Administrator', 'Report Generated', `Type: ${type}`);
-        } else {
-            alert('Report generation failed: ' + (result.error || 'Unknown error'));
-        }
-    } catch (error) {
-        console.error('Report generation error:', error);
-        alert('Report generation failed. Please try again.');
-    } finally {
-        generateReportBtn.disabled = false;
-        generateReportBtn.innerHTML = 'Generate Report';
-    }
-}
-
-function displayReport(result) {
-    let html = `
-        <div class="enhanced-pdf">
-            <div class="enhanced-pdf-header">
-                <div class="enhanced-pdf-title">${result.title}</div>
-                <div class="enhanced-pdf-subtitle">Generated on ${formatDateTime(result.generatedAt)}</div>
-            </div>
-    `;
-
-    if (result.reportData && result.reportData.length > 0) {
-        html += '<div style="overflow-x: auto; margin-top: 20px;">';
-        html += '<table class="user-vehicle-table" style="width: 100%; border-collapse: collapse;">';
-        
-        // Header row
-        html += '<thead><tr>';
-        result.reportData[0].forEach(cell => {
-            html += `<th style="padding: 12px; background: #1a73e8; color: white; text-align: left;">${cell}</th>`;
-        });
-        html += '</tr></thead>';
-        
-        // Data rows
-        html += '<tbody>';
-        for (let i = 1; i < result.reportData.length; i++) {
-            const rowClass = i % 2 === 0 ? 'style="background-color: #f8f9fa;"' : '';
-            html += `<tr ${rowClass} style="border-bottom: 1px solid #e0e0e0;">`;
-            result.reportData[i].forEach(cell => {
-                html += `<td style="padding: 12px;">${cell}</td>`;
-            });
-            html += '</tr>';
-        }
-        html += '</tbody>';
-        html += '</table>';
-        html += '</div>';
-        
-        html += `<div style="margin-top: 20px; padding: 15px; background: #f5f5f5; border-radius: 8px;">
-            <strong>Summary:</strong> ${result.reportData.length - 1} record(s) found
-        </div>`;
-        
-        html += `<div style="margin-top: 20px; text-align: center;">
-            <button class="btn" onclick="exportReportToCSV()">Export to CSV</button>
-            <button class="btn btn-secondary" onclick="printReport()">Print Report</button>
-        </div>`;
-    } else {
-        html += '<p style="text-align: center; color: #999; margin-top: 30px;">No data available for the selected criteria.</p>';
-    }
-
-    html += '</div>';
-
-    const reportResults = document.getElementById('reportResults');
-    reportResults.innerHTML = html;
-    reportResults.style.display = 'block';
-}
-
-function exportReportToCSV() {
-    const table = document.querySelector('#reportResults table');
-    if (!table) {
-        alert('No report data to export');
-        return;
-    }
-    
-    let csv = [];
-    const rows = table.querySelectorAll('tr');
-    
-    rows.forEach(row => {
-        const cols = row.querySelectorAll('td, th');
-        const rowData = Array.from(cols).map(col => `"${col.textContent}"`);
-        csv.push(rowData.join(','));
-    });
-    
-    const csvContent = "data:text/csv;charset=utf-8," + csv.join("\n");
-    const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `report_${new Date().toISOString().split('T')[0]}.csv`);
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    logSystemActivity('report', 'Administrator', 'Report Exported', 'CSV format');
-}
-
-function printReport() {
-    const reportContent = document.getElementById('reportResults').innerHTML;
-    const printWindow = window.open('', '', 'height=600,width=800');
-    
-    printWindow.document.write('<html><head><title>Print Report</title>');
-    printWindow.document.write('<style>');
-    printWindow.document.write('body { font-family: Arial, sans-serif; padding: 20px; }');
-    printWindow.document.write('table { width: 100%; border-collapse: collapse; }');
-    printWindow.document.write('th, td { padding: 12px; text-align: left; border: 1px solid #ddd; }');
-    printWindow.document.write('th { background: #1a73e8; color: white; }');
-    printWindow.document.write('.enhanced-pdf-header { text-align: center; margin-bottom: 30px; }');
-    printWindow.document.write('.enhanced-pdf-title { font-size: 24px; font-weight: bold; color: #1a73e8; }');
-    printWindow.document.write('.enhanced-pdf-subtitle { font-size: 14px; color: #666; margin-top: 5px; }');
-    printWindow.document.write('button { display: none; }');
-    printWindow.document.write('</style></head><body>');
-    printWindow.document.write(reportContent);
-    printWindow.document.write('</body></html>');
-    
-    printWindow.document.close();
-    printWindow.print();
-    
-    logSystemActivity('report', 'Administrator', 'Report Printed');
-}
-
 function exportLogs() {
     const csvContent = "data:text/csv;charset=utf-8," 
         + "Timestamp,Type,User,Action,Details\n"
@@ -3550,56 +3940,57 @@ function exportLogs() {
         ).join("\n");
     
     const encodedUri = encodeURI(csvContent);
-    const link = document.createElement('a');
-    link.setAttribute('href', encodedUri);
-    link.setAttribute('download', `system_logs_${new Date().toISOString().split('T')[0]}.csv`);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", "system_logs.csv");
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
-    logSystemActivity('system', 'Administrator', 'Logs Exported', 'CSV format');
 }
 
-// QR Code Generation
-function generateQRCode(refNumber, startTime, endTime, elementId, vehicleNumber = '', password = '') {
-    const qrData = `Booking Ref: ${refNumber}
-Start: ${formatDateTime(startTime)}
-End: ${formatDateTime(endTime)}
-Vehicle: ${vehicleNumber || 'Not allocated'}
-Password: ${password}
-Ministry of Health Vehicle Booking System`;
+// QR Code Functions
+function generateQRCode(refNumber, startDateTime, endDateTime, qrCodeElementId, vehicleNumber = '', uniquePassword = '') {
+    const qrData = {
+        refNumber: refNumber,
+        startDateTime: startDateTime,
+        endDateTime: endDateTime,
+        vehicleNumber: vehicleNumber,
+        uniquePassword: uniquePassword
+    };
+    
+    const qrString = JSON.stringify(qrData);
+    
+    const qrCodeElement = document.getElementById(qrCodeElementId);
+    qrCodeElement.innerHTML = '';
     
     const qr = qrcode(0, 'M');
-    qr.addData(qrData);
+    qr.addData(qrString);
     qr.make();
     
-    const qrElement = document.getElementById(elementId);
-    if (qrElement) {
-        qrElement.innerHTML = qr.createImgTag(5);
-    }
+    qrCodeElement.innerHTML = qr.createImgTag(4);
 }
 
-// PDF Generation Functions - MODIFIED with Gate Pass
+// PDF Generation Functions - COMPLETE WITH PROPER IMPLEMENTATION
 function generatePDF(isFinal = false) {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
     
-    // First page - Booking Details
-    doc.setFontSize(20);
+    // Header
+    doc.setFontSize(18);
     doc.setTextColor(26, 115, 232);
     doc.setFont(undefined, 'bold');
-    doc.text('MINISTRY OF HEALTH', 105, 20, { align: 'center' });
+    doc.text('MINISTRY OF HEALTH', 105, 15, { align: 'center' });
     
-    doc.setFontSize(16);
+    doc.setFontSize(13);
     doc.setTextColor(95, 99, 104);
-    doc.text('Vehicle Booking System', 105, 30, { align: 'center' });
+    doc.text('Vehicle Booking System', 105, 22, { align: 'center' });
     
     doc.setDrawColor(26, 115, 232);
-    doc.line(20, 40, 190, 40);
+    doc.line(20, 27, 190, 27);
     
-    doc.setFontSize(18);
+    doc.setFontSize(14);
     doc.setTextColor(0, 0, 0);
-    doc.text(isFinal ? 'VEHICLE BOOKING CONFIRMATION' : 'VEHICLE BOOKING REQUEST', 105, 55, { align: 'center' });
+    doc.text(isFinal ? 'VEHICLE BOOKING CONFIRMATION' : 'VEHICLE BOOKING REQUEST', 105, 35, { align: 'center' });
     
     if (isFinal) {
         const booking = allBookings.find(b => b.id === currentBookingId);
@@ -3610,58 +4001,25 @@ function generatePDF(isFinal = false) {
         addFormalPreviewContentToPDF(doc);
     }
     
-    // Add QR Code
-    if (!isFinal) {
-        const qrCodeElement = document.querySelector('#qrCodeUser img');
-        if (qrCodeElement) {
-            const qrCodeDataURL = qrCodeElement.src;
-            doc.addImage(qrCodeDataURL, 'PNG', 150, 180, 40, 40);
-        }
-    } else {
-        const qrCodeElement = document.querySelector('#qrCodeAdmin img');
-        if (qrCodeElement) {
-            const qrCodeDataURL = qrCodeElement.src;
-            doc.addImage(qrCodeDataURL, 'PNG', 150, 180, 40, 40);
-        }
+    // Add Small QR Code in bottom right corner
+    const qrSize = 25;
+    const qrX = 190 - qrSize - 5;
+    const qrY = 297 - qrSize - 10;
+    
+    const qrCodeElement = isFinal ? 
+        document.querySelector('#qrCodeAdmin img') : 
+        document.querySelector('#qrCodeUser img');
+        
+    if (qrCodeElement) {
+        const qrCodeDataURL = qrCodeElement.src;
+        doc.addImage(qrCodeDataURL, 'PNG', qrX, qrY, qrSize, qrSize);
     }
     
-    // Footer for first page
-    doc.setFontSize(10);
+    // Footer
+    doc.setFontSize(8);
     doc.setTextColor(128, 128, 128);
-    doc.text('Official Document - Ministry of Health Vehicle Booking System', 105, 275, { align: 'center' });
-    doc.text(`Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`, 105, 280, { align: 'center' });
-    doc.text(`Page 1 of 2`, 105, 285, { align: 'center' });
-    
-    // Add new page for Gate Pass
-    doc.addPage();
-    
-    // Gate Pass Header
-    doc.setFontSize(20);
-    doc.setTextColor(26, 115, 232);
-    doc.setFont(undefined, 'bold');
-    doc.text('MINISTRY OF HEALTH', 105, 20, { align: 'center' });
-    
-    doc.setFontSize(16);
-    doc.setTextColor(95, 99, 104);
-    doc.text('Vehicle Gate Pass', 105, 30, { align: 'center' });
-    
-    doc.setDrawColor(26, 115, 232);
-    doc.line(20, 40, 190, 40);
-    
-    // Booking Reference
-    doc.setFontSize(14);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Booking Reference: ${currentBookingRef}`, 20, 60);
-    
-    // Add Gate Pass Content
-    addGatePassToPDF(doc);
-    
-    // Footer for second page
-    doc.setFontSize(10);
-    doc.setTextColor(128, 128, 128);
-    doc.text('Official Document - Ministry of Health Vehicle Booking System', 105, 275, { align: 'center' });
-    doc.text(`Generated on: ${new Date().toLocaleDateString()} at ${new Date().toLocaleTimeString()}`, 105, 280, { align: 'center' });
-    doc.text(`Page 2 of 2`, 105, 285, { align: 'center' });
+    doc.text('Official Document - Ministry of Health Vehicle Booking System', 105, 287, { align: 'center' });
+    doc.text(`Generated: ${new Date().toLocaleDateString()} ${new Date().toLocaleTimeString()}`, 105, 291, { align: 'center' });
     
     const fileName = isFinal ? 
         `booking_confirmation_${currentBookingRef}.pdf` : 
@@ -3673,410 +4031,511 @@ function generatePDF(isFinal = false) {
         isFinal ? `Final confirmation for ${currentBookingRef}` : `Request preview for ${currentBookingRef}`);
 }
 
-// MODIFICATION 2: Add Gate Pass to PDF
-function addGatePassToPDF(doc) {
-    let yPosition = 80;
-    
-    // Departure Section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('DEPARTURE', 20, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text('Departure Time ........................', 20, yPosition);
-    yPosition += 10;
-    
-    doc.text("Driver's Signature ....................", 20, yPosition);
-    doc.text("Security Officer's Signature ........", 110, yPosition);
-    yPosition += 10;
-    
-    doc.text('Date ................................', 20, yPosition);
-    doc.text('Date ..............................', 110, yPosition);
-    yPosition += 20;
-    
-    // Return Section
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('RETURN', 20, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text('1. Date ..............................', 20, yPosition);
-    yPosition += 10;
-    
-    doc.text('2. Arrival Time ..................', 20, yPosition);
-    yPosition += 10;
-    
-    doc.text("3. Security Officer's Signature .........", 20, yPosition);
-    doc.text("Driver's Signature .....", 130, yPosition);
-    yPosition += 20;
-    
-    // Important Notes
-    doc.setFontSize(10);
-    doc.setTextColor(255, 0, 0);
-    doc.text('* The vehicle must be used only for the assigned duty and must travel only on the route mentioned above.', 20, yPosition, { maxWidth: 170 });
-    yPosition += 10;
-    
-    doc.text('** The driver must report to the Transport Division or the designated officer immediately after completing duty.', 20, yPosition, { maxWidth: 170 });
-    yPosition += 20;
-    
-    // Vehicle and Driver Details (if allocated)
-    const booking = allBookings.find(b => b.id === currentBookingId);
-    if (booking && booking.allocatedvehicle) {
-        doc.setFontSize(12);
-        doc.setTextColor(0, 0, 0);
-        doc.text(`Allocated Vehicle: ${booking.allocatedvehicle}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Allocated Driver: ${booking.allocateddriver}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Trip Purpose: ${booking.purpose}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Destination: ${booking.destination}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Schedule: ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}`, 20, yPosition);
-    }
-    
-    // Signature lines at the bottom
-    yPosition = 220;
-    doc.setDrawColor(0, 0, 0);
-    doc.line(20, yPosition, 90, yPosition);
-    doc.line(120, yPosition, 190, yPosition);
-    
-    doc.setFontSize(10);
-    doc.text('Authorized Signatory', 40, yPosition + 10);
-    doc.text('Security Officer', 145, yPosition + 10);
-}
-
 function addFormalPreviewContentToPDF(doc) {
-    let yPosition = 70;
+    let yPosition = 42;
     
-    doc.setFontSize(12);
+    doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text(`Booking Reference: ${currentBookingRef}`, 20, yPosition);
-    doc.text(`Submission Date: ${new Date().toLocaleDateString()}`, 120, yPosition);
-    yPosition += 15;
+    doc.text(`Date: ${new Date().toLocaleDateString()}`, 130, yPosition);
     
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
+    yPosition += 10;
+    
+    // User Details Section
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(11);
     doc.text('REQUESTOR DETAILS', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    
+    yPosition += 6;
+    doc.text(`Name: ${document.getElementById('userName').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Designation: ${document.getElementById('userDesignation').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Branch/Section: ${document.getElementById('userBranch').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Phone: ${document.getElementById('userPhone').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Approved By: ${document.getElementById('approvedBy').value}`, 22, yPosition);
+    
     yPosition += 10;
     
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Full Name: ${document.getElementById('userName').value}`, 20, yPosition);
-    doc.text(`Designation: ${document.getElementById('userDesignation').value}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Branch/Section: ${document.getElementById('userBranch').value}`, 20, yPosition);
-    doc.text(`Phone: ${document.getElementById('userPhone').value}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Approved By: ${document.getElementById('approvedBy').value}`, 20, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
+    // Trip Details Section
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(11);
     doc.text('TRIP DETAILS', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    
+    yPosition += 6;
+    const purpose = document.getElementById('purpose').value;
+    const purposeLines = doc.splitTextToSize(`Purpose: ${purpose}`, 170);
+    doc.text(purposeLines, 22, yPosition);
+    yPosition += purposeLines.length * 5;
+    
+    doc.text(`From: ${document.getElementById('startLocation').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`To: ${document.getElementById('destination').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Start: ${formatDateTime(document.getElementById('startDateTime').value)}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`End: ${formatDateTime(document.getElementById('endDateTime').value)}`, 22, yPosition);
+    
     yPosition += 10;
     
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Purpose: ${document.getElementById('purpose').value}`, 20, yPosition);
-    yPosition += 8;
-    
-    doc.text(`From: ${document.getElementById('startLocation').value}`, 20, yPosition);
-    doc.text(`To: ${document.getElementById('destination').value}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Start: ${formatDateTime(document.getElementById('startDateTime').value)}`, 20, yPosition);
-    doc.text(`End: ${formatDateTime(document.getElementById('endDateTime').value)}`, 120, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
+    // Vehicle Requirements Section
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(11);
     doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    
+    yPosition += 6;
+    doc.text(`Seat Count: ${document.getElementById('seatCount').value}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Approximate Distance: ${document.getElementById('distance').value} KM`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}`, 22, yPosition);
+    
     yPosition += 10;
     
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Seats Required: ${document.getElementById('seatCount').value}`, 20, yPosition);
-    doc.text(`Distance: ${document.getElementById('distance').value} KM`, 120, yPosition);
-    yPosition += 8;
+    // Status Section
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(11);
+    doc.text('STATUS', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
     
-    doc.text(`Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}`, 20, yPosition);
-    yPosition += 15;
+    yPosition += 6;
+    doc.text('Pending Approval', 22, yPosition);
     
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('BOOKING INFORMATION', 20, yPosition);
     yPosition += 10;
     
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Status: Pending Approval`, 20, yPosition);
-    doc.text(`Unique Password: ${document.getElementById('uniquePasswordDisplay').textContent}`, 120, yPosition);
-    yPosition += 20;
+    // Important Notice
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(10);
+    doc.text('IMPORTANT INFORMATION', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
     
-    doc.setDrawColor(0, 0, 0);
-    doc.line(20, yPosition, 100, yPosition);
-    doc.text('Approval Signature:', 20, yPosition + 10);
-    doc.text('_________________________', 20, yPosition + 20);
-    doc.text('Head of Department / Deputy Director General', 20, yPosition + 30);
+    yPosition += 6;
+    doc.text('Please save this document for future reference and inquiries.', 22, yPosition);
+    yPosition += 5;
+    doc.text(`Your unique booking password: ${document.getElementById('uniquePasswordDisplay').textContent}`, 22, yPosition);
+    
+    yPosition += 12;
+    
+    // Signature area
+    doc.line(20, yPosition, 90, yPosition);
+    yPosition += 5;
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(9);
+    doc.text('Approval Signature', 20, yPosition);
+    yPosition += 4;
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(8);
+    doc.text('Head of Department / Deputy Director General', 20, yPosition);
 }
 
-function addFormalBookingContentToPDF(doc, booking, isFinal) {
-    let yPosition = 70;
+function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
+    let yPosition = 42;
     
-    doc.setFontSize(12);
+    doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
     doc.text(`Booking Reference: ${booking.refnumber}`, 20, yPosition);
-    doc.text(`Submission Date: ${formatDate(booking.timestamp)}`, 120, yPosition);
-    yPosition += 15;
+    doc.text(`Date: ${formatDate(booking.timestamp)}`, 130, yPosition);
     
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
+    yPosition += 10;
+    
+    // User Details Section
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(11);
     doc.text('REQUESTOR DETAILS', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    
+    yPosition += 6;
+    doc.text(`Name: ${booking.username}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Designation: ${booking.userdesignation}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Branch/Section: ${booking.userbranch}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Phone: ${booking.userphone}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Approved By: ${booking.approvedby}`, 22, yPosition);
+    
     yPosition += 10;
     
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Full Name: ${booking.username}`, 20, yPosition);
-    doc.text(`Designation: ${booking.userdesignation}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Branch/Section: ${booking.userbranch}`, 20, yPosition);
-    doc.text(`Phone: ${booking.userphone}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Approved By: ${booking.approvedby}`, 20, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
+    // Trip Details Section
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(11);
     doc.text('TRIP DETAILS', 20, yPosition);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(9);
+    
+    yPosition += 6;
+    const purposeLines = doc.splitTextToSize(`Purpose: ${booking.purpose}`, 170);
+    doc.text(purposeLines, 22, yPosition);
+    yPosition += purposeLines.length * 5;
+    
+    doc.text(`From: ${booking.startlocation}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`To: ${booking.destination}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 22, yPosition);
+    yPosition += 5;
+    doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 22, yPosition);
+    
     yPosition += 10;
     
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Purpose: ${booking.purpose}`, 20, yPosition);
-    yPosition += 8;
-    
-    doc.text(`From: ${booking.startlocation}`, 20, yPosition);
-    doc.text(`To: ${booking.destination}`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 20, yPosition);
-    doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 120, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Seats Required: ${booking.seatcount}`, 20, yPosition);
-    doc.text(`Distance: ${booking.distance} KM`, 120, yPosition);
-    yPosition += 8;
-    
-    doc.text(`Goods Transport: ${booking.goodstransport}`, 20, yPosition);
-    yPosition += 15;
-    
-    doc.setFontSize(14);
-    doc.setTextColor(26, 115, 232);
-    doc.text('BOOKING INFORMATION', 20, yPosition);
-    yPosition += 10;
-    
-    doc.setFontSize(12);
-    doc.setTextColor(0, 0, 0);
-    doc.text(`Status: ${booking.status}`, 20, yPosition);
-    yPosition += 8;
-    
-    if (isFinal && booking.allocatedvehicle) {
-        doc.text(`Allocated Vehicle: ${booking.allocatedvehicle}`, 20, yPosition);
-        yPosition += 8;
+    // Vehicle Requirements
+    if (booking.seatcount || booking.distance) {
+        doc.setFont(undefined, 'bold');
+        doc.setFontSize(11);
+        doc.text('VEHICLE REQUIREMENTS', 20, yPosition);
+        doc.setFont(undefined, 'normal');
+        doc.setFontSize(9);
         
-        doc.text(`Allocated Driver: ${booking.allocateddriver}`, 20, yPosition);
-        yPosition += 8;
-        
-        doc.text(`Unique Password: ${booking.uniquepassword}`, 20, yPosition);
-        yPosition += 15;
+        yPosition += 6;
+        if (booking.seatcount) {
+            doc.text(`Seat Count: ${booking.seatcount}`, 22, yPosition);
+            yPosition += 5;
+        }
+        if (booking.distance) {
+            doc.text(`Approximate Distance: ${booking.distance} KM`, 22, yPosition);
+            yPosition += 5;
+        }
+        if (booking.goodstransport !== undefined) {
+            doc.text(`Goods Transport: ${booking.goodstransport ? 'Yes' : 'No'}`, 22, yPosition);
+            yPosition += 5;
+        }
+        yPosition += 5;
     }
     
-    doc.setDrawColor(0, 0, 0);
-    doc.line(20, yPosition, 100, yPosition);
-    doc.text('Approval Signature:', 20, yPosition + 10);
-    doc.text('_________________________', 20, yPosition + 20);
-    doc.text('Head of Department / Deputy Director General', 20, yPosition + 30);
+    // Allocation Details (if final)
+    if (isFinal && booking.allocatedvehicle) {
+        doc.setFont(undefined, 'bold');
+        doc.setFontSize(11);
+        doc.text('ALLOCATION DETAILS', 20, yPosition);
+        doc.setFont(undefined, 'normal');
+        doc.setFontSize(9);
+        
+        yPosition += 6;
+        doc.text(`Vehicle: ${booking.allocatedvehicle}`, 22, yPosition);
+        yPosition += 5;
+        doc.text(`Driver: ${booking.allocateddriver}`, 22, yPosition);
+        yPosition += 5;
+        doc.text(`Fuel Station: ${booking.fuelstation || 'Not specified'}`, 22, yPosition);
+        yPosition += 5;
+        doc.text(`Extra Fuel: ${booking.extrafuel || 'Not specified'} liters`, 22, yPosition);
+        yPosition += 10;
+    }
+    
+    // Admin approval text for final PDF
+    if (isFinal) {
+        doc.setFontSize(9);
+        doc.setTextColor(0, 0, 0);
+        
+        doc.text('DDG(L)/D(T-A)/SA(T)', 20, yPosition);
+        yPosition += 6;
+        
+        const approvalText = [
+            '"I kindly submit for approval the following details concerning the automated vehicle request',
+            'forwarded by the Vehicle Booking System - Ministry of Health to the Admin User - Transport',
+            'Branch - Ministry of Health: the name of the officer who made the request, the approval for the',
+            'request, the route and dates, the driver, the nominated fuel station for obtaining fuel, and for',
+            `an amount of extra diesel/petrol of ${booking.extrafuel || '...'} liters.`,
+            '',
+            'Furthermore, I kindly submit for approval the payment of full overtime and travel allowances',
+            'to the aforementioned driver and Cleaner (................................) for carrying out the',
+            'duties on behalf of the above-named officer."'
+        ];
+        
+        approvalText.forEach(line => {
+            doc.text(line, 20, yPosition, { maxWidth: 170 });
+            yPosition += 5;
+        });
+        
+        yPosition += 5;
+    }
+    
+    // Signature area
+    doc.line(20, yPosition, 90, yPosition);
+    yPosition += 5;
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(9);
+    doc.text('Approval Signature', 20, yPosition);
+    yPosition += 4;
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(8);
+    doc.text('Head of Department / Deputy Director General', 20, yPosition);
 }
 
-// WhatsApp Integration
-function sendWhatsAppMessage(isFinal = false) {
-    let message = '';
+function downloadFinalPDF() {
+    generatePDF(true);
+}
+
+function downloadPreviewPDF() {
+    generatePDF(false);
+}
+
+function downloadGatePassQR() {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
     
-    if (isFinal) {
-        const booking = allBookings.find(b => b.id === currentBookingId);
-        if (booking) {
-            message = `*Ministry of Health - Vehicle Booking Confirmation*
-
-*Booking Reference:* ${booking.refnumber}
-*Status:* ${booking.status}
-
-*Requestor Details:*
-Name: ${booking.username}
-Designation: ${booking.userdesignation}
-Branch: ${booking.userbranch}
-Phone: ${booking.userphone}
-
-*Trip Details:*
-Purpose: ${booking.purpose}
-From: ${booking.startlocation} to ${booking.destination}
-Start: ${formatDateTime(booking.startdatetime)}
-End: ${formatDateTime(booking.enddatetime)}
-
-*Vehicle Allocation:*
-Vehicle: ${booking.allocatedvehicle || 'Not allocated'}
-Driver: ${booking.allocateddriver || 'Not allocated'}
-
-*Important:* Keep your booking password (${booking.uniquepassword}) secure for any inquiries.
-
-Thank you for using the Ministry of Health Vehicle Booking System.`;
-        }
+    const booking = allBookings.find(b => b.id === currentBookingId);
+    
+    // Header
+    doc.setFontSize(18);
+    doc.setTextColor(26, 115, 232);
+    doc.setFont(undefined, 'bold');
+    doc.text('MINISTRY OF HEALTH', 105, 20, { align: 'center' });
+    
+    doc.setFontSize(14);
+    doc.setTextColor(95, 99, 104);
+    doc.text('Vehicle Gate Pass', 105, 30, { align: 'center' });
+    
+    doc.setDrawColor(26, 115, 232);
+    doc.line(20, 35, 190, 35);
+    
+    // Booking Details
+    doc.setFontSize(11);
+    doc.setTextColor(0, 0, 0);
+    doc.setFont(undefined, 'bold');
+    doc.text(`Booking Reference: ${currentBookingRef}`, 20, 45);
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(10);
+    
+    if (booking) {
+        doc.text(`Date: ${formatDate(booking.timestamp)}`, 20, 52);
+        doc.text(`Vehicle: ${booking.allocatedvehicle || 'Not allocated'}`, 20, 59);
+        doc.text(`Driver: ${booking.allocateddriver || 'Not allocated'}`, 20, 66);
+        doc.text(`Destination: ${booking.destination}`, 20, 73);
+        doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 20, 80);
+        doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 20, 87);
     } else {
-        message = `*Ministry of Health - Vehicle Booking Request*
-
-*Booking Reference:* ${currentBookingRef}
-*Status:* Pending Approval
-
-*Requestor Details:*
-Name: ${document.getElementById('userName').value}
-Designation: ${document.getElementById('userDesignation').value}
-Branch: ${document.getElementById('userBranch').value}
-Phone: ${document.getElementById('userPhone').value}
-
-*Trip Details:*
-Purpose: ${document.getElementById('purpose').value}
-From: ${document.getElementById('startLocation').value} to ${document.getElementById('destination').value}
-Start: ${formatDateTime(document.getElementById('startDateTime').value)}
-End: ${formatDateTime(document.getElementById('endDateTime').value)}
-
-*Vehicle Requirements:*
-Seats: ${document.getElementById('seatCount').value}
-Distance: ${document.getElementById('distance').value} KM
-Goods Transport: ${document.getElementById('goodsTransport').checked ? 'Yes' : 'No'}
-
-*Important:* Your booking password is ${document.getElementById('uniquePasswordDisplay').textContent}. Keep it secure for any inquiries.
-
-Your request is being processed. You will receive confirmation shortly.
-
-Thank you for using the Ministry of Health Vehicle Booking System.`;
+        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 52);
     }
     
-    const encodedMessage = encodeURIComponent(message);
-    const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+    // QR Code
+    const qrCodeElement = document.getElementById('qrCodeAdmin');
+    if (qrCodeElement) {
+        const qrImg = qrCodeElement.querySelector('img');
+        if (qrImg) {
+            const imgData = qrImg.src;
+            const qrSize = 80;
+            const qrX = (doc.internal.pageSize.getWidth() - qrSize) / 2;
+            doc.addImage(imgData, 'PNG', qrX, 100, qrSize, qrSize);
+        }
+    }
+    
+    // Instructions
+    doc.setFontSize(10);
+    doc.setTextColor(95, 99, 104);
+    doc.text('Scan this QR code at the gate for verification', 105, 190, { align: 'center' });
+    
+    // Footer
+    doc.setFontSize(8);
+    doc.setTextColor(128, 128, 128);
+    doc.text('Official Gate Pass - Ministry of Health', 105, 280, { align: 'center' });
+    doc.text(`Generated: ${new Date().toLocaleString()}`, 105, 285, { align: 'center' });
+    
+    doc.save(`gate-pass-${currentBookingRef}.pdf`);
+    
+    logSystemActivity('system', currentUserRole, 'Gate Pass Downloaded', `Ref: ${currentBookingRef}`);
+}
+
+function sendWhatsApp() {
+    const bookingRef = currentBookingRef;
+    const uniquePassword = document.getElementById('uniquePasswordDisplay').textContent;
+    const message = `Vehicle Booking Confirmation
+Ministry of Health
+
+Booking Ref: ${bookingRef}
+Password: ${uniquePassword}
+Status: Pending Approval
+
+Please save this information for future reference.`;
+    
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     
-    logSystemActivity('system', currentUserRole, 'WhatsApp Message Sent', 
-        isFinal ? `Final confirmation for ${currentBookingRef}` : `Request preview for ${currentBookingRef}`);
+    logSystemActivity('system', 'User', 'WhatsApp Shared', `Ref: ${bookingRef}`);
+}
+
+function sendWhatsAppAdmin() {
+    const booking = allBookings.find(b => b.id === currentBookingId);
+    if (!booking) return;
+    
+    const message = `Vehicle Booking Details
+Ministry of Health
+
+Ref: ${booking.refnumber}
+Status: ${booking.status}
+Requester: ${booking.username}
+Destination: ${booking.destination}
+Date: ${formatDateTime(booking.startdatetime)}
+
+Vehicle: ${booking.allocatedvehicle || 'Not allocated'}
+Driver: ${booking.allocateddriver || 'Not allocated'}
+Fuel Station: ${booking.fuelstation || 'Not specified'}
+Extra Fuel: ${booking.extrafuel || 'Not specified'} liters`;
+    
+    const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    logSystemActivity('system', 'Administrator', 'WhatsApp Shared', `Ref: ${booking.refnumber}`);
 }
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize localStorage
     initializeLocalStorage();
     
     // Role selection
-    const roleOptions = document.querySelectorAll('.role-option');
-    roleOptions.forEach(option => {
+    document.querySelectorAll('.role-option').forEach(option => {
         option.addEventListener('click', function() {
-            roleOptions.forEach(o => o.classList.remove('active'));
+            document.querySelectorAll('.role-option').forEach(el => el.classList.remove('active'));
             this.classList.add('active');
-            currentUserRole = this.dataset.role;
+            currentUserRole = this.getAttribute('data-role');
         });
     });
     
-    // Login
+    // Login button
     document.getElementById('loginBtn').addEventListener('click', handleLogin);
-    document.getElementById('password').addEventListener('keypress', function(e) {
-        if (e.key === 'Enter') handleLogin();
-    });
     
-    // Logout
+    // Logout buttons
     document.getElementById('userLogout').addEventListener('click', logout);
     document.getElementById('adminLogout').addEventListener('click', logout);
     
-    // Booking form
+    // Submit booking
     document.getElementById('submitBooking').addEventListener('click', submitBooking);
+    
+    // New booking
     document.getElementById('newBooking').addEventListener('click', resetBookingForm);
     
-    // PDF download
-    document.getElementById('downloadPdf').addEventListener('click', () => generatePDF(false));
-    document.getElementById('downloadFinalPdf').addEventListener('click', () => generatePDF(true));
+    // Download PDF
+    document.getElementById('downloadPdf').addEventListener('click', downloadPreviewPDF);
     
-    // WhatsApp
-    document.getElementById('sendWhatsApp').addEventListener('click', () => sendWhatsAppMessage(false));
-    document.getElementById('sendWhatsAppAdmin').addEventListener('click', () => sendWhatsAppMessage(true));
+    // Send WhatsApp
+    document.getElementById('sendWhatsApp').addEventListener('click', sendWhatsApp);
     
-    // Admin tabs
-    const adminTabs = document.querySelectorAll('.admin-tab');
-    adminTabs.forEach(tab => {
-        tab.addEventListener('click', function() {
-            adminTabs.forEach(t => t.classList.remove('active'));
-            this.classList.add('active');
-            
-            const tabId = this.dataset.tab + 'Tab';
-            document.querySelectorAll('.admin-tab-content').forEach(content => {
-                showElement(content, content.id === tabId);
-            });
-            
-            if (this.dataset.tab === 'logs') {
-                loadSystemLogs();
-            }
-            
-            if (this.dataset.tab === 'vehicles') {
-                updateVehicleStatus();
-            }
-        });
-    });
+    // Download final PDF
+    document.getElementById('downloadFinalPdf').addEventListener('click', downloadFinalPDF);
+    
+    // Download gate pass QR
+    document.getElementById('downloadGatePass').addEventListener('click', downloadGatePassQR);
+    
+    // Send WhatsApp admin
+    document.getElementById('sendWhatsAppAdmin').addEventListener('click', sendWhatsAppAdmin);
     
     // User tabs
-    const userTabs = document.querySelectorAll('.user-tab');
-    userTabs.forEach(tab => {
+    document.querySelectorAll('.user-tab').forEach(tab => {
         tab.addEventListener('click', function() {
-            userTabs.forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.user-tab').forEach(t => t.classList.remove('active'));
             this.classList.add('active');
             
-            const tabId = this.dataset.tab + 'Tab';
             document.querySelectorAll('.user-tab-content').forEach(content => {
-                showElement(content, content.id === tabId);
+                content.classList.add('hidden');
             });
             
-            if (this.dataset.tab === 'vehicles') {
+            const tabId = this.getAttribute('data-tab') + 'Tab';
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            if (this.getAttribute('data-tab') === 'myRequests') {
+                loadMyRequests();
+            } else if (this.getAttribute('data-tab') === 'vehicles') {
                 updateUserVehicleStatus();
             }
         });
     });
     
-    // Filtering and search
-    document.getElementById('statusFilter').addEventListener('change', filterBookings);
-    document.getElementById('searchBookings').addEventListener('input', filterBookings);
-    document.getElementById('searchVehicles').addEventListener('input', updateVehicleStatus);
+    // My Requests filters
+    document.getElementById('myRequestsStatusFilter').addEventListener('change', filterMyRequests);
+    document.getElementById('searchMyRequests').addEventListener('input', filterMyRequests);
     
-    // Pagination
-    document.getElementById('prevPage').addEventListener('click', goToPrevPage);
-    document.getElementById('nextPage').addEventListener('click', goToNextPage);
+    // My Requests pagination
+    document.getElementById('myRequestsPrevPage').addEventListener('click', goToMyRequestsPrevPage);
+    document.getElementById('myRequestsNextPage').addEventListener('click', goToMyRequestsNextPage);
+    
+    // User vehicle search
+    document.getElementById('searchUserVehicles').addEventListener('input', filterUserVehicles);
     
     // User vehicle pagination
     document.getElementById('userPrevPage').addEventListener('click', goToUserPrevPage);
     document.getElementById('userNextPage').addEventListener('click', goToUserNextPage);
-    document.getElementById('searchUserVehicles').addEventListener('input', filterUserVehicles);
+    
+    // Admin tabs
+    document.querySelectorAll('.admin-tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            
+            document.querySelectorAll('.admin-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            const tabId = this.getAttribute('data-tab') + 'Tab';
+            document.getElementById(tabId).classList.remove('hidden');
+            
+            if (this.getAttribute('data-tab') === 'logs') {
+                loadSystemLogs();
+            }
+        });
+    });
+    
+    // Booking filters
+    document.getElementById('statusFilter').addEventListener('change', filterBookings);
+    document.getElementById('searchBookings').addEventListener('input', filterBookings);
+    
+    // Booking pagination
+    document.getElementById('prevPage').addEventListener('click', goToPrevPage);
+    document.getElementById('nextPage').addEventListener('click', goToNextPage);
+    
+    // Vehicle search
+    document.getElementById('searchVehicles').addEventListener('input', searchVehicles);
+    
+    // Modal close buttons
+    document.querySelectorAll('.close-modal').forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal');
+            showElement(modal, false);
+        });
+    });
+    
+    // Cancel buttons
+    document.getElementById('cancelAllocation').addEventListener('click', function() {
+        hideModal('allocationModal');
+    });
+    
+    document.getElementById('cancelEdit').addEventListener('click', function() {
+        hideModal('editModal');
+    });
+    
+    document.getElementById('closeView').addEventListener('click', function() {
+        hideModal('viewModal');
+    });
+    
+    // Modal confirm buttons
+    document.getElementById('confirmAllocation').addEventListener('click', allocateVehicle);
+    document.getElementById('confirmEdit').addEventListener('click', saveEdit);
+    
+    // Modal searches
+    document.getElementById('searchVehicleModal').addEventListener('input', filterModalVehicles);
+    document.getElementById('searchDriverModal').addEventListener('input', filterModalDrivers);
+    
+    // Fuel station and extra fuel inputs - update display
+    document.getElementById('fuelStation').addEventListener('input', function() {
+        const value = this.value.trim();
+        document.getElementById('selectedFuelStationText').textContent = value || 'None selected';
+    });
+    
+    document.getElementById('extraFuel').addEventListener('input', function() {
+        const value = this.value.trim();
+        document.getElementById('selectedExtraFuelText').textContent = value ? `${value} liters` : 'None specified';
+    });
     
     // Modal pagination
     document.getElementById('vehiclePrevPage').addEventListener('click', goToVehiclePrevPage);
@@ -4084,65 +4543,38 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('driverPrevPage').addEventListener('click', goToDriverPrevPage);
     document.getElementById('driverNextPage').addEventListener('click', goToDriverNextPage);
     
-    // Search in modals - FIXED: Added real-time search with proper filtering
-    document.getElementById('searchVehicleModal').addEventListener('input', function() {
-        filterModalVehicles();
-    });
-    document.getElementById('searchDriverModal').addEventListener('input', function() {
-        filterModalDrivers();
-    });
-    
-    // Modals
-    const closeModals = document.querySelectorAll('.close-modal');
-    closeModals.forEach(btn => {
-        btn.addEventListener('click', function() {
-            const modal = this.closest('.modal');
-            showElement(modal, false);
-        });
-    });
-    
-    // Allocation modal
-    document.getElementById('confirmAllocation').addEventListener('click', allocateVehicle);
-    document.getElementById('cancelAllocation').addEventListener('click', () => showElement(document.getElementById('allocationModal'), false));
-    
-    // Edit modal
-    document.getElementById('confirmEdit').addEventListener('click', saveBookingEdit);
-    document.getElementById('cancelEdit').addEventListener('click', () => showElement(document.getElementById('editModal'), false));
-    
-    // View modal
-    document.getElementById('closeView').addEventListener('click', () => showElement(document.getElementById('viewModal'), false));
-    
-    // Reports
+    // Report generation
     document.getElementById('generateReport').addEventListener('click', generateReport);
     
-    // System logs
+    // Logs filters
     document.getElementById('logTypeFilter').addEventListener('change', filterLogs);
+    document.getElementById('userFilter').addEventListener('change', filterLogs);
     document.getElementById('searchLogs').addEventListener('input', filterLogs);
-    document.getElementById('refreshLogs').addEventListener('click', loadSystemLogs);
+    
+    // Logs pagination
     document.getElementById('logsPrevPage').addEventListener('click', goToLogsPrevPage);
     document.getElementById('logsNextPage').addEventListener('click', goToLogsNextPage);
     
-    // Export logs
+    // Logs buttons
+    document.getElementById('refreshLogs').addEventListener('click', loadSystemLogs);
     document.getElementById('exportLogs').addEventListener('click', exportLogs);
     
     // Close modals when clicking outside
-    window.addEventListener('click', function(event) {
-        if (event.target.classList.contains('modal')) {
-            showElement(event.target, false);
-        }
+    document.querySelectorAll('.modal').forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                showElement(this, false);
+            }
+        });
     });
     
-    // Set default dates for reports
-    const today = new Date();
-    const lastWeek = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-    document.getElementById('startDate').value = lastWeek.toISOString().split('T')[0];
-    document.getElementById('endDate').value = today.toISOString().split('T')[0];
-    
-    // Initialize with some sample logs if empty
-    if (systemLogs.length === 0) {
-        logSystemActivity('system', 'System', 'Initialization', 'Vehicle Booking System initialized');
-    }
+    // Enter key for login
+    document.getElementById('password').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            handleLogin();
+        }
+    });
 });
-        </script>
+    </script>
 </body>
 </html>
