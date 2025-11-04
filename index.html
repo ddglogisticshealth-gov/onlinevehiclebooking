@@ -3086,7 +3086,9 @@ function goToMyRequestsNextPage() {
 
 function viewMyBooking(bookingId) {
     currentBookingId = bookingId;
-    const booking = allBookings.find(b => b.id === bookingId);
+    
+    // Use filteredMyRequests instead of allBookings since we're in user view
+    const booking = filteredMyRequests.find(b => b.id == bookingId);
     
     if (booking) {
         document.getElementById('viewRefNumber').textContent = booking.refnumber;
@@ -3111,6 +3113,9 @@ function viewMyBooking(bookingId) {
         generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
         
         showElement(document.getElementById('viewModal'));
+    } else {
+        console.error('Booking not found:', bookingId);
+        alert('Booking details not found. Please try again.');
     }
 }
 
