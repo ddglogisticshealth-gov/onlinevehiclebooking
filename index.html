@@ -3953,28 +3953,47 @@ function exportLogs() {
     document.body.removeChild(link);
 }
 
-// QR Code Functions
+// QR Code Functions - FIXED VERSION
 function generateQRCode(refNumber, startDateTime, endDateTime, qrCodeElementId, vehicleNumber = '', uniquePassword = '') {
-    const qrData = {
-        refNumber: refNumber,
-        startDateTime: startDateTime,
-        endDateTime: endDateTime,
-        vehicleNumber: vehicleNumber,
-        uniquePassword: uniquePassword
-    };
+    // Format the data in a more readable way
+    const formattedStart = formatDateTime(startDateTime);
+    const formattedEnd = formatDateTime(endDateTime);
     
-    const qrString = JSON.stringify(qrData);
-    
+    const qrData = 
+`MINISTRY OF HEALTH - VEHICLE GATE PASS
+
+Booking Reference: ${refNumber}
+Start: ${formattedStart}
+End: ${formattedEnd}
+${vehicleNumber ? `Vehicle: ${vehicleNumber}` : 'Status: Pending Allocation'}
+${uniquePassword ? `Password: ${uniquePassword}` : ''}
+
+Scan this code at the security gate for verification.`;
+
     const qrCodeElement = document.getElementById(qrCodeElementId);
     qrCodeElement.innerHTML = '';
     
-    const qr = qrcode(0, 'M');
-    qr.addData(qrString);
-    qr.make();
-    
-    qrCodeElement.innerHTML = qr.createImgTag(4);
+    try {
+        const qr = qrcode(0, 'M');
+        qr.addData(qrData);
+        qr.make();
+        
+        qrCodeElement.innerHTML = qr.createImgTag(4);
+    } catch (error) {
+        console.error('QR Code generation error:', error);
+        // Fallback: Create a simple text display
+        qrCodeElement.innerHTML = `
+            <div style="border: 2px solid #ccc; padding: 20px; text-align: center; background: white; border-radius: 8px;">
+                <h4>Gate Pass Information</h4>
+                <p><strong>Ref:</strong> ${refNumber}</p>
+                <p><strong>Start:</strong> ${formattedStart}</p>
+                <p><strong>End:</strong> ${formattedEnd}</p>
+                ${vehicleNumber ? `<p><strong>Vehicle:</strong> ${vehicleNumber}</p>` : ''}
+                ${uniquePassword ? `<p><strong>Password:</strong> ${uniquePassword}</p>` : ''}
+            </div>
+        `;
+    }
 }
-
 // PDF Generation Functions - COMPLETE WITH PROPER IMPLEMENTATION
 function generatePDF(isFinal = false) {
     const { jsPDF } = window.jspdf;
@@ -4292,6 +4311,11 @@ function downloadGatePassQR() {
     
     const booking = allBookings.find(b => b.id === currentBookingId);
     
+    if (!booking) {
+        alert('Booking not found');
+        return;
+    }
+
     // Header
     doc.setFontSize(18);
     doc.setTextColor(26, 115, 232);
@@ -4305,26 +4329,31 @@ function downloadGatePassQR() {
     doc.setDrawColor(26, 115, 232);
     doc.line(20, 35, 190, 35);
     
-    // Booking Details
+    // Booking Details in readable format
     doc.setFontSize(11);
     doc.setTextColor(0, 0, 0);
     doc.setFont(undefined, 'bold');
-    doc.text(`Booking Reference: ${currentBookingRef}`, 20, 45);
+    doc.text('GATE PASS INFORMATION', 20, 45);
     doc.setFont(undefined, 'normal');
     doc.setFontSize(10);
     
-    if (booking) {
-        doc.text(`Date: ${formatDate(booking.timestamp)}`, 20, 52);
-        doc.text(`Vehicle: ${booking.allocatedvehicle || 'Not allocated'}`, 20, 59);
-        doc.text(`Driver: ${booking.allocateddriver || 'Not allocated'}`, 20, 66);
-        doc.text(`Destination: ${booking.destination}`, 20, 73);
-        doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 20, 80);
-        doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 20, 87);
-    } else {
-        doc.text(`Date: ${new Date().toLocaleDateString()}`, 20, 52);
-    }
+    let yPosition = 52;
     
-    // QR Code
+    doc.text(`Booking Reference: ${booking.refnumber}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Date: ${formatDate(booking.timestamp)}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Vehicle: ${booking.allocatedvehicle || 'Not allocated'}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Driver: ${booking.allocateddriver || 'Not allocated'}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Destination: ${booking.destination}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`Start: ${formatDateTime(booking.startdatetime)}`, 20, yPosition);
+    yPosition += 7;
+    doc.text(`End: ${formatDateTime(booking.enddatetime)}`, 20, yPosition);
+    
+    // QR Code with readable data
     const qrCodeElement = document.getElementById('qrCodeAdmin');
     if (qrCodeElement) {
         const qrImg = qrCodeElement.querySelector('img');
@@ -4341,15 +4370,15 @@ function downloadGatePassQR() {
     doc.setTextColor(95, 99, 104);
     doc.text('Scan this QR code at the gate for verification', 105, 190, { align: 'center' });
     
-    // Footer
+    // Security notice
     doc.setFontSize(8);
     doc.setTextColor(128, 128, 128);
     doc.text('Official Gate Pass - Ministry of Health', 105, 280, { align: 'center' });
     doc.text(`Generated: ${new Date().toLocaleString()}`, 105, 285, { align: 'center' });
     
-    doc.save(`gate-pass-${currentBookingRef}.pdf`);
+    doc.save(`gate-pass-${booking.refnumber}.pdf`);
     
-    logSystemActivity('system', currentUserRole, 'Gate Pass Downloaded', `Ref: ${currentBookingRef}`);
+    logSystemActivity('system', currentUserRole, 'Gate Pass Downloaded', `Ref: ${booking.refnumber}`);
 }
 
 function sendWhatsApp() {
