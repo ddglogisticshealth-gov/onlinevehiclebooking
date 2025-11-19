@@ -1195,6 +1195,8 @@
                 font-size: 14px;
             }
         }
+
+
     </style>
 </head>
 <body>
@@ -1530,6 +1532,13 @@
                                         <input type="text" id="destination" class="form-control" placeholder="Enter destination" required>
                                     </div>
                                 </div>
+                                <!-- NEW: Special Notes Field -->
+                                <div class="form-col" style="flex: 1 0 100%;">
+                                    <div class="form-group">
+                                        <label class="form-label" for="specialNotes">Special Notes/Comments (Optional)</label>
+                                        <textarea id="specialNotes" class="form-control" rows="3" placeholder="Add any special notes or comments..."></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         
@@ -1588,6 +1597,10 @@
                                 <div class="enhanced-pdf-section">
                                     <div class="enhanced-pdf-label">Approximate Distance:</div>
                                     <div class="enhanced-pdf-value" id="enhancedPdfDistance">0 KM</div>
+                                </div>
+                                <div class="enhanced-pdf-section">
+                                    <div class="enhanced-pdf-label">Special Notes:</div>
+                                    <div class="enhanced-pdf-value" id="enhancedPdfSpecialNotes">No special notes</div>
                                 </div>
                                 <div class="enhanced-pdf-section">
                                     <div class="enhanced-pdf-label">Status:</div>
@@ -2051,6 +2064,19 @@
                     </div>
                 </div>
                 
+                <!-- NEW: Overlapping Trips Warning -->
+                <div id="overlappingTripsWarning" class="hidden" style="background-color: #fff8e1; border: 1px solid #ffecb3; border-radius: 8px; padding: 15px; margin: 15px 0;">
+                    <h4 style="color: #f9ab00; margin-bottom: 10px;"><i class="fas fa-exclamation-triangle"></i> Overlapping Trips Warning</h4>
+                    <p id="overlappingTripsMessage" style="margin: 0; color: #5f6368;">The selected vehicle or driver is already assigned to another trip during this time period.</p>
+                </div>
+
+                <!-- NEW: Previous Trips Reminder -->
+                <div id="previousTripsReminder" class="hidden" style="background-color: #e3f2fd; border: 1px solid #bbdefb; border-radius: 8px; padding: 15px; margin: 15px 0;">
+                    <h4 style="color: #1a73e8; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Previous Trips Reminder</h4>
+                    <p id="previousTripsMessage" style="margin: 0; color: #5f6368;">This vehicle/driver has been used in previous trips.</p>
+                    <div id="previousTripsList" style="margin-top: 10px;"></div>
+                </div>
+                
                 <div class="form-group">
                     <label class="form-label">Selected Allocation:</label>
                     <div id="selectedAllocation" class="enhanced-pdf-section">
@@ -2153,6 +2179,13 @@
                             <input type="text" id="editDestination" class="form-control">
                         </div>
                     </div>
+                    <!-- NEW: Special Notes Field in Edit Modal -->
+                    <div class="form-col" style="flex: 1 0 100%;">
+                        <div class="form-group">
+                            <label class="form-label" for="editSpecialNotes">Special Notes/Comments</label>
+                            <textarea id="editSpecialNotes" class="form-control" rows="3" placeholder="Add any special notes or comments..."></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer">
@@ -2209,6 +2242,10 @@
                             <div class="enhanced-pdf-value" id="viewDistance"></div>
                         </div>
                         <div class="enhanced-pdf-section">
+                            <div class="enhanced-pdf-label">Special Notes:</div>
+                            <div class="enhanced-pdf-value" id="viewSpecialNotes"></div>
+                        </div>
+                        <div class="enhanced-pdf-section">
                             <div class="enhanced-pdf-label">Status:</div>
                             <div class="enhanced-pdf-value" id="viewStatus"></div>
                         </div>
@@ -2243,6 +2280,8 @@
             <div class="modal-footer">
                 <button id="closeView" class="btn">Close</button>
                 <button id="downloadFinalPdf" class="btn btn-secondary">Download PDF</button>
+                <!-- NEW: Print Request Button for Pending Bookings -->
+                <button id="printRequest" class="btn" style="display: none;">Print Request</button>
                 <button id="downloadGatePass" class="btn">Download Gate Pass QR</button>
                 <button id="sendWhatsAppAdmin" class="btn whatsapp-btn">
                     <i class="fab fa-whatsapp"></i> Send via WhatsApp
@@ -2504,6 +2543,86 @@
             return password;
         }
 
+        // NEW: Function to check for overlapping trips
+        function checkForOverlappingTrips(vehicleId, driverId, startDateTime, endDateTime, currentBookingId) {
+            const overlappingBookings = [];
+            
+            // Get vehicle and driver details
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+            const driver = drivers.find(d => d.id === driverId);
+            
+            if (!vehicle && !driver) return overlappingBookings;
+            
+            const vehicleNumber = vehicle ? vehicle.vehicleno : null;
+            const driverName = driver ? driver.name : null;
+            
+            const startTime = new Date(startDateTime).getTime();
+            const endTime = new Date(endDateTime).getTime();
+            
+            // Check all approved bookings for overlaps
+            allBookings.forEach(booking => {
+                // Skip current booking
+                if (booking.id === currentBookingId) return;
+                
+                // Only check approved bookings
+                if (booking.status !== 'Approved') return;
+                
+                const bookingStart = new Date(booking.startdatetime).getTime();
+                const bookingEnd = new Date(booking.enddatetime).getTime();
+                
+                // Check for time overlap
+                if ((startTime < bookingEnd) && (endTime > bookingStart)) {
+                    // Check vehicle overlap
+                    if (vehicleNumber && booking.allocatedvehicle && booking.allocatedvehicle.includes(vehicleNumber)) {
+                        overlappingBookings.push(booking);
+                    }
+                    // Check driver overlap
+                    else if (driverName && booking.allocateddriver && booking.allocateddriver.includes(driverName)) {
+                        overlappingBookings.push(booking);
+                    }
+                }
+            });
+            
+            return overlappingBookings;
+        }
+
+        // NEW: Function to check for previous trips for vehicle/driver
+        function checkPreviousTrips(vehicleId, driverId) {
+            const previousTrips = [];
+            
+            // Get vehicle and driver details
+            const vehicle = vehicles.find(v => v.id === vehicleId);
+            const driver = drivers.find(d => d.id === driverId);
+            
+            if (!vehicle && !driver) return previousTrips;
+            
+            const vehicleNumber = vehicle ? vehicle.vehicleno : null;
+            const driverName = driver ? driver.name : null;
+            
+            // Check all completed bookings for previous usage
+            allBookings.forEach(booking => {
+                // Only check completed bookings
+                if (booking.status !== 'Completed') return;
+                
+                // Check vehicle usage
+                if (vehicleNumber && booking.allocatedvehicle && booking.allocatedvehicle.includes(vehicleNumber)) {
+                    previousTrips.push({
+                        type: 'Vehicle',
+                        booking: booking
+                    });
+                }
+                // Check driver usage
+                if (driverName && booking.allocateddriver && booking.allocateddriver.includes(driverName)) {
+                    previousTrips.push({
+                        type: 'Driver',
+                        booking: booking
+                    });
+                }
+            });
+            
+            return previousTrips;
+        }
+
         // System Logging Function
         function logSystemActivity(type, user, action, details = '') {
             const log = {
@@ -2600,6 +2719,7 @@
                         enddatetime: data.endDateTime,
                         startlocation: data.startLocation,
                         destination: data.destination,
+                        specialnotes: data.specialNotes || '',
                         status: 'Pending',
                         allocatedvehicle: '',
                         allocateddriver: '',
@@ -2703,6 +2823,7 @@
                     editBookings[editIndex].enddatetime = data.endDateTime;
                     editBookings[editIndex].startlocation = data.startLocation;
                     editBookings[editIndex].destination = data.destination;
+                    editBookings[editIndex].specialnotes = data.specialNotes || '';
                     
                     localStorage.setItem('bookings', JSON.stringify(editBookings));
                     
@@ -2878,17 +2999,7 @@
                             break;
                             
                         default:
-                            title = 'Booking Summary Report';
-                            reportData = [['Booking Ref', 'Requester', 'Destination', 'Status', 'Vehicle']];
-                            filteredData.forEach(booking => {
-                                reportData.push([
-                                    booking.refnumber,
-                                    booking.username,
-                                    booking.destination,
-                                    booking.status,
-                                    booking.allocatedvehicle || 'Not allocated'
-                                ]);
-                            });
+                            return { success: false, error: 'Invalid report type' };
                     }
                     
                     return {
@@ -3015,6 +3126,7 @@
                 endDateTime: document.getElementById('endDateTime').value,
                 startLocation: document.getElementById('startLocation').value.trim(),
                 destination: document.getElementById('destination').value.trim(),
+                specialNotes: document.getElementById('specialNotes').value.trim(),
                 userId: currentUserId
             };
 
@@ -3064,13 +3176,15 @@
         `${data.seatCount} seats, Goods Transport: ${data.goodsTransport ? 'Yes' : 'No'}`;
     document.getElementById('enhancedPdfDistance').textContent = 
         `${data.distance} KM`;
+    document.getElementById('enhancedPdfSpecialNotes').textContent = 
+        data.specialNotes || 'No special notes';
     document.getElementById('uniquePasswordDisplay').textContent = result.uniquePassword;
         
     generateQRCode(result.refNumber, data.startDateTime, data.endDateTime, 'qrCodeUser', '', result.uniquePassword);
 }
 
         function resetBookingForm() {
-            const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination'];
+            const fields = ['userName', 'userDesignation', 'userBranch', 'userPhone', 'approvedBy', 'purpose', 'seatCount', 'distance', 'startDateTime', 'endDateTime', 'startLocation', 'destination', 'specialNotes'];
             fields.forEach(id => {
                 const field = document.getElementById(id);
                 if (field) field.value = '';
@@ -3200,6 +3314,8 @@
                     `${booking.seatcount} seats, Goods Transport: ${booking.goodstransport || 'No'}`;
                 document.getElementById('viewDistance').textContent = 
                     `${booking.distance} KM`;
+                document.getElementById('viewSpecialNotes').textContent = 
+                    booking.specialnotes || 'No special notes';
                 document.getElementById('viewStatus').textContent = booking.status;
                 document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
                 document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
@@ -3336,6 +3452,8 @@
             }
         }
 
+
+
         function updateAdminStats() {
             document.getElementById('totalBookings').textContent = allBookings.length;
             document.getElementById('pendingBookings').textContent = allBookings.filter(b => b.status === 'Pending').length;
@@ -3395,6 +3513,8 @@
                         <button class="action-btn btn" onclick="openAllocationModal(${booking.id})">Allocate</button>
                         <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
                         <button class="action-btn btn btn-danger" onclick="deleteBooking(${booking.id})">Delete</button>
+                        <!-- NEW: Print Request Button for Pending Bookings -->
+                        <button class="action-btn btn" onclick="printBookingRequest(${booking.id})">Print Request</button>
                     `;
                 } else if (booking.status === 'Approved') {
                     actions = `
@@ -3448,6 +3568,22 @@
                 updatePagination();
             }
         }
+
+ // NEW: Print Booking Request Function
+function printBookingRequest(bookingId) {
+    currentBookingId = bookingId;
+    const booking = allBookings.find(b => b.id === bookingId);
+    
+    if (booking) {
+        // Set the current booking reference for PDF generation
+        currentBookingRef = booking.refnumber;
+        
+        // Generate and download the PDF
+        generatePDF(false);
+        
+        logSystemActivity('system', 'Administrator', 'Booking Request Printed', `Ref: ${booking.refnumber}`);
+    }
+}
 
  // NEW: Release Vehicle and Driver Functions
 function openReleaseModal(bookingId) {
@@ -3590,6 +3726,12 @@ async function releaseVehicleDriver() {
                 item.classList.remove('selected');
             });
             element.classList.add('selected');
+            
+            // NEW: Check for overlapping trips when vehicle is selected
+            checkForOverlappingTripsWarning();
+            
+            // NEW: Check for previous trips for this vehicle
+            checkPreviousTripsWarning();
         }
 
         function filterModalDrivers() {
@@ -3645,6 +3787,94 @@ async function releaseVehicleDriver() {
                 item.classList.remove('selected');
             });
             element.classList.add('selected');
+            
+            // NEW: Check for overlapping trips when driver is selected
+            checkForOverlappingTripsWarning();
+            
+            // NEW: Check for previous trips for this driver
+            checkPreviousTripsWarning();
+        }
+
+        // NEW: Function to check for overlapping trips and show warning
+        function checkForOverlappingTripsWarning() {
+            const booking = allBookings.find(b => b.id === currentBookingId);
+            if (!booking || (!selectedVehicleId && !selectedDriverId)) {
+                showElement(document.getElementById('overlappingTripsWarning'), false);
+                return;
+            }
+            
+            const overlapping = checkForOverlappingTrips(
+                selectedVehicleId, 
+                selectedDriverId, 
+                booking.startdatetime, 
+                booking.enddatetime, 
+                currentBookingId
+            );
+            
+            if (overlapping.length > 0) {
+                let message = 'The selected ';
+                if (selectedVehicleId && selectedDriverId) {
+                    message += 'vehicle and driver ';
+                } else if (selectedVehicleId) {
+                    message += 'vehicle ';
+                } else {
+                    message += 'driver ';
+                }
+                
+                message += 'is already assigned to the following trips during this time:\n\n';
+                
+                overlapping.forEach(booking => {
+                    message += `• ${booking.refnumber}: ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}\n`;
+                });
+                
+                document.getElementById('overlappingTripsMessage').textContent = message;
+                showElement(document.getElementById('overlappingTripsWarning'));
+            } else {
+                showElement(document.getElementById('overlappingTripsWarning'), false);
+            }
+        }
+
+        // NEW: Function to check for previous trips and show reminder
+        function checkPreviousTripsWarning() {
+            const booking = allBookings.find(b => b.id === currentBookingId);
+            if (!booking || (!selectedVehicleId && !selectedDriverId)) {
+                showElement(document.getElementById('previousTripsReminder'), false);
+                return;
+            }
+            
+            const previousTrips = checkPreviousTrips(selectedVehicleId, selectedDriverId);
+            
+            if (previousTrips.length > 0) {
+                let message = '';
+                const vehicleTrips = previousTrips.filter(trip => trip.type === 'Vehicle');
+                const driverTrips = previousTrips.filter(trip => trip.type === 'Driver');
+                
+                if (vehicleTrips.length > 0) {
+                    message += 'This vehicle has been used in previous trips:\n';
+                    vehicleTrips.slice(0, 3).forEach(trip => {
+                        message += `• ${trip.booking.refnumber}: ${formatDateTime(trip.booking.startdatetime)} to ${formatDateTime(trip.booking.enddatetime)}\n`;
+                    });
+                    if (vehicleTrips.length > 3) {
+                        message += `• ... and ${vehicleTrips.length - 3} more trips\n`;
+                    }
+                }
+                
+                if (driverTrips.length > 0) {
+                    if (message) message += '\n';
+                    message += 'This driver has been used in previous trips:\n';
+                    driverTrips.slice(0, 3).forEach(trip => {
+                        message += `• ${trip.booking.refnumber}: ${formatDateTime(trip.booking.startdatetime)} to ${formatDateTime(trip.booking.enddatetime)}\n`;
+                    });
+                    if (driverTrips.length > 3) {
+                        message += `• ... and ${driverTrips.length - 3} more trips\n`;
+                    }
+                }
+                
+                document.getElementById('previousTripsMessage').textContent = message;
+                showElement(document.getElementById('previousTripsReminder'));
+            } else {
+                showElement(document.getElementById('previousTripsReminder'), false);
+            }
         }
 
         function updateVehicleModalPagination() {
@@ -3712,6 +3942,7 @@ async function releaseVehicleDriver() {
                 document.getElementById('editEndDateTime').value = booking.enddatetime ? booking.enddatetime.substring(0, 16) : '';
                 document.getElementById('editStartLocation').value = booking.startlocation || '';
                 document.getElementById('editDestination').value = booking.destination || '';
+                document.getElementById('editSpecialNotes').value = booking.specialnotes || '';
                 
                 showElement(document.getElementById('editModal'));
             }
@@ -3734,11 +3965,21 @@ async function releaseVehicleDriver() {
                     `${booking.seatcount} seats, Goods Transport: ${booking.goodstransport || 'No'}`;
                 document.getElementById('viewDistance').textContent = 
                     `${booking.distance} KM`;
+                document.getElementById('viewSpecialNotes').textContent = 
+                    booking.specialnotes || 'No special notes';
                 document.getElementById('viewStatus').textContent = booking.status;
                 document.getElementById('viewVehicle').textContent = booking.allocatedvehicle || 'Not allocated';
                 document.getElementById('viewDriver').textContent = booking.allocateddriver || 'Not allocated';
                 document.getElementById('viewFuelStation').textContent = booking.fuelstation || 'Not specified';
                 document.getElementById('viewExtraFuel').textContent = booking.extrafuel ? `${booking.extrafuel} liters` : 'Not specified';
+                
+                // NEW: Show/Hide Print Request button based on status
+                const printRequestBtn = document.getElementById('printRequest');
+                if (booking.status === 'Pending') {
+                    printRequestBtn.style.display = 'inline-block';
+                } else {
+                    printRequestBtn.style.display = 'none';
+                }
                 
                 const vehicleNumber = booking.allocatedvehicle ? booking.allocatedvehicle.split(' - ')[0] : '';
                 generateQRCode(booking.refnumber, booking.startdatetime, booking.enddatetime, 'qrCodeAdmin', vehicleNumber, booking.uniquepassword);
@@ -3775,6 +4016,28 @@ async function releaseVehicleDriver() {
             if (!extraFuel) {
                 alert('Please enter the amount of extra fuel');
                 return;
+            }
+            
+            // NEW: Check for overlapping trips and ask for confirmation
+            const booking = allBookings.find(b => b.id === currentBookingId);
+            const overlapping = checkForOverlappingTrips(
+                selectedVehicleId, 
+                selectedDriverId, 
+                booking.startdatetime, 
+                booking.enddatetime, 
+                currentBookingId
+            );
+            
+            if (overlapping.length > 0) {
+                let message = 'Warning: The selected vehicle or driver is already allocated to the following trips during this time:\n\n';
+                overlapping.forEach(booking => {
+                    message += `- ${booking.refnumber}: ${formatDateTime(booking.startdatetime)} to ${formatDateTime(booking.enddatetime)}\n`;
+                });
+                message += '\nDo you still want to proceed?';
+
+                if (!confirm(message)) {
+                    return;
+                }
             }
             
             const confirmAllocationBtn = document.getElementById('confirmAllocation');
@@ -3822,7 +4085,8 @@ async function releaseVehicleDriver() {
                     startDateTime: document.getElementById('editStartDateTime').value,
                     endDateTime: document.getElementById('editEndDateTime').value,
                     startLocation: document.getElementById('editStartLocation').value.trim(),
-                    destination: document.getElementById('editDestination').value.trim()
+                    destination: document.getElementById('editDestination').value.trim(),
+                    specialNotes: document.getElementById('editSpecialNotes').value.trim()
                 });
                 
                 if (result.success) {
@@ -3862,47 +4126,46 @@ async function releaseVehicleDriver() {
             showElement(document.getElementById(modalId), false);
         }
 
-        // Vehicle Status Functions
-        function updateVehicleStatus() {
-            const available = vehicles.filter(v => v.status === 'Available').length;
-            const booked = vehicles.filter(v => v.status === 'Booked').length;
-            const maintenance = vehicles.filter(v => v.status === 'Maintenance').length;
-            
-            document.getElementById('availableCount').textContent = available;
-            document.getElementById('bookedCount').textContent = booked;
-            document.getElementById('maintenanceCount').textContent = maintenance;
-            
-            displayVehicleList('availableVehiclesList', vehicles.filter(v => v.status === 'Available'));
-            displayVehicleList('bookedVehiclesList', vehicles.filter(v => v.status === 'Booked'));
-            displayVehicleList('maintenanceVehiclesList', vehicles.filter(v => v.status === 'Maintenance'));
-        }
+       function updateVehicleStatus() {
+    // lists
+    const availableList = document.getElementById('availableVehiclesList');
+    const bookedList = document.getElementById('bookedVehiclesList');
+    const maintenanceList = document.getElementById('maintenanceVehiclesList');
 
-        function displayVehicleList(elementId, vehicleList) {
-            const element = document.getElementById(elementId);
-            element.innerHTML = '';
-            
-            if (vehicleList.length === 0) {
-                element.innerHTML = '<div style="padding: 15px; text-align: center; color: #999;">No vehicles found</div>';
-                return;
-            }
-            
-            vehicleList.forEach(vehicle => {
-                const li = document.createElement('li');
-                const typeClass = vehicle.type.includes('4') ? 'vehicle-type-car' : 
-                                vehicle.type.includes('7') ? 'vehicle-type-van' : 'vehicle-type-bus';
-                
-                li.innerHTML = `
-                    <div>
-                        <strong>${vehicle.vehicleno}</strong>
-                        <div style="margin-top: 5px;">
-                            <span class="vehicle-type-badge ${typeClass}">${vehicle.type}</span>
-                            <span style="margin-left: 10px; color: #666;">${vehicle.seatcapacity} seats</span>
-                        </div>
-                    </div>
-                `;
-                element.appendChild(li);
-            });
+    // counters
+    const availableCount = document.getElementById('availableCount');
+    const bookedCount = document.getElementById('bookedCount');
+    const maintenanceCount = document.getElementById('maintenanceCount');
+
+    // clear
+    availableList.innerHTML = '';
+    bookedList.innerHTML = '';
+    maintenanceList.innerHTML = '';
+
+    availableCount.textContent = 0;
+    bookedCount.textContent = 0;
+    maintenanceCount.textContent = 0;
+
+    // loop vehicles
+    vehicles.forEach(v => {
+        const div = document.createElement('div');
+        div.className = 'selection-item';
+        div.textContent = `${v.vehicleno} — ${v.type} (${v.seatcapacity} seats)`;
+
+        if (v.status === 'Available') {
+            availableList.appendChild(div);
+            availableCount.textContent++;
+        } 
+        else if (v.status === 'Booked') {
+            bookedList.appendChild(div);
+            bookedCount.textContent++;
+        } 
+        else if (v.status === 'Maintenance') {
+            maintenanceList.appendChild(div);
+            maintenanceCount.textContent++;
         }
+    });
+}
 
         function searchVehicles() {
             const searchTerm = document.getElementById('searchVehicles').value.toLowerCase();
@@ -3933,7 +4196,7 @@ async function releaseVehicleDriver() {
             displayVehicleList('maintenanceVehiclesList', maintenanceVehicles);
         }
 
-        // Report Functions
+        // Report Functions - FIXED VERSION
         async function generateReport() {
             const reportType = document.getElementById('reportType').value;
             const startDate = document.getElementById('startDate').value;
@@ -3944,11 +4207,10 @@ async function releaseVehicleDriver() {
             
             try {
                 const result = await callGoogleAppsScript('getReports', {
-                    type: reportType,
-                    startDate: startDate,
-                    endDate: endDate
-                });
-                
+    reportType: reportType,
+    startDate: startDate,
+    endDate: endDate
+});                
                 if (result.success) {
                     displayReport(result);
                 } else {
@@ -4148,7 +4410,7 @@ async function releaseVehicleDriver() {
             }
         }
 
-        // PDF Generation Functions
+        // PDF Generation Functions - UPDATED WITH COMMENTS ON RIGHT SIDE
         function generatePDF(isFinal = false) {
             const { jsPDF } = window.jspdf;
             const doc = new jsPDF();
@@ -4209,6 +4471,7 @@ async function releaseVehicleDriver() {
     const tripDetails = document.getElementById('enhancedPdfTripDetails').textContent;
     const vehicleReq = document.getElementById('enhancedPdfVehicleReq').textContent;
     const distance = document.getElementById('enhancedPdfDistance').textContent;
+    const specialNotes = document.getElementById('enhancedPdfSpecialNotes').textContent;
 
     doc.setFontSize(10);
     doc.setTextColor(0, 0, 0);
@@ -4304,17 +4567,36 @@ async function releaseVehicleDriver() {
     
     yPosition += 12;
     
-    // Signature area
-    doc.line(20, yPosition, 90, yPosition);
-    yPosition += 5;
+    // NEW: Two-column layout for signature and comments
+    // Left side: Signature area
+    doc.setDrawColor(0, 0, 0);
+    doc.line(20, yPosition, 80, yPosition); // Signature line
+    
+    // Right side: Comments and notes
     doc.setFont(undefined, 'bold');
     doc.setFontSize(9);
+    doc.text('COMMENTS / NOTES', 110, yPosition);
+    
+    yPosition += 5;
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(7);
+    
+    // Split notes into manageable lines
+    const noteLines = doc.splitTextToSize(specialNotes, 85);
+    doc.text(noteLines, 110, yPosition);
+    
+    // Now, the signature text below the line (left side)
+    yPosition += noteLines.length * 4;
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(8);
     doc.text('Approval Signature', 20, yPosition);
+    
     yPosition += 4;
     doc.setFont(undefined, 'normal');
-    doc.setFontSize(8);
+    doc.setFontSize(7);
     doc.text('Head of Department / Deputy Director General', 20, yPosition);
 }
+
 function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
     let y = 40;
 
@@ -4418,12 +4700,26 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
     }
 
     // ======================================================
-    // SIGNATURE AREA
+    // SIGNATURE AREA (LEFT) AND COMMENTS (RIGHT) - TWO COLUMN LAYOUT
     // ======================================================
     doc.setDrawColor(0, 0, 0);
-    doc.line(20, y, 80, y);
+    doc.line(20, y, 80, y); // Signature line (left side)
 
-    y += 5;
+    // Comments and notes on the right
+    doc.setFont(undefined, 'bold');
+    doc.setFontSize(9);
+    doc.text('COMMENTS / NOTES', 110, y);
+
+    doc.setFont(undefined, 'normal');
+    doc.setFontSize(7);
+
+    // Split notes into manageable lines
+    const notesText = booking.specialnotes || "No additional comments.";
+    const noteLines = doc.splitTextToSize(notesText, 85);
+    doc.text(noteLines, 110, y + 4);
+
+    // Now, the signature text below the line (left side)
+    y += noteLines.length * 4;
     doc.setFont(undefined, 'bold');
     doc.setFontSize(8);
     doc.text('Approval Signature', 20, y);
@@ -4434,22 +4730,6 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
     doc.text('Head of Department / Deputy Director General', 20, y);
 
     y += 12;
-
-    // ======================================================
-    // COMMENTS / NOTES (ABOVE GATE PASS)
-    // ======================================================
-    doc.setFont(undefined, 'bold');
-    doc.setFontSize(9);
-    doc.text('COMMENTS / NOTES', 110, y);
-
-    doc.setFont(undefined, 'normal');
-    doc.setFontSize(7);
-
-    const notesText = booking.specialnotes || booking.notes || "No additional comments.";
-    const noteLines = doc.splitTextToSize(notesText, 85);
-    doc.text(noteLines, 110, y + 4);
-
-    y += noteLines.length * 4 + 12;
 
     // ======================================================
     // GATE PASS (ONLY GATE PASS QR)
@@ -4656,6 +4936,11 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
             // Download final PDF
             document.getElementById('downloadFinalPdf').addEventListener('click', downloadFinalPDF);
             
+            // NEW: Print Request button
+            document.getElementById('printRequest').addEventListener('click', function() {
+                printBookingRequest(currentBookingId);
+            });
+            
             // Download gate pass QR
             document.getElementById('downloadGatePass').addEventListener('click', downloadGatePassQR);
             
@@ -4713,6 +4998,8 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
                     
                     if (this.getAttribute('data-tab') === 'logs') {
                         loadSystemLogs();
+                    } else if (this.getAttribute('data-tab') === 'vehicles') {
+                        updateVehicleStatus();
                     }
                 });
             });
@@ -4779,7 +5066,7 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
             document.getElementById('driverPrevPage').addEventListener('click', goToDriverPrevPage);
             document.getElementById('driverNextPage').addEventListener('click', goToDriverNextPage);
             
-            // Report generation
+            // Report generation - FIXED
             document.getElementById('generateReport').addEventListener('click', generateReport);
             
             // Logs filters
