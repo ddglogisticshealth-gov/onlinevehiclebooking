@@ -9,6 +9,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     <style>
         /* ========== CSS VARIABLES ========== */
         :root {
@@ -1053,6 +1054,29 @@
             max-width: 300px;
         }
         
+        /* ========== CHART CONTAINER STYLES ========== */
+        .chart-container {
+            background-color: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            padding: 25px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .chart-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--dark);
+        }
+        
+        .chart-wrapper {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
         /* ========== RESPONSIVE DESIGN ========== */
         @media (min-width: 576px) {
             .form-col {
@@ -1915,6 +1939,7 @@
                                     <option value="vehicles">Vehicle Utilization</option>
                                     <option value="drivers">Driver Assignments</option>
                                     <option value="monthly">Monthly Summary</option>
+                                    <option value="analytical">Analytical Report</option>
                                 </select>
                             </div>
                             
@@ -1929,12 +1954,53 @@
                             </div>
                             
                             <div class="report-control">
+                                <label class="form-label" for="approvedByFilter">Approved By</label>
+                                <select id="approvedByFilter" class="form-control">
+                                    <option value="all">All Approvers</option>
+                                    <!-- Approved by options will be populated here -->
+                                </select>
+                            </div>
+                            
+                            <div class="report-control">
                                 <label class="form-label">&nbsp;</label>
                                 <button id="generateReport" class="btn">Generate Report</button>
                             </div>
                         </div>
                         
                         <div id="reportResults"></div>
+                        
+                        <!-- NEW: Analytical Charts Section -->
+                        <div id="analyticalCharts" class="hidden">
+                            <h2 class="section-title">Analytical Insights</h2>
+                            
+                            <div class="chart-container">
+                                <div class="chart-title">Booking Status Distribution</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="statusChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <div class="chart-title">Monthly Booking Trends</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="monthlyTrendsChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <div class="chart-title">Vehicle Type Utilization</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="vehicleUtilizationChart"></canvas>
+                                </div>
+                            </div>
+                            
+                            <div class="chart-container">
+                                <div class="chart-title">Top 5 Most Frequent Destinations</div>
+                                <div class="chart-wrapper">
+                                    <canvas id="destinationChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 
@@ -2070,7 +2136,7 @@
                     <p id="overlappingTripsMessage" style="margin: 0; color: #5f6368;">The selected vehicle or driver is already assigned to another trip during this time period.</p>
                 </div>
 
-                <!-- NEW: Previous Trips Reminder -->
+                <!-- NEW: Previous Trips Reminder - SHOW ONLY LATEST TRIP -->
                 <div id="previousTripsReminder" class="hidden" style="background-color: #e3f2fd; border: 1px solid #bbdefb; border-radius: 8px; padding: 15px; margin: 15px 0;">
                     <h4 style="color: #1a73e8; margin-bottom: 10px;"><i class="fas fa-info-circle"></i> Previous Trips Reminder</h4>
                     <p id="previousTripsMessage" style="margin: 0; color: #5f6368;">This vehicle/driver has been used in previous trips.</p>
@@ -2327,6 +2393,27 @@
         </div>
     </div>
 
+    <!-- NEW: Admin Password Modal -->
+    <div id="adminPasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Admin Authentication Required</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label class="form-label" for="adminPassword">Admin Password *</label>
+                    <input type="password" id="adminPassword" class="form-control" placeholder="Enter admin password" required>
+                    <small class="form-text">Password: DT005</small>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="cancelAdminPassword" class="btn btn-danger">Cancel</button>
+                <button id="confirmAdminPassword" class="btn">Authenticate</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Google Apps Script Web App URL
         const GAS_WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyL1HVfeUrbeOsx_ZbDMt3u4W14EfQn55GA-bkfPnZwgT8sG8Hggz_JjpT8OQGcu6xqkg/exec';
@@ -2343,6 +2430,13 @@
         let vehicles = [];
         let drivers = [];
         let systemLogs = [];
+
+        // NEW: Admin password
+        const ADMIN_PASSWORD = "DT005";
+
+        // NEW: Pending action variables
+        let pendingAction = null;
+        let pendingBookingId = null;
 
         // Pagination variables
         let userVehiclePage = 1;
@@ -2586,7 +2680,7 @@
             return overlappingBookings;
         }
 
-        // NEW: Function to check for previous trips for vehicle/driver
+        // NEW: Function to check for previous trips for vehicle/driver - ONLY LATEST TRIP
         function checkPreviousTrips(vehicleId, driverId) {
             const previousTrips = [];
             
@@ -2599,26 +2693,43 @@
             const vehicleNumber = vehicle ? vehicle.vehicleno : null;
             const driverName = driver ? driver.name : null;
             
-            // Check all completed bookings for previous usage
+            let latestVehicleTrip = null;
+            let latestDriverTrip = null;
+            
+            // Check all completed bookings for previous usage - FIND ONLY LATEST TRIP
             allBookings.forEach(booking => {
                 // Only check completed bookings
                 if (booking.status !== 'Completed') return;
                 
                 // Check vehicle usage
                 if (vehicleNumber && booking.allocatedvehicle && booking.allocatedvehicle.includes(vehicleNumber)) {
-                    previousTrips.push({
-                        type: 'Vehicle',
-                        booking: booking
-                    });
+                    if (!latestVehicleTrip || new Date(booking.timestamp) > new Date(latestVehicleTrip.timestamp)) {
+                        latestVehicleTrip = booking;
+                    }
                 }
                 // Check driver usage
                 if (driverName && booking.allocateddriver && booking.allocateddriver.includes(driverName)) {
-                    previousTrips.push({
-                        type: 'Driver',
-                        booking: booking
-                    });
+                    if (!latestDriverTrip || new Date(booking.timestamp) > new Date(latestDriverTrip.timestamp)) {
+                        latestDriverTrip = booking;
+                    }
                 }
             });
+            
+            // Add only the latest trip for vehicle
+            if (latestVehicleTrip) {
+                previousTrips.push({
+                    type: 'Vehicle',
+                    booking: latestVehicleTrip
+                });
+            }
+            
+            // Add only the latest trip for driver
+            if (latestDriverTrip) {
+                previousTrips.push({
+                    type: 'Driver',
+                    booking: latestDriverTrip
+                });
+            }
             
             return previousTrips;
         }
@@ -2656,6 +2767,26 @@
             } else {
                 pendingBookingBadge.style.display = 'none';
             }
+        }
+
+        // NEW: Admin password authentication
+        function authenticateAdmin(action, bookingId = null) {
+            pendingAction = action;
+            pendingBookingId = bookingId;
+            document.getElementById('adminPassword').value = '';
+            showElement(document.getElementById('adminPasswordModal'));
+        }
+
+        function executePendingAction() {
+            if (pendingAction === 'edit') {
+                openEditModal(pendingBookingId);
+            } else if (pendingAction === 'delete') {
+                deleteBooking(pendingBookingId);
+            }
+            
+            // Reset pending action
+            pendingAction = null;
+            pendingBookingId = null;
         }
 
         // API Functions
@@ -2916,6 +3047,11 @@
                         });
                     }
                     
+                    // NEW: Filter by approved by if specified
+                    if (data.approvedBy && data.approvedBy !== 'all') {
+                        filteredData = filteredData.filter(booking => booking.approvedby === data.approvedBy);
+                    }
+                    
                     let reportData = [];
                     let title = '';
                     
@@ -2995,6 +3131,56 @@
                                     data.rejected.toString(),
                                     data.completed.toString()
                                 ]);
+                            });
+                            break;
+                            
+                        case 'analytical':
+                            title = 'Analytical Report';
+                            // Generate analytical data
+                            const statusCounts = {
+                                'Pending': filteredData.filter(b => b.status === 'Pending').length,
+                                'Approved': filteredData.filter(b => b.status === 'Approved').length,
+                                'Rejected': filteredData.filter(b => b.status === 'Rejected').length,
+                                'Completed': filteredData.filter(b => b.status === 'Completed').length
+                            };
+                            
+                            const vehicleTypeCounts = {};
+                            filteredData.forEach(booking => {
+                                if (booking.allocatedvehicle) {
+                                    const vehicleType = booking.allocatedvehicle.split(' - ')[1];
+                                    if (vehicleType) {
+                                        vehicleTypeCounts[vehicleType] = (vehicleTypeCounts[vehicleType] || 0) + 1;
+                                    }
+                                }
+                            });
+                            
+                            const destinationCounts = {};
+                            filteredData.forEach(booking => {
+                                destinationCounts[booking.destination] = (destinationCounts[booking.destination] || 0) + 1;
+                            });
+                            
+                            // Sort destinations by count and take top 5
+                            const topDestinations = Object.entries(destinationCounts)
+                                .sort((a, b) => b[1] - a[1])
+                                .slice(0, 5);
+                            
+                            reportData = [
+                                ['Metric', 'Count'],
+                                ['Total Bookings', filteredData.length.toString()],
+                                ['Pending Bookings', statusCounts['Pending'].toString()],
+                                ['Approved Bookings', statusCounts['Approved'].toString()],
+                                ['Rejected Bookings', statusCounts['Rejected'].toString()],
+                                ['Completed Bookings', statusCounts['Completed'].toString()]
+                            ];
+                            
+                            // Add vehicle type counts
+                            Object.entries(vehicleTypeCounts).forEach(([type, count]) => {
+                                reportData.push([`${type} Bookings`, count.toString()]);
+                            });
+                            
+                            // Add top destinations
+                            topDestinations.forEach(([destination, count]) => {
+                                reportData.push([`${destination} (Destination)`, count.toString()]);
                             });
                             break;
                             
@@ -3444,6 +3630,9 @@
                 filterBookings();
                 updateVehicleStatus();
                 updatePendingBookingNotification();
+                
+                // NEW: Populate approved by filter in reports
+                populateApprovedByFilter();
             } catch (error) {
                 console.error('Error loading admin data:', error);
                 document.getElementById('requestsTableBody').innerHTML = '<tr><td colspan="9" class="text-center">Error loading data</td></tr>';
@@ -3452,7 +3641,21 @@
             }
         }
 
-
+        // NEW: Populate approved by filter in reports
+        function populateApprovedByFilter() {
+            const approvedByFilter = document.getElementById('approvedByFilter');
+            approvedByFilter.innerHTML = '<option value="all">All Approvers</option>';
+            
+            // Get unique approved by values
+            const uniqueApprovers = [...new Set(allBookings.map(booking => booking.approvedby).filter(Boolean))];
+            
+            uniqueApprovers.forEach(approver => {
+                const option = document.createElement('option');
+                option.value = approver;
+                option.textContent = approver;
+                approvedByFilter.appendChild(option);
+            });
+        }
 
         function updateAdminStats() {
             document.getElementById('totalBookings').textContent = allBookings.length;
@@ -3511,21 +3714,21 @@
                 if (booking.status === 'Pending') {
                     actions = `
                         <button class="action-btn btn" onclick="openAllocationModal(${booking.id})">Allocate</button>
-                        <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
-                        <button class="action-btn btn btn-danger" onclick="deleteBooking(${booking.id})">Delete</button>
+                        <button class="action-btn btn btn-secondary" onclick="authenticateAdmin('edit', ${booking.id})">Edit</button>
+                        <button class="action-btn btn btn-danger" onclick="authenticateAdmin('delete', ${booking.id})">Delete</button>
                         <!-- NEW: Print Request Button for Pending Bookings -->
                         <button class="action-btn btn" onclick="printBookingRequest(${booking.id})">Print Request</button>
                     `;
                 } else if (booking.status === 'Approved') {
                     actions = `
                         <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
-                        <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+                        <button class="action-btn btn btn-secondary" onclick="authenticateAdmin('edit', ${booking.id})">Edit</button>
                         <button class="action-btn btn btn-warning" onclick="openReleaseModal(${booking.id})">Release</button>
                     `;
                 } else {
                     actions = `
                         <button class="action-btn btn" onclick="viewBooking(${booking.id})">View</button>
-                        <button class="action-btn btn btn-secondary" onclick="openEditModal(${booking.id})">Edit</button>
+                        <button class="action-btn btn btn-secondary" onclick="authenticateAdmin('edit', ${booking.id})">Edit</button>
                     `;
                 }
 
@@ -3730,7 +3933,7 @@ async function releaseVehicleDriver() {
             // NEW: Check for overlapping trips when vehicle is selected
             checkForOverlappingTripsWarning();
             
-            // NEW: Check for previous trips for this vehicle
+            // NEW: Check for previous trips for this vehicle - ONLY LATEST TRIP
             checkPreviousTripsWarning();
         }
 
@@ -3791,7 +3994,7 @@ async function releaseVehicleDriver() {
             // NEW: Check for overlapping trips when driver is selected
             checkForOverlappingTripsWarning();
             
-            // NEW: Check for previous trips for this driver
+            // NEW: Check for previous trips for this driver - ONLY LATEST TRIP
             checkPreviousTripsWarning();
         }
 
@@ -3834,7 +4037,7 @@ async function releaseVehicleDriver() {
             }
         }
 
-        // NEW: Function to check for previous trips and show reminder
+        // NEW: Function to check for previous trips and show reminder - ONLY LATEST TRIP
         function checkPreviousTripsWarning() {
             const booking = allBookings.find(b => b.id === currentBookingId);
             if (!booking || (!selectedVehicleId && !selectedDriverId)) {
@@ -3850,24 +4053,18 @@ async function releaseVehicleDriver() {
                 const driverTrips = previousTrips.filter(trip => trip.type === 'Driver');
                 
                 if (vehicleTrips.length > 0) {
-                    message += 'This vehicle has been used in previous trips:\n';
-                    vehicleTrips.slice(0, 3).forEach(trip => {
+                    message += 'This vehicle has been used in a previous trip:\n';
+                    vehicleTrips.forEach(trip => {
                         message += `• ${trip.booking.refnumber}: ${formatDateTime(trip.booking.startdatetime)} to ${formatDateTime(trip.booking.enddatetime)}\n`;
                     });
-                    if (vehicleTrips.length > 3) {
-                        message += `• ... and ${vehicleTrips.length - 3} more trips\n`;
-                    }
                 }
                 
                 if (driverTrips.length > 0) {
                     if (message) message += '\n';
-                    message += 'This driver has been used in previous trips:\n';
-                    driverTrips.slice(0, 3).forEach(trip => {
+                    message += 'This driver has been used in a previous trip:\n';
+                    driverTrips.forEach(trip => {
                         message += `• ${trip.booking.refnumber}: ${formatDateTime(trip.booking.startdatetime)} to ${formatDateTime(trip.booking.enddatetime)}\n`;
                     });
-                    if (driverTrips.length > 3) {
-                        message += `• ... and ${driverTrips.length - 3} more trips\n`;
-                    }
                 }
                 
                 document.getElementById('previousTripsMessage').textContent = message;
@@ -4196,23 +4393,37 @@ async function releaseVehicleDriver() {
             displayVehicleList('maintenanceVehiclesList', maintenanceVehicles);
         }
 
-        // Report Functions - FIXED VERSION
+        // Report Functions - ENHANCED WITH ANALYTICAL REPORTS
         async function generateReport() {
             const reportType = document.getElementById('reportType').value;
             const startDate = document.getElementById('startDate').value;
             const endDate = document.getElementById('endDate').value;
+            const approvedBy = document.getElementById('approvedByFilter').value;
             
             const reportResults = document.getElementById('reportResults');
             reportResults.innerHTML = '<div class="spinner"></div>';
             
+            // Hide analytical charts for non-analytical reports
+            if (reportType !== 'analytical') {
+                showElement(document.getElementById('analyticalCharts'), false);
+            }
+            
             try {
                 const result = await callGoogleAppsScript('getReports', {
-    reportType: reportType,
-    startDate: startDate,
-    endDate: endDate
-});                
+                    reportType: reportType,
+                    startDate: startDate,
+                    endDate: endDate,
+                    approvedBy: approvedBy
+                });                
+                
                 if (result.success) {
                     displayReport(result);
+                    
+                    // NEW: Generate analytical charts for analytical report
+                    if (reportType === 'analytical') {
+                        generateAnalyticalCharts(result);
+                        showElement(document.getElementById('analyticalCharts'));
+                    }
                 } else {
                     reportResults.innerHTML = `<div style="color: var(--danger);">Error: ${result.error || 'Failed to generate report'}</div>`;
                 }
@@ -4229,6 +4440,7 @@ async function releaseVehicleDriver() {
                     <div class="enhanced-pdf-header">
                         <div class="enhanced-pdf-title">${result.title}</div>
                         <div class="enhanced-pdf-subtitle">Generated on ${formatDateTime(result.generatedAt)}</div>
+                        <button id="downloadReport" class="btn" style="margin-top: 15px;">Download Report</button>
                     </div>
             `;
             
@@ -4254,6 +4466,176 @@ async function releaseVehicleDriver() {
             html += '</div>';
             
             reportResults.innerHTML = html;
+            
+            // Add event listener for download button
+            document.getElementById('downloadReport').addEventListener('click', function() {
+                downloadReportAsCSV(result);
+            });
+        }
+
+        // NEW: Download report as CSV
+        function downloadReportAsCSV(reportData) {
+            const csvContent = "data:text/csv;charset=utf-8," 
+                + reportData.reportData.map(row => 
+                    row.map(cell => `"${cell}"`).join(",")
+                ).join("\n");
+            
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", `${reportData.title.replace(/\s+/g, '_')}_${new Date().toISOString().split('T')[0]}.csv`);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // NEW: Generate analytical charts
+        function generateAnalyticalCharts(reportData) {
+            // Extract data for charts
+            const statusData = {};
+            const monthlyData = {};
+            const vehicleTypeData = {};
+            const destinationData = {};
+            
+            // Parse report data to extract metrics
+            reportData.reportData.forEach(row => {
+                if (row[0] && row[1]) {
+                    const metric = row[0];
+                    const value = parseInt(row[1]) || 0;
+                    
+                    if (metric.includes('Pending')) statusData.Pending = value;
+                    else if (metric.includes('Approved')) statusData.Approved = value;
+                    else if (metric.includes('Rejected')) statusData.Rejected = value;
+                    else if (metric.includes('Completed')) statusData.Completed = value;
+                    else if (metric.includes('Seater') && metric.includes('Bookings')) {
+                        vehicleTypeData[metric.split(' ')[0]] = value;
+                    }
+                    else if (metric.includes('(Destination)')) {
+                        const destination = metric.replace(' (Destination)', '');
+                        destinationData[destination] = value;
+                    }
+                }
+            });
+            
+            // Generate status distribution chart
+            const statusCtx = document.getElementById('statusChart').getContext('2d');
+            new Chart(statusCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(statusData),
+                    datasets: [{
+                        data: Object.values(statusData),
+                        backgroundColor: [
+                            '#ffc107',
+                            '#28a745',
+                            '#dc3545',
+                            '#007bff'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom'
+                        },
+                        title: {
+                            display: true,
+                            text: 'Booking Status Distribution'
+                        }
+                    }
+                }
+            });
+            
+            // Generate vehicle type utilization chart
+            const vehicleCtx = document.getElementById('vehicleUtilizationChart').getContext('2d');
+            new Chart(vehicleCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(vehicleTypeData),
+                    datasets: [{
+                        label: 'Number of Bookings',
+                        data: Object.values(vehicleTypeData),
+                        backgroundColor: '#007bff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Vehicle Type Utilization'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Generate destination chart
+            const destinationCtx = document.getElementById('destinationChart').getContext('2d');
+            new Chart(destinationCtx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(destinationData),
+                    datasets: [{
+                        label: 'Number of Trips',
+                        data: Object.values(destinationData),
+                        backgroundColor: '#28a745'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Top Destinations'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+            
+            // Generate monthly trends chart (sample data - you would need to implement actual monthly data)
+            const monthlyCtx = document.getElementById('monthlyTrendsChart').getContext('2d');
+            new Chart(monthlyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                    datasets: [{
+                        label: 'Bookings',
+                        data: [12, 19, 15, 17, 22, 25],
+                        borderColor: '#007bff',
+                        backgroundColor: 'rgba(0, 123, 255, 0.1)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: 'Monthly Booking Trends'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
         }
 
         // System Logs Functions
@@ -5000,6 +5382,8 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
                         loadSystemLogs();
                     } else if (this.getAttribute('data-tab') === 'vehicles') {
                         updateVehicleStatus();
+                    } else if (this.getAttribute('data-tab') === 'reports') {
+                        populateApprovedByFilter();
                     }
                 });
             });
@@ -5040,10 +5424,26 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
                 hideModal('releaseModal');
             });
             
+            document.getElementById('cancelAdminPassword').addEventListener('click', function() {
+                hideModal('adminPasswordModal');
+            });
+            
             // Modal confirm buttons
             document.getElementById('confirmAllocation').addEventListener('click', allocateVehicle);
             document.getElementById('confirmEdit').addEventListener('click', saveEdit);
             document.getElementById('confirmRelease').addEventListener('click', releaseVehicleDriver);
+            
+            // NEW: Admin password confirmation
+            document.getElementById('confirmAdminPassword').addEventListener('click', function() {
+                const enteredPassword = document.getElementById('adminPassword').value.trim();
+                
+                if (enteredPassword === ADMIN_PASSWORD) {
+                    hideModal('adminPasswordModal');
+                    executePendingAction();
+                } else {
+                    alert('Invalid admin password. Please try again.');
+                }
+            });
             
             // Modal searches
             document.getElementById('searchVehicleModal').addEventListener('input', filterModalVehicles);
@@ -5095,6 +5495,13 @@ function addFormalBookingContentToPDF(doc, booking, isFinal = false) {
             document.getElementById('password').addEventListener('keypress', function(e) {
                 if (e.key === 'Enter') {
                     handleLogin();
+                }
+            });
+            
+            // NEW: Enter key for admin password
+            document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    document.getElementById('confirmAdminPassword').click();
                 }
             });
         });
